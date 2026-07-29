@@ -1,4 +1,11 @@
+# Dependencies & logs
 node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# Project-specific generated AST maps & reports
+generated/*.md
+generated/project-map.json
+web/generated/project-map.js
+web/generated/project-map.json
