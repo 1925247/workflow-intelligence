@@ -14,8 +14,8 @@
 1. **`project-map.json`**: An ultra-compact, high-density JSON AST representation of your entire architecture (Entities, Resolvers, Services, Frontend Pages, Forms, Buttons, and GraphQL Operations).
 2. **Markdown Documentation**: Auto-generated system flow maps and module specifications.
 3. **Visual Web Viewer (`index.html`)**: An offline-capable, interactive web studio featuring:
-   - **📐 Native Visual Flow Studio**: 6 interactive flowcharts (`System Execution Flow`, `18 Domain Modules`, `Database ER Schema Map`, `GraphQL Resolver Topology`, `Security Map`, `Action Topology`) with mouse wheel zoom & scroll.
-   - **🧪 Live Debug & AST Console**: Search symbols, inspect methods (`ValuationService`, `calculateValuation`), and view syntax-highlighted **Source Code Snippets** in-browser.
+   - **📐 Native Visual Flow Studio**: 6 interactive flowcharts (`System Execution Flow`, `Domain Modules Flow`, `Database ER Schema Map`, `GraphQL Resolver Topology`, `Security & Guard Topology`, `Action Topology`) with mouse wheel zoom & scroll.
+   - **🧪 Live Debug & AST Console**: Search symbols, inspect methods (e.g. `AuthService`, `generateToken`), and view syntax-highlighted **Source Code Snippets** in-browser.
    - **🔍 Action Glitch Inspector**: Scans all frontend pages to verify if `➕ Add`, `✏️ Edit`, `🗑️ Delete`, and `🔍 Search` buttons are properly connected to backend mutations.
 
 ---
