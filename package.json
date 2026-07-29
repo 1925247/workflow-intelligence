@@ -1,0 +1,39 @@
+{
+  "name": "@1925247/workflow-intelligence",
+  "version": "1.0.0",
+  "description": "Universal AST Codebase Scanner, Architecture Documentation Generator, and Interactive Visual Flow Viewer for Monorepos & Node.js Projects",
+  "main": "scripts/scan-project.ts",
+  "scripts": {
+    "scan": "tsx scripts/scan-project.ts",
+    "generate": "tsx scripts/generate-md.ts",
+    "build:viewer": "tsx scripts/build-viewer.ts",
+    "validate": "tsx scripts/validate-workflow.ts",
+    "all": "tsx scripts/scan-project.ts && tsx scripts/generate-md.ts && tsx scripts/build-viewer.ts && tsx scripts/validate-workflow.ts",
+    "start": "run.bat"
+  },
+  "keywords": [
+    "ast-scanner",
+    "workflow-generator",
+    "monorepo-visualization",
+    "architecture-docs",
+    "ai-context-aligner",
+    "nestjs",
+    "nextjs",
+    "graphql"
+  ],
+  "author": "1925247 <https://github.com/1925247>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1925247/workflow-intelligence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/1925247/workflow-intelligence/issues"
+  },
+  "homepage": "https://github.com/1925247/workflow-intelligence#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0"
+  }
+}

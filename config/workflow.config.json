@@ -1,0 +1,36 @@
+{
+  "projectName": "Bizrok Monorepo",
+  "version": "1.0.0",
+  "workspaces": {
+    "backend": "apps/backend",
+    "admin": "apps/frontend",
+    "customer": "apps/customer-website",
+    "shared": "packages/shared"
+  },
+  "scan": {
+    "ignore": [
+      "**/node_modules/**",
+      "**/.next/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/coverage/**",
+      "**/.git/**",
+      "**/*.sqlite*",
+      "**/workflow/generated/**"
+    ],
+    "redactKeys": [
+      "secret",
+      "password",
+      "token",
+      "key",
+      "auth",
+      "credential",
+      "private"
+    ]
+  },
+  "output": {
+    "generatedDir": "workflow/generated",
+    "webDir": "workflow/web",
+    "projectMap": "workflow/generated/project-map.json"
+  }
+}

@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar for Desktop Software Feel */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Nav Item Active Glow */
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0.15), rgba(129, 140, 248, 0.05));
+  color: #38bdf8 !important;
+  border-left: 3px solid #38bdf8;
+}
+
+/* Glassmorphism Card Hover */
+.glass-card {
+  background: #151d30;
+  border: 1px solid #222f47;
+  transition: all 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.1);
+}
+
+/* Print Styles */
+@media print {
+  aside, header { display: none !important; }
+  main { width: 100% !important; padding: 0 !important; background: white !important; color: black !important; }
+  .glass-card { border: 1px solid #ccc !important; background: white !important; color: black !important; }
+}

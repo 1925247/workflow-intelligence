@@ -1,0 +1,22491 @@
+window.PROJECT_MAP_DATA = {
+  "timestamp": "2026-07-29T18:49:39.977Z",
+  "projectName": "bizrok",
+  "version": "1.0.0",
+  "summary": {
+    "totalApps": 3,
+    "totalModules": 2,
+    "totalEntities": 72,
+    "totalTables": 72,
+    "totalServices": 33,
+    "totalResolvers": 35,
+    "totalControllers": 0,
+    "totalGqlOperations": 317,
+    "totalFrontendPages": 75,
+    "totalAdminPages": 45,
+    "totalCustomerPages": 30,
+    "totalIssues": 119
+  },
+  "sysConfig": {
+    "nodeVersion": "v24.16.0",
+    "platform": "win32",
+    "arch": "x64",
+    "backendFramework": "NestJS 11 + TypeORM + Apollo GraphQL (Code-First)",
+    "frontendFramework": "Next.js 16 (App Router) + Tailwind CSS",
+    "databaseType": "Postgres (5432) / SQLite (bizrok.sqlite auto-probe)",
+    "monorepoManager": "pnpm v10.24 + Turborepo",
+    "backendPort": 3002,
+    "adminPort": 3001,
+    "customerPort": 3003,
+    "detectedTechStack": [
+      {
+        "category": "🚀 Core Frameworks",
+        "packages": []
+      },
+      {
+        "category": "🗄️ Database & ORM",
+        "packages": []
+      },
+      {
+        "category": "🔌 API & Communication",
+        "packages": []
+      },
+      {
+        "category": "🎨 Styling & UI Components",
+        "packages": []
+      },
+      {
+        "category": "🛠️ Build Tools & Infrastructure",
+        "packages": []
+      },
+      {
+        "category": "📦 Utilities & Libraries",
+        "packages": []
+      }
+    ]
+  },
+  "entities": [
+    {
+      "id": "entity.businesscoderegistryentity",
+      "name": "BusinessCodeRegistryEntity",
+      "tableName": "business_code_registry",
+      "filePath": "apps/backend/src/common/business-code/business-code-registry.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  Index,\n} from 'typeorm';\n\n@Entity('business_code_registry')\n@Index(['entityType', 'entityId'], { unique: true })\nexport class BusinessCodeRegistryEntity {\n  @PrimaryGeneratedColumn('increment')\n  id: number;\n\n  @Column({ length: 100, unique: true })\n  code: string;\n\n  @Column({ length: 50 })\n  entityType: string;\n\n  @Column('uuid')\n  entityId: string;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "entityType",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "entityId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "EntityEntity",
+          "field": "entityId",
+          "targetTable": "entitys"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "BusinessCodeService"
+        ],
+        "readerResolvers": [
+          "TemplateCrudResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.businesscodesequenceentity",
+      "name": "BusinessCodeSequenceEntity",
+      "tableName": "business_code_sequences",
+      "filePath": "apps/backend/src/common/business-code/business-code-sequence.entity.ts",
+      "codeSnippet": "import { Entity, PrimaryColumn, Column } from 'typeorm';\n\n@Entity('business_code_sequences')\nexport class BusinessCodeSequenceEntity {\n  @PrimaryColumn({ length: 30 })\n  prefix: string;\n\n  @Column({ type: 'int', default: 1 })\n  nextValue: number;\n}\n",
+      "columns": [
+        {
+          "name": "nextValue",
+          "type": "int",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "BusinessCodeService",
+          "OrderService"
+        ],
+        "readerResolvers": [
+          "CustomerOrderType",
+          "TemplateCrudResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.journalentryentity",
+      "name": "JournalEntryEntity",
+      "tableName": "journal_entries",
+      "filePath": "apps/backend/src/modules/accounting/infrastructure/persistence/typeorm/entities/accounting.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { AccountingStatus } from '@bizrok/shared';\n\n@Entity('journal_entries')\nexport class JournalEntryEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  deviceId: string;\n\n  @Column()\n  accountDebit: string;\n\n  @Column()\n  accountCredit: string;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  amount: number;\n\n  @Column()\n  description: string;\n\n  @Column({\n    type: 'varchar',\n    enum: AccountingStatus,\n    default: AccountingStatus.DRAFT,\n  })\n  status: AccountingStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "deviceId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "accountDebit",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "accountCredit",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeviceEntity",
+          "field": "deviceId",
+          "targetTable": "devices"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AccountingService"
+        ],
+        "readerResolvers": [
+          "JournalEntryType"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.addressentity",
+      "name": "AddressEntity",
+      "tableName": "customer_addresses",
+      "filePath": "apps/backend/src/modules/address/infrastructure/persistence/typeorm/entities/address.entity.ts",
+      "codeSnippet": "import {\r\n  Entity,\r\n  PrimaryGeneratedColumn,\r\n  Column,\r\n  CreateDateColumn,\r\n  UpdateDateColumn,\r\n  Index,\r\n} from 'typeorm';\r\n\r\n@Entity('customer_addresses')\r\nexport class AddressEntity {\r\n  @PrimaryGeneratedColumn('uuid')\r\n  id: string;\r\n\r\n  @Index()\r\n  @Column('uuid')\r\n  customerId: string;\r\n\r\n  /** Friendly label such as HOME, OFFICE, OTHER. */\r\n  @Column({ type: 'varchar', default: 'HOME' })\r\n  label: string;\r\n\r\n  @Column({ type: 'varchar' })\r\n  contactName: string;\r\n\r\n  @Column({ type: 'varchar' })\r\n  contactPhone: string;\r\n\r\n  @Column({ type: 'varchar', nullable: true })\r\n  contactEmail: string | null;\r\n\r\n  @Column({ type: 'varchar' })\r\n  line1: string;\r\n\r\n\r\n  @Column({ type: 'varchar', nullable: true })\r\n  line2: string | null;\r\n\r\n  @Column({ type: 'varchar', nullable: true })\r\n  landmark: string | null;\r\n\r\n  @Column({ type: 'varchar', nullable: true })\r\n  district: string | null;\r\n\r\n  @Column({ type: 'varchar' })\r\n  city: string;\r\n\r\n  @Column({ type: 'varchar' })\r\n  state: string;\r\n\r",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "label",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "contactName",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "contactPhone",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "contactEmail",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "line1",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "line2",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "landmark",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "district",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "city",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "state",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "pincode",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "isDefault",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CustomerEntity",
+          "field": "customerId",
+          "targetTable": "customers"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AddressService"
+        ],
+        "readerResolvers": [
+          "AddressType"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.customerentity",
+      "name": "CustomerEntity",
+      "tableName": "customers",
+      "filePath": "apps/backend/src/modules/auth/infrastructure/persistence/typeorm/entities/customer.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\n\n@Entity('customers')\nexport class CustomerEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  /**\n   * Public, human-friendly, immutable Customer ID (e.g. \"BZK-8F3K9A2D\").\n   * Generated once at account creation and never changed.\n   */\n  @Column({ type: 'varchar', nullable: true, unique: true })\n  customerId: string | null;\n\n  @Column({ type: 'varchar', nullable: true, unique: true })\n  customerCode: string | null;\n\n  /**\n   * Unique, shareable referral code (e.g. \"BZRK-7QF3\"). Generated once per\n   * customer and used to attribute new sign-ups to a referrer.\n   */\n  @Column({ type: 'varchar', nullable: true, unique: true })\n  referralCode: string | null;\n\n  /** Referral code of the customer who invited this user, if any. */\n  @Column({ type: 'varchar', nullable: true })\n  referredByCode: string | null;\n\n\n  @Column({ type: 'varchar', nullable: true, unique: true })\n  phone: string | null;\n\n  @Column({ type: 'varchar', nullable: true, unique: true })\n  email: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  firstName: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  lastName: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  name: string | null;\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "customerId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "customerCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "referralCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "referredByCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "phone",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "email",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "firstName",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "lastName",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "name",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "profilePhotoUrl",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "secondaryMobile",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "whatsapp",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "alternateEmail",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "customerType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "dateOfBirth",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "gender",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "preferredLanguage",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "preferredCommunicationMethod",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "passwordHash",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "emailVerified",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "phoneVerified",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isVerified",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "lastLoginAt",
+          "type": "datetime",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CustomerEntity",
+          "field": "customerId",
+          "targetTable": "customers"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AuthService"
+        ],
+        "readerResolvers": [
+          "AuthResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.otpentity",
+      "name": "OtpEntity",
+      "tableName": "otps",
+      "filePath": "apps/backend/src/modules/auth/infrastructure/persistence/typeorm/entities/otp.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n} from 'typeorm';\n\n@Entity('otps')\nexport class OtpEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar', nullable: true })\n  phone: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  email: string | null;\n\n  @Column({ type: 'varchar', length: 6 })\n  code: string;\n\n  @Column({ type: 'varchar' })\n  type: string;\n\n  @Column({ type: 'datetime' })\n  expiresAt: Date;\n\n  @Column({ type: 'boolean', default: false })\n  verified: boolean;\n\n  @Column({ type: 'int', default: 0 })\n  attempts: number;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "phone",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "email",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "code",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "type",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "expiresAt",
+          "type": "datetime",
+          "isNullable": false
+        },
+        {
+          "name": "verified",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "attempts",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "OtpEntityService"
+        ],
+        "readerResolvers": [
+          "OtpEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.systemconfigentity",
+      "name": "SystemConfigEntity",
+      "tableName": "system_config",
+      "filePath": "apps/backend/src/modules/auth/infrastructure/persistence/typeorm/entities/system-config.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  UpdateDateColumn,\n} from 'typeorm';\n\n@Entity('system_config')\nexport class SystemConfigEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar', unique: true })\n  key: string;\n\n  @Column({ type: 'text' })\n  value: string;\n\n  @Column({ type: 'varchar', nullable: true })\n  description: string | null;\n\n  @Column({ type: 'varchar' })\n  category: string;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "key",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "category",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "SystemConfigEntityService"
+        ],
+        "readerResolvers": [
+          "SystemConfigEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.attributegroupentity",
+      "name": "AttributeGroupEntity",
+      "tableName": "attribute_groups",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/attribute-group.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('attribute_groups')\nexport class AttributeGroupEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ unique: true })\n  slug: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({ nullable: true })\n  displayOrder: number;\n\n  @Column({ nullable: true })\n  iconUrl: string;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "iconUrl",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AttributeConfigService"
+        ],
+        "readerResolvers": [
+          "AttributeConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.attributevalueentity",
+      "name": "AttributeValueEntity",
+      "tableName": "attribute_values",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/attribute-value.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('attribute_values')\nexport class AttributeValueEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  attributeId: string;\n\n  @Column()\n  value: string;\n\n  @Column({ nullable: true })\n  label: string;\n\n  @Column({ nullable: true })\n  imageUrl: string;\n\n  @Column({ nullable: true })\n  displayOrder: number;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "attributeId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "imageUrl",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "AttributeEntity",
+          "field": "attributeId",
+          "targetTable": "attributes"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AttributeConfigService"
+        ],
+        "readerResolvers": [
+          "AttributeConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.auditlogentity",
+      "name": "AuditLogEntity",
+      "tableName": "audit_logs",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/audit-log.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n} from 'typeorm';\nimport { AuditAction } from '@bizrok/shared';\n\n@Entity('audit_logs')\nexport class AuditLogEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({\n    type: 'varchar',\n    enum: AuditAction,\n  })\n  action: AuditAction;\n\n  @Column()\n  entityName: string;\n\n  @Column()\n  entityId: string;\n\n  @Column({ nullable: true, length: 100 })\n  businessCode: string;\n\n  @Column({ nullable: true })\n  userId: string;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  oldValues: Record<string, any>;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  newValues: Record<string, any>;\n\n  @Column()\n  correlationId: string;\n\n  @Column({ nullable: true })\n  ipAddress: string;\n\n  @Column({ nullable: true })",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "action",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "entityName",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "entityId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "oldValues",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "newValues",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "correlationId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "ipAddress",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "userAgent",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "EntityEntity",
+          "field": "entityId",
+          "targetTable": "entitys"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "UserEntity",
+          "field": "userId",
+          "targetTable": "users"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CorrelationEntity",
+          "field": "correlationId",
+          "targetTable": "correlations"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "AssessmentService",
+          "TemplateCrudService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "TemplateCrudResolver",
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.basepriceentity",
+      "name": "BasePriceEntity",
+      "tableName": "base_prices",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/base-price.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n} from 'typeorm';\n\n@Entity('base_prices')\nexport class BasePriceEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  variantId: string;\n\n  @Column('decimal', { precision: 12, scale: 2 })\n  price: number;\n\n  @Column({ type: 'datetime' })\n  effectiveFrom: Date;\n\n  @Column({ type: 'datetime', nullable: true })\n  effectiveTo: Date | null;\n\n  @Column({ default: 1 })\n  version: number;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "variantId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "effectiveFrom",
+          "type": "datetime",
+          "isNullable": false
+        },
+        {
+          "name": "effectiveTo",
+          "type": "datetime",
+          "isNullable": true
+        },
+        {
+          "name": "version",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "VariantEntity",
+          "field": "variantId",
+          "targetTable": "variants"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/sales",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/sell",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "PriceService"
+        ],
+        "readerResolvers": [
+          "ProductVariantResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/sales",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/sell",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.brandcategoryentity",
+      "name": "BrandCategoryEntity",
+      "tableName": "brand_categories",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/brand-category.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  Unique,\n} from 'typeorm';\n\n@Entity('brand_categories')\n@Unique(['categoryId', 'brandId'])\nexport class BrandCategoryEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  categoryId: string;\n\n  @Column()\n  brandId: string;\n\n  @Column({ type: 'int', default: 0 })\n  displayOrder: number;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "categoryId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "brandId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CategoryEntity",
+          "field": "categoryId",
+          "targetTable": "categories"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BrandEntity",
+          "field": "brandId",
+          "targetTable": "brands"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "BrandCategoryEntityService"
+        ],
+        "readerResolvers": [
+          "BrandCategoryEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.brandentity",
+      "name": "BrandEntity",
+      "tableName": "brands",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/brand.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('brands')\nexport class BrandEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ unique: true, length: 100, nullable: true })\n  businessCode: string;\n\n  @Column({ nullable: true })\n  logoUrl: string;\n\n  @Column({ nullable: true })\n  banner: string;\n\n  @Column({ type: 'int', default: 0 })\n  displayOrder: number;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "logoUrl",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "banner",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "CatalogReadService",
+          "CatalogWriteService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeedResolver",
+          "SeriesResolver",
+          "ProductVariantResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.businessflowcategoryentity",
+      "name": "BusinessFlowCategoryEntity",
+      "tableName": "business_flow_categories",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/business-flow-category.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('business_flow_categories')\nexport class BusinessFlowCategoryEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  businessFlowId: string;\n\n  @Column()\n  categoryId: string;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @Column({ nullable: true })\n  displayOrder: number;\n\n  // --- Public journey configuration ---\n\n  @Column({ unique: true, nullable: true })\n  publicJourneySlug: string;\n\n  @Column({ default: true })\n  publicVisible: boolean;\n\n  @Column({ type: 'varchar', nullable: true })\n  landingHeading: string;\n\n  @Column({ type: 'varchar', nullable: true })\n  landingSubheading: string;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  heroContent: Record<string, any>;\n\n  @Column({ type: 'varchar', nullable: true })\n  ctaLabel: string;\n\n  @Column({ type: 'varchar', nullable: true })",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "businessFlowId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "categoryId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "publicJourneySlug",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "publicVisible",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "landingHeading",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "landingSubheading",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "heroContent",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "ctaLabel",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "seoTitle",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "seoDescription",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BusinessFlowEntity",
+          "field": "businessFlowId",
+          "targetTable": "business_flows"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CategoryEntity",
+          "field": "categoryId",
+          "targetTable": "categories"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.businessflowentity",
+      "name": "BusinessFlowEntity",
+      "tableName": "business_flows",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/business-flow.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { BusinessFlowStatus } from '@bizrok/shared';\n\n@Entity('business_flows')\nexport class BusinessFlowEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ unique: true })\n  name: string;\n\n  @Column({ unique: true })\n  slug: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({ length: 100, nullable: true })\n  businessCode: string;\n\n  @Column({\n    type: 'varchar',\n    enum: BusinessFlowStatus,\n    default: BusinessFlowStatus.DRAFT,\n  })\n  status: BusinessFlowStatus;\n\n  @Column({ nullable: true })\n  iconUrl: string;\n\n  @Column({ nullable: true })\n  bannerUrl: string;\n\n  @Column({ nullable: true })\n  displayOrder: number;\n\n  @Column({ nullable: true })\n  defaultPricingProfileId: string;\n\n  @Column({ nullable: true })\n  defaultAssessmentProfileId: string;\n\n  @Column({ nullable: true })",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "iconUrl",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "bannerUrl",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "defaultPricingProfileId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "defaultAssessmentProfileId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "defaultNotificationProfileId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "defaultDocumentProfileId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "defaultLogisticsProfileId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "defaultPaymentProfileId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DefaultPricingProfileEntity",
+          "field": "defaultPricingProfileId",
+          "targetTable": "defaultPricingProfiles"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DefaultAssessmentProfileEntity",
+          "field": "defaultAssessmentProfileId",
+          "targetTable": "defaultAssessmentProfiles"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DefaultNotificationProfileEntity",
+          "field": "defaultNotificationProfileId",
+          "targetTable": "defaultNotificationProfiles"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DefaultDocumentProfileEntity",
+          "field": "defaultDocumentProfileId",
+          "targetTable": "defaultDocumentProfiles"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DefaultLogisticsProfileEntity",
+          "field": "defaultLogisticsProfileId",
+          "targetTable": "defaultLogisticsProfiles"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DefaultPaymentProfileEntity",
+          "field": "defaultPaymentProfileId",
+          "targetTable": "defaultPaymentProfiles"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.categoryentity",
+      "name": "CategoryEntity",
+      "tableName": "categories",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/category.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('categories')\nexport class CategoryEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ unique: true })\n  slug: string;\n\n  @Column({ unique: true, length: 100, nullable: true })\n  businessCode: string;\n\n  @Column({ nullable: true })\n  iconUrl: string;\n\n  @Column({ nullable: true })\n  image: string;\n\n  @Column({ nullable: true })\n  banner: string;\n\n  @Column({ type: 'int', default: 0 })\n  displayOrder: number;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "iconUrl",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "banner",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "BusinessFlowService",
+          "CatalogReadService",
+          "CatalogWriteService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "BusinessFlowResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeedResolver",
+          "SeriesResolver",
+          "ProductVariantResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.documentrequiremententity",
+      "name": "DocumentRequirementEntity",
+      "tableName": "document_requirements",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/document-requirement.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { DocumentType } from '@bizrok/shared';\n\n@Entity('document_requirements')\nexport class DocumentRequirementEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  documentProfileId: string;\n\n  @Column({\n    type: 'varchar',\n    enum: DocumentType,\n  })\n  documentType: DocumentType;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({ default: true })\n  isRequired: boolean;\n\n  @Column({ nullable: true })\n  maxSizeMb: number;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  acceptedFormats: string[];\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "documentProfileId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "documentType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "isRequired",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "maxSizeMb",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "acceptedFormats",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DocumentProfileEntity",
+          "field": "documentProfileId",
+          "targetTable": "documentProfiles"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowassessmentprofileentity",
+      "name": "FlowAssessmentProfileEntity",
+      "tableName": "flow_assessment_profiles",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-assessment-profile.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('flow_assessment_profiles')\nexport class FlowAssessmentProfileEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  businessFlowId: string;\n\n  @Column()\n  assessmentTemplateId: string;\n\n  @Column({ default: true })\n  isDefault: boolean;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "businessFlowId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "assessmentTemplateId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "isDefault",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BusinessFlowEntity",
+          "field": "businessFlowId",
+          "targetTable": "business_flows"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "AssessmentTemplateEntity",
+          "field": "assessmentTemplateId",
+          "targetTable": "valuation_templates"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowattributeentity",
+      "name": "FlowAttributeEntity",
+      "tableName": "flow_attributes",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-attribute.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('flow_attributes')\nexport class FlowAttributeEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  businessFlowId: string;\n\n  @Column()\n  attributeId: string;\n\n  @Column({ default: false })\n  isPrimaryVariantAttribute: boolean;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @Column({ nullable: true })\n  displayOrder: number;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "businessFlowId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "attributeId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "isPrimaryVariantAttribute",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BusinessFlowEntity",
+          "field": "businessFlowId",
+          "targetTable": "business_flows"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "AttributeEntity",
+          "field": "attributeId",
+          "targetTable": "attributes"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AttributeConfigService"
+        ],
+        "readerResolvers": [
+          "AttributeConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowdocumentprofileentity",
+      "name": "FlowDocumentProfileEntity",
+      "tableName": "flow_document_profiles",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-document-profile.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('flow_document_profiles')\nexport class FlowDocumentProfileEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowlogisticsprofileentity",
+      "name": "FlowLogisticsProfileEntity",
+      "tableName": "flow_logistics_profiles",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-logistics-profile.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('flow_logistics_profiles')\nexport class FlowLogisticsProfileEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.flownotificationprofileentity",
+      "name": "FlowNotificationProfileEntity",
+      "tableName": "flow_notification_profiles",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-notification-profile.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('flow_notification_profiles')\nexport class FlowNotificationProfileEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowpaymentprofileentity",
+      "name": "FlowPaymentProfileEntity",
+      "tableName": "flow_payment_profiles",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-payment-profile.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { PaymentMethod } from '@bizrok/shared';\n\n@Entity('flow_payment_profiles')\nexport class FlowPaymentProfileEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  businessFlowId: string;\n\n  @Column({\n    type: 'varchar',\n    enum: PaymentMethod,\n  })\n  paymentMethod: PaymentMethod;\n\n  @Column({ default: true })\n  isEnabled: boolean;\n\n  @Column({ nullable: true })\n  displayOrder: number;\n\n  @Column({ nullable: true })\n  config: string;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "businessFlowId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "paymentMethod",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "isEnabled",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BusinessFlowEntity",
+          "field": "businessFlowId",
+          "targetTable": "business_flows"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowpricingprofileentity",
+      "name": "FlowPricingProfileEntity",
+      "tableName": "flow_pricing_profiles",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-pricing-profile.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { PricingProfileType, CatalogStatus } from '@bizrok/shared';\n\n@Entity('flow_pricing_profiles')\nexport class FlowPricingProfileEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({\n    type: 'varchar',\n    enum: PricingProfileType,\n    default: PricingProfileType.BUYBACK,\n  })\n  type: PricingProfileType;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "type",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowstepcomponententity",
+      "name": "FlowStepComponentEntity",
+      "tableName": "flow_step_components",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-step-component.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('flow_step_components')\nexport class FlowStepComponentEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  flowWorkflowStepId: string;\n\n  @Column()\n  componentId: string;\n\n  @Column({ default: true })\n  isDefault: boolean;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  configOverrides: Record<string, any>;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "flowWorkflowStepId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "componentId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "isDefault",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "configOverrides",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "FlowWorkflowStepEntity",
+          "field": "flowWorkflowStepId",
+          "targetTable": "flow_workflow_steps"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ComponentEntity",
+          "field": "componentId",
+          "targetTable": "components"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "WorkflowConfigService"
+        ],
+        "readerResolvers": [
+          "WorkflowConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.flowworkflowstepentity",
+      "name": "FlowWorkflowStepEntity",
+      "tableName": "flow_workflow_steps",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/flow-workflow-step.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('flow_workflow_steps')\nexport class FlowWorkflowStepEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  businessFlowId: string;\n\n  @Column()\n  stepTypeId: string;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({ nullable: true })\n  displayOrder: number;\n\n  @Column({ default: true })\n  isRequired: boolean;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  config: Record<string, any>;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "businessFlowId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "stepTypeId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "isRequired",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "config",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BusinessFlowEntity",
+          "field": "businessFlowId",
+          "targetTable": "business_flows"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "StepTypeEntity",
+          "field": "stepTypeId",
+          "targetTable": "stepTypes"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "WorkflowConfigService"
+        ],
+        "readerResolvers": [
+          "WorkflowConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.logisticsruleentity",
+      "name": "LogisticsRuleEntity",
+      "tableName": "logistics_rules",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/logistics-rule.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { LogisticsMethod } from '@bizrok/shared';\n\n@Entity('logistics_rules')\nexport class LogisticsRuleEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  logisticsProfileId: string;\n\n  @Column({\n    type: 'varchar',\n    enum: LogisticsMethod,\n  })\n  method: LogisticsMethod;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({ default: true })\n  isEnabled: boolean;\n\n  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })\n  maxDistanceKm: number;\n\n  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })\n  baseCost: number;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  config: Record<string, any>;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "logisticsProfileId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "method",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "isEnabled",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "maxDistanceKm",
+          "type": "decimal",
+          "isNullable": true
+        },
+        {
+          "name": "baseCost",
+          "type": "decimal",
+          "isNullable": true
+        },
+        {
+          "name": "config",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "LogisticsProfileEntity",
+          "field": "logisticsProfileId",
+          "targetTable": "logisticsProfiles"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.notificationtemplateentity",
+      "name": "NotificationTemplateEntity",
+      "tableName": "notification_templates",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/notification-template.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { NotificationChannel } from '@bizrok/shared';\n\n@Entity('notification_templates')\nexport class NotificationTemplateEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  notificationProfileId: string;\n\n  @Column({\n    type: 'varchar',\n    enum: NotificationChannel,\n  })\n  channel: NotificationChannel;\n\n  @Column()\n  event: string;\n\n  @Column()\n  subject: string;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n  })\n  templateContent: Record<string, any>;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "notificationProfileId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "channel",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "event",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "templateContent",
+          "type": "process",
+          "isNullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "NotificationProfileEntity",
+          "field": "notificationProfileId",
+          "targetTable": "notificationProfiles"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.pricingformulaentity",
+      "name": "PricingFormulaEntity",
+      "tableName": "pricing_formulas",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/pricing-formula.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { FormulaType, CatalogStatus } from '@bizrok/shared';\n\n@Entity('pricing_formulas')\nexport class PricingFormulaEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  pricingProfileId: string;\n\n  @Column()\n  name: string;\n\n  @Column({\n    type: 'varchar',\n    enum: FormulaType,\n    default: FormulaType.LINEAR,\n  })\n  formulaType: FormulaType;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  expression: Record<string, any>;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  variables: Record<string, any>;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "pricingProfileId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "formulaType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "expression",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "variables",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "PricingProfileEntity",
+          "field": "pricingProfileId",
+          "targetTable": "pricingProfiles"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.pricingruleentity",
+      "name": "PricingRuleEntity",
+      "tableName": "pricing_rules",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/pricing-rule.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { PricingRuleType } from '@bizrok/shared';\n\n@Entity('pricing_rules')\nexport class PricingRuleEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  pricingProfileId: string;\n\n  @Column()\n  name: string;\n\n  @Column({\n    type: 'varchar',\n    enum: PricingRuleType,\n  })\n  ruleType: PricingRuleType;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  condition: Record<string, any>;\n\n  @Column({ type: 'decimal', precision: 12, scale: 2, nullable: true })\n  value: number;\n\n  @Column({ nullable: true })\n  priority: number;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "pricingProfileId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "ruleType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "condition",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "value",
+          "type": "decimal",
+          "isNullable": true
+        },
+        {
+          "name": "priority",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "PricingProfileEntity",
+          "field": "pricingProfileId",
+          "targetTable": "pricingProfiles"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ],
+        "writerServices": [
+          "BusinessFlowService"
+        ],
+        "readerResolvers": [
+          "BusinessFlowResolver",
+          "SeedResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/valuation/workflow"
+        ]
+      }
+    },
+    {
+      "id": "entity.productattributeentity",
+      "name": "ProductAttributeEntity",
+      "tableName": "product_attributes",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/product-attribute.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport {\n  AttributeInputType,\n  AttributeDataType,\n  CatalogStatus,\n} from '@bizrok/shared';\n\n@Entity('product_attributes')\nexport class ProductAttributeEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column({ unique: true })\n  slug: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({ nullable: true })\n  groupId: string;\n\n  @Column({\n    type: 'varchar',\n    enum: AttributeInputType,\n    default: AttributeInputType.TEXT,\n  })\n  inputType: AttributeInputType;\n\n  @Column({\n    type: 'varchar',\n    enum: AttributeDataType,\n    default: AttributeDataType.STRING,\n  })\n  dataType: AttributeDataType;\n\n  @Column({ default: false })\n  isRequired: boolean;\n\n  @Column({ default: false })\n  isFilterable: boolean;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "groupId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "inputType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "dataType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "isRequired",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isFilterable",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isVariantAttribute",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "validationRules",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "options",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "GroupEntity",
+          "field": "groupId",
+          "targetTable": "groups"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AttributeConfigService"
+        ],
+        "readerResolvers": [
+          "AttributeConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.productmediaentity",
+      "name": "ProductMediaEntity",
+      "tableName": "product_media",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/product-media.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n} from 'typeorm';\n\n@Entity('product_media')\nexport class ProductMediaEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  productId: string;\n\n  @Column()\n  url: string;\n\n  @Column({ default: false })\n  isPrimary: boolean;\n\n  @Column({ default: 0 })\n  sortOrder: number;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "productId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "isPrimary",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "sortOrder",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ProductEntity",
+          "field": "productId",
+          "targetTable": "products"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "CatalogReadService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeriesResolver",
+          "ProductVariantResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.productentity",
+      "name": "ProductEntity",
+      "tableName": "products",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/product.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('products')\nexport class ProductEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  seriesId: string;\n\n  @Column()\n  name: string;\n\n  @Column({ unique: true })\n  slug: string;\n\n  @Column({ unique: true })\n  code: string;\n\n  @Column({ unique: true, length: 100, nullable: true })\n  businessCode: string;\n\n  @Column({ nullable: true })\n  marketingBanner: string;\n\n  @Column({ nullable: true, type: 'text' })\n  galleryImages: string;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @Column({ type: 'boolean', default: false })\n  isTrending: boolean;\n\n  @Column({ type: 'int', default: 0 })\n  displayOrder: number;\n\n  @CreateDateColumn()",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "seriesId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "marketingBanner",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "galleryImages",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "isTrending",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SeriesEntity",
+          "field": "seriesId",
+          "targetTable": "product_series"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "CatalogReadService",
+          "CatalogWriteService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeedResolver",
+          "SeriesResolver",
+          "ProductVariantResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.seriesentity",
+      "name": "SeriesEntity",
+      "tableName": "product_series",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/series.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n  Unique,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('product_series')\n@Unique(['slug', 'brandId'])\nexport class SeriesEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  categoryId: string;\n\n  @Column()\n  brandId: string;\n\n  @Column()\n  name: string;\n\n  @Column({ unique: true, length: 100, nullable: true })\n  businessCode: string;\n\n  @Column()\n  slug: string;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @Column({ type: 'int', default: 0 })\n  displayOrder: number;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "categoryId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "brandId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CategoryEntity",
+          "field": "categoryId",
+          "targetTable": "categories"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BrandEntity",
+          "field": "brandId",
+          "targetTable": "brands"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "CatalogReadService",
+          "CatalogWriteService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeedResolver",
+          "SeriesResolver",
+          "ProductVariantResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.variantattributeentity",
+      "name": "VariantAttributeEntity",
+      "tableName": "variant_attributes",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/variant-attribute.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('variant_attributes')\nexport class VariantAttributeEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  variantId: string;\n\n  @Column()\n  attributeId: string;\n\n  @Column()\n  attributeValueId: string;\n\n  @Column({ nullable: true })\n  customValue: string;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "variantId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "attributeId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "attributeValueId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "customValue",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "VariantEntity",
+          "field": "variantId",
+          "targetTable": "variants"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "AttributeEntity",
+          "field": "attributeId",
+          "targetTable": "attributes"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "AttributeValueEntity",
+          "field": "attributeValueId",
+          "targetTable": "attribute_values"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AttributeConfigService"
+        ],
+        "readerResolvers": [
+          "AttributeConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.productvariantentity",
+      "name": "ProductVariantEntity",
+      "tableName": "product_variants",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/variant.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Entity('product_variants')\nexport class ProductVariantEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  productId: string;\n\n  @Column()\n  storage: string;\n\n  @Column({ unique: true })\n  sku: string;\n\n  @Column({ length: 100, nullable: true })\n  businessCode: string;\n\n  @Column({\n    type: 'varchar',\n    enum: CatalogStatus,\n    default: CatalogStatus.ACTIVE,\n  })\n  status: CatalogStatus;\n\n  @Column({ type: 'int', default: 0 })\n  displayOrder: number;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    default: '{}',\n  })\n  metadata: Record<string, any>;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "productId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "storage",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "sku",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "metadata",
+          "type": "process",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ProductEntity",
+          "field": "productId",
+          "targetTable": "products"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "CatalogReadService",
+          "CatalogWriteService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeedResolver",
+          "SeriesResolver",
+          "ProductVariantResolver"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.workflowcomponententity",
+      "name": "WorkflowComponentEntity",
+      "tableName": "workflow_components",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/workflow-component.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\n\n@Entity('workflow_components')\nexport class WorkflowComponentEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ unique: true })\n  code: string;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column()\n  componentPath: string;\n\n  @Column({ nullable: true })\n  thumbnailUrl: string;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    nullable: true,\n  })\n  defaultProps: Record<string, any>;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @Column({ default: false })\n  isSystem: boolean;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "componentPath",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "thumbnailUrl",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "defaultProps",
+          "type": "process",
+          "isNullable": true
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isSystem",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "WorkflowConfigService"
+        ],
+        "readerResolvers": [
+          "WorkflowConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.workflowsteptypeentity",
+      "name": "WorkflowStepTypeEntity",
+      "tableName": "workflow_step_types",
+      "filePath": "apps/backend/src/modules/catalog/infrastructure/persistence/typeorm/entities/workflow-step-type.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n  DeleteDateColumn,\n} from 'typeorm';\nimport { WorkflowStepType as WorkflowStepTypeEnum } from '@bizrok/shared';\n\n@Entity('workflow_step_types')\nexport class WorkflowStepTypeEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ unique: true })\n  code: string;\n\n  @Column()\n  name: string;\n\n  @Column({ nullable: true })\n  description: string;\n\n  @Column({\n    type: 'varchar',\n    enum: WorkflowStepTypeEnum,\n    nullable: true,\n  })\n  systemType: WorkflowStepTypeEnum;\n\n  @Column({ default: true })\n  isActive: boolean;\n\n  @Column({ default: false })\n  isSystem: boolean;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n\n  @DeleteDateColumn()\n  deletedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "systemType",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "isSystem",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "deletedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "WorkflowConfigService"
+        ],
+        "readerResolvers": [
+          "WorkflowConfigResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.deviceentity",
+      "name": "DeviceEntity",
+      "tableName": "devices",
+      "filePath": "apps/backend/src/modules/inventory/infrastructure/persistence/typeorm/entities/device.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { DeviceCategory, LifecycleStage } from '@bizrok/shared';\n\n@Entity('devices')\nexport class DeviceEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ nullable: true })\n  serialNumber: string;\n\n  @Column({ nullable: true })\n  imei: string;\n\n  @Column({\n    type: 'varchar',\n    enum: DeviceCategory,\n  })\n  category: DeviceCategory;\n\n  @Column()\n  brand: string;\n\n  @Column()\n  model: string;\n\n  @Column({\n    type: 'varchar',\n    enum: LifecycleStage,\n    default: LifecycleStage.LEAD,\n  })\n  currentStage: LifecycleStage;\n\n  @Column()\n  leadId: string;\n\n  @Column({ nullable: true })\n  valuationId: string;\n\n  @Column({ nullable: true })\n  offerId: string;\n\n  @Column({ nullable: true })\n  pickupId: string;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "serialNumber",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "imei",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "category",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "brand",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "currentStage",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "leadId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "valuationId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "offerId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "pickupId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "procurementId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "qcId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "refurbishmentId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "inventoryId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "salesId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "settlementId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "accountingId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "profitabilityId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "LeadEntity",
+          "field": "leadId",
+          "targetTable": "leads"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ValuationEntity",
+          "field": "valuationId",
+          "targetTable": "valuations"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "OfferEntity",
+          "field": "offerId",
+          "targetTable": "offers"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "PickupEntity",
+          "field": "pickupId",
+          "targetTable": "pickups"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ProcurementEntity",
+          "field": "procurementId",
+          "targetTable": "procurements"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "QcEntity",
+          "field": "qcId",
+          "targetTable": "qcs"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "RefurbishmentEntity",
+          "field": "refurbishmentId",
+          "targetTable": "refurbishments"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "InventoryEntity",
+          "field": "inventoryId",
+          "targetTable": "inventorys"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SalesEntity",
+          "field": "salesId",
+          "targetTable": "saless"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SettlementEntity",
+          "field": "settlementId",
+          "targetTable": "settlements"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "AccountingEntity",
+          "field": "accountingId",
+          "targetTable": "accountings"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ProfitabilityEntity",
+          "field": "profitabilityId",
+          "targetTable": "profitabilitys"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "InventoryService"
+        ],
+        "readerResolvers": [
+          "WarehouseType"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.warehouseentity",
+      "name": "WarehouseEntity",
+      "tableName": "warehouses",
+      "filePath": "apps/backend/src/modules/inventory/infrastructure/persistence/typeorm/entities/warehouse.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\n\n@Entity('warehouses')\nexport class WarehouseEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  name: string;\n\n  @Column()\n  location: string;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "InventoryService"
+        ],
+        "readerResolvers": [
+          "WarehouseType"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.leadentity",
+      "name": "LeadEntity",
+      "tableName": "leads",
+      "filePath": "apps/backend/src/modules/lead/infrastructure/persistence/typeorm/entities/lead.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { LeadStatus } from '@bizrok/shared';\n\n@Entity('leads')\nexport class LeadEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  customerName: string;\n\n  @Column()\n  customerEmail: string;\n\n  @Column()\n  customerPhone: string;\n\n  @Column()\n  deviceCategory: string;\n\n  @Column()\n  deviceModel: string;\n\n  @Column({ type: 'simple-json', nullable: true })\n  journeyData: Record<string, any>;\n\n  @Column({\n    type: 'varchar',\n    enum: LeadStatus,\n    default: LeadStatus.NEW,\n  })\n  status: LeadStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "customerEmail",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "customerPhone",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "deviceCategory",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "deviceModel",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "journeyData",
+          "type": "simple-json",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/analytics",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "CatalogWriteService",
+          "LeadService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeedResolver",
+          "SeriesResolver",
+          "ProductVariantResolver",
+          "LeadType"
+        ],
+        "uiConsumers": [
+          "/admin/analytics",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.offerentity",
+      "name": "OfferEntity",
+      "tableName": "offers",
+      "filePath": "apps/backend/src/modules/offer/infrastructure/persistence/typeorm/entities/offer.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { OfferStatus } from '@bizrok/shared';\n\n@Entity('offers')\nexport class OfferEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  valuationId: string;\n\n  @Column()\n  leadId: string;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  offerAmount: number;\n\n  @Column({\n    type: 'varchar',\n    enum: OfferStatus,\n    default: OfferStatus.DRAFT,\n  })\n  status: OfferStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "valuationId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "leadId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "offerAmount",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ValuationEntity",
+          "field": "valuationId",
+          "targetTable": "valuations"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "LeadEntity",
+          "field": "leadId",
+          "targetTable": "leads"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/offers",
+          "/admin/security",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]"
+        ],
+        "writerServices": [
+          "OfferService"
+        ],
+        "readerResolvers": [
+          "OfferType"
+        ],
+        "uiConsumers": [
+          "/admin/offers",
+          "/admin/security",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]"
+        ]
+      }
+    },
+    {
+      "id": "entity.customerorderentity",
+      "name": "CustomerOrderEntity",
+      "tableName": "customer_orders",
+      "filePath": "apps/backend/src/modules/order/infrastructure/persistence/typeorm/entities/customer-order.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { CustomerOrderStatus } from '@bizrok/shared';\n\n@Entity('customer_orders')\nexport class CustomerOrderEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column('uuid')\n  customerId: string;\n\n  @Column('uuid', { nullable: true })\n  leadId: string | null;\n\n  @Column({ unique: true })\n  orderCode: string;\n\n  @Column()\n  customerName: string;\n\n  @Column()\n  customerPhone: string;\n\n  @Column({ type: 'varchar', nullable: true })\n  customerEmail: string | null;\n\n  @Column()\n  deviceCategory: string;\n\n  @Column()\n  deviceBrand: string;\n\n  @Column()\n  deviceProduct: string;\n\n  @Column()\n  deviceVariant: string;\n\n  @Column()\n  condition: string;\n\n  @Column('simple-json', { nullable: true })\n  assessmentAnswers: Array<{\n    questionId: string;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "leadId",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "orderCode",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "customerPhone",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "customerEmail",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "deviceCategory",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "deviceBrand",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "deviceProduct",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "deviceVariant",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "condition",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "assessmentAnswers",
+          "type": "Array<",
+          "isNullable": true
+        },
+        {
+          "name": "basePrice",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "finalPrice",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "couponCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "couponDiscount",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "totalAmount",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "pickupDate",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "pickupTime",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CustomerEntity",
+          "field": "customerId",
+          "targetTable": "customers"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "LeadEntity",
+          "field": "leadId",
+          "targetTable": "leads"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "OrderService"
+        ],
+        "readerResolvers": [
+          "CustomerOrderType"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.paymententity",
+      "name": "PaymentEntity",
+      "tableName": "payments",
+      "filePath": "apps/backend/src/modules/payment/infrastructure/persistence/typeorm/entities/payment.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { PaymentMethod, PaymentStatus } from '@bizrok/shared';\n\n@Entity('payments')\nexport class PaymentEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column('uuid')\n  orderId: string;\n\n  @Column('uuid')\n  customerId: string;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  amount: number;\n\n  @Column({\n    type: 'varchar',\n    enum: PaymentMethod,\n  })\n  method: PaymentMethod;\n\n  @Column({\n    type: 'varchar',\n    enum: PaymentStatus,\n    default: PaymentStatus.PENDING,\n  })\n  status: PaymentStatus;\n\n  @Column({ type: 'varchar', nullable: true })\n  transactionRef: string | null;\n\n  @Column('simple-json', { nullable: true })\n  gatewayResponse: Record<string, unknown> | null;\n\n  @Column('text', { nullable: true })\n  notes: string | null;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "orderId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "customerId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "method",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "transactionRef",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "gatewayResponse",
+          "type": "Record<string",
+          "isNullable": true
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "OrderEntity",
+          "field": "orderId",
+          "targetTable": "orders"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CustomerEntity",
+          "field": "customerId",
+          "targetTable": "customers"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "PaymentService"
+        ],
+        "readerResolvers": [
+          "PaymentType"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.pickupentity",
+      "name": "PickupEntity",
+      "tableName": "pickups",
+      "filePath": "apps/backend/src/modules/pickup/infrastructure/persistence/typeorm/entities/pickup.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { PickupStatus } from '@bizrok/shared';\n\n@Entity('pickups')\nexport class PickupEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  leadId: string;\n\n  @Column()\n  courierName: string;\n\n  @Column()\n  trackingNumber: string;\n\n  @Column({\n    type: 'varchar',\n    enum: PickupStatus,\n    default: PickupStatus.PENDING,\n  })\n  status: PickupStatus;\n\n  @Column({ type: 'datetime' })\n  scheduledDate: Date;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "leadId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "courierName",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "trackingNumber",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "scheduledDate",
+          "type": "datetime",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "LeadEntity",
+          "field": "leadId",
+          "targetTable": "leads"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/pickups",
+          "/admin/security",
+          "/",
+          "/about",
+          "/auth/login",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/dashboard/addresses",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard"
+        ],
+        "writerServices": [
+          "PickupService"
+        ],
+        "readerResolvers": [
+          "PickupType"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/business-flows/categories",
+          "/admin/pickups",
+          "/admin/security",
+          "/",
+          "/about",
+          "/auth/login",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/dashboard/addresses",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard"
+        ]
+      }
+    },
+    {
+      "id": "entity.procuremententity",
+      "name": "ProcurementEntity",
+      "tableName": "procurements",
+      "filePath": "apps/backend/src/modules/procurement/infrastructure/persistence/typeorm/entities/procurement.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { ProcurementStatus, ProcurementType } from '@bizrok/shared';\n\n@Entity('procurements')\nexport class ProcurementEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  deviceId: string;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  purchasePrice: number;\n\n  @Column({\n    type: 'varchar',\n    enum: ProcurementType,\n  })\n  procurementType: ProcurementType;\n\n  @Column({\n    type: 'varchar',\n    enum: ProcurementStatus,\n    default: ProcurementStatus.PENDING,\n  })\n  status: ProcurementStatus;\n\n  @Column({ unique: true })\n  invoiceNumber: string;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "deviceId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "purchasePrice",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "procurementType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "invoiceNumber",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeviceEntity",
+          "field": "deviceId",
+          "targetTable": "devices"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "ProcurementService"
+        ],
+        "readerResolvers": [
+          "ProcurementType"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.profitabilityreportentity",
+      "name": "ProfitabilityReportEntity",
+      "tableName": "profitability_reports",
+      "filePath": "apps/backend/src/modules/profitability/infrastructure/persistence/typeorm/entities/profitability.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\n\n@Entity('profitability_reports')\nexport class ProfitabilityReportEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  deviceId: string;\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  acquisitionCost: number;\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  partsCost: number;\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  laborCost: number;\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  overheadCost: number;\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  sellingPrice: number;\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  netProfit: number;\n\n  @Column('decimal', { precision: 5, scale: 2, default: 0 })\n  marginPercent: number;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "deviceId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "acquisitionCost",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "partsCost",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "laborCost",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "overheadCost",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "sellingPrice",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "netProfit",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "marginPercent",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeviceEntity",
+          "field": "deviceId",
+          "targetTable": "devices"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ],
+        "writerServices": [
+          "CatalogWriteService",
+          "ProfitabilityService"
+        ],
+        "readerResolvers": [
+          "BrandResolver",
+          "CategoryResolver",
+          "ProductResolver",
+          "SeedResolver",
+          "SeriesResolver",
+          "ProductVariantResolver",
+          "ProfitabilityReportType"
+        ],
+        "uiConsumers": [
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/qc",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/settings/email",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/orders"
+        ]
+      }
+    },
+    {
+      "id": "entity.qcauditentity",
+      "name": "QCAuditEntity",
+      "tableName": "qc_audits",
+      "filePath": "apps/backend/src/modules/qc/infrastructure/persistence/typeorm/entities/qc.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { QCStatus, DeviceGrade } from '@bizrok/shared';\n\n@Entity('qc_audits')\nexport class QCAuditEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  deviceId: string;\n\n  @Column()\n  inspectorName: string;\n\n  @Column({\n    type: 'varchar',\n    enum: DeviceGrade,\n  })\n  cosmeticGrade: DeviceGrade;\n\n  @Column()\n  functionalStatus: string;\n\n  @Column({ nullable: true })\n  notes: string;\n\n  @Column({\n    type: 'varchar',\n    enum: QCStatus,\n    default: QCStatus.PENDING,\n  })\n  status: QCStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "deviceId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "inspectorName",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "cosmeticGrade",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "functionalStatus",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeviceEntity",
+          "field": "deviceId",
+          "targetTable": "devices"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/qc"
+        ],
+        "writerServices": [
+          "QCService"
+        ],
+        "readerResolvers": [
+          "QCAuditType"
+        ],
+        "uiConsumers": [
+          "/admin/qc"
+        ]
+      }
+    },
+    {
+      "id": "entity.referralconfigentity",
+      "name": "ReferralConfigEntity",
+      "tableName": "referral_config",
+      "filePath": "apps/backend/src/modules/referral/infrastructure/persistence/typeorm/entities/referral-config.entity.ts",
+      "codeSnippet": "import {\r\n  Entity,\r\n  PrimaryGeneratedColumn,\r\n  Column,\r\n  CreateDateColumn,\r\n  UpdateDateColumn,\r\n} from 'typeorm';\r\n\r\n/**\r\n * Singleton-style configuration row driving the entire referral programme.\r\n * Fully admin-manageable — no reward amount or rule is hardcoded anywhere in\r\n * the application; all behaviour is read from this row at runtime.\r\n */\r\n@Entity('referral_config')\r\nexport class ReferralConfigEntity {\r\n  @PrimaryGeneratedColumn('uuid')\r\n  id: string;\r\n\r\n  /** Master switch for the whole programme. */\r\n  @Column({ type: 'boolean', default: true })\r\n  enabled: boolean;\r\n\r\n  /** Reward granted to the referrer when a referral qualifies. */\r\n  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })\r\n  referrerReward: number;\r\n\r\n  /** Reward granted to the newly referred customer. */\r\n  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })\r\n  refereeReward: number;\r\n\r\n  /**\r\n   * Event that marks a referral as qualified for reward:\r\n   * SIGNUP | FIRST_ORDER | FIRST_ORDER_COMPLETED.\r\n   */\r\n  @Column({ type: 'varchar', default: 'FIRST_ORDER_COMPLETED' })\r\n  qualifyingEvent: string;\r\n\r\n  /** Maximum number of rewardable referrals per customer (0 = unlimited). */\r\n  @Column({ type: 'int', default: 0 })\r\n  maxRewardsPerCustomer: number;\r\n\r\n  /** Minimum order value for the qualifying order (0 = no minimum). */\r\n  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })\r\n  minOrderValue: number;\r\n\r\n  /** Marketing copy shown on the customer referral page. */\r\n  @Column({ type: 'varchar', nullable: true })\r\n  headline: string | null;\r\n\r\n  @Column({ type: 'varchar', nullable: true })\r",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "referrerReward",
+          "type": "decimal",
+          "isNullable": false
+        },
+        {
+          "name": "refereeReward",
+          "type": "decimal",
+          "isNullable": false
+        },
+        {
+          "name": "qualifyingEvent",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "maxRewardsPerCustomer",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "minOrderValue",
+          "type": "decimal",
+          "isNullable": false
+        },
+        {
+          "name": "headline",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "terms",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/referrals"
+        ],
+        "writerServices": [
+          "ReferralService"
+        ],
+        "readerResolvers": [
+          "ReferralConfigType"
+        ],
+        "uiConsumers": [
+          "/admin/referrals"
+        ]
+      }
+    },
+    {
+      "id": "entity.referralentity",
+      "name": "ReferralEntity",
+      "tableName": "referrals",
+      "filePath": "apps/backend/src/modules/referral/infrastructure/persistence/typeorm/entities/referral.entity.ts",
+      "codeSnippet": "\r\nimport {\r\n  Entity,\r\n  PrimaryGeneratedColumn,\r\n  Column,\r\n  CreateDateColumn,\r\n  UpdateDateColumn,\r\n  Index,\r\n} from 'typeorm';\r\n\r\n/**\r\n * A single referral relationship: one referrer inviting one referee.\r\n * Status transitions are driven by ReferralConfig's qualifying event.\r\n */\r\n@Entity('referrals')\r\nexport class ReferralEntity {\r\n  @PrimaryGeneratedColumn('uuid')\r\n  id: string;\r\n\r\n  /** Referral code that was used (belongs to the referrer). */\r\n  @Index()\r\n  @Column({ type: 'varchar' })\r\n  referralCode: string;\r\n\r\n  /** Customer id of the referrer (code owner). */\r\n  @Index()\r\n  @Column({ type: 'varchar' })\r\n  referrerId: string;\r\n\r\n  /** Customer id of the newly referred user. */\r\n  @Index()\r\n  @Column({ type: 'varchar' })\r\n  refereeId: string;\r\n\r\n  /** PENDING | QUALIFIED | REWARDED | CANCELLED */\r\n  @Column({ type: 'varchar', default: 'PENDING' })\r\n  status: string;\r\n\r\n  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })\r\n  referrerReward: number;\r\n\r\n  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })\r\n  refereeReward: number;\r\n\r\n  @Column({ type: 'datetime', nullable: true })\r\n  qualifiedAt: Date | null;\r\n\r\n  @Column({ type: 'datetime', nullable: true })\r\n  rewardedAt: Date | null;\r\n\r",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "referralCode",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "referrerId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "refereeId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "referrerReward",
+          "type": "decimal",
+          "isNullable": false
+        },
+        {
+          "name": "refereeReward",
+          "type": "decimal",
+          "isNullable": false
+        },
+        {
+          "name": "qualifiedAt",
+          "type": "datetime",
+          "isNullable": true
+        },
+        {
+          "name": "rewardedAt",
+          "type": "datetime",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ReferrerEntity",
+          "field": "referrerId",
+          "targetTable": "referrers"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "RefereeEntity",
+          "field": "refereeId",
+          "targetTable": "referees"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/referrals"
+        ],
+        "writerServices": [
+          "ReferralService"
+        ],
+        "readerResolvers": [
+          "ReferralConfigType"
+        ],
+        "uiConsumers": [
+          "/admin/referrals"
+        ]
+      }
+    },
+    {
+      "id": "entity.refurbishmententity",
+      "name": "RefurbishmentEntity",
+      "tableName": "refurbishments",
+      "filePath": "apps/backend/src/modules/refurbishment/infrastructure/persistence/typeorm/entities/refurbishment.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { RefurbishmentStatus } from '@bizrok/shared';\n\n@Entity('refurbishments')\nexport class RefurbishmentEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  deviceId: string;\n\n  @Column({ nullable: true })\n  technicianName: string;\n\n  @Column({\n    type: process.env.DB_TYPE === 'sqlite' ? 'simple-json' : 'jsonb',\n    default: process.env.DB_TYPE === 'sqlite' ? '[]' : [],\n  })\n  partsReplaced: string[];\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  partsCost: number;\n\n  @Column('decimal', { precision: 10, scale: 2, default: 0 })\n  laborCost: number;\n\n  @Column({\n    type: 'varchar',\n    enum: RefurbishmentStatus,\n    default: RefurbishmentStatus.PENDING,\n  })\n  status: RefurbishmentStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "deviceId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "technicianName",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "partsReplaced",
+          "type": "process",
+          "isNullable": false
+        },
+        {
+          "name": "partsCost",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "laborCost",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeviceEntity",
+          "field": "deviceId",
+          "targetTable": "devices"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "RefurbishmentService"
+        ],
+        "readerResolvers": [
+          "RefurbishmentType"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.salesorderentity",
+      "name": "SalesOrderEntity",
+      "tableName": "sales_orders",
+      "filePath": "apps/backend/src/modules/sales/infrastructure/persistence/typeorm/entities/sales.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { SalesStatus } from '@bizrok/shared';\n\n@Entity('sales_orders')\nexport class SalesOrderEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  deviceId: string;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  salePrice: number;\n\n  @Column()\n  customerName: string;\n\n  @Column()\n  salesChannel: string;\n\n  @Column({\n    type: 'varchar',\n    enum: SalesStatus,\n    default: SalesStatus.DRAFT,\n  })\n  status: SalesStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "deviceId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "salePrice",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "customerName",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "salesChannel",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeviceEntity",
+          "field": "deviceId",
+          "targetTable": "devices"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "SalesService"
+        ],
+        "readerResolvers": [
+          "SalesOrderType"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.settlemententity",
+      "name": "SettlementEntity",
+      "tableName": "settlements",
+      "filePath": "apps/backend/src/modules/settlement/infrastructure/persistence/typeorm/entities/settlement.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { SettlementStatus } from '@bizrok/shared';\n\n@Entity('settlements')\nexport class SettlementEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  deviceId: string;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  payoutAmount: number;\n\n  @Column()\n  paymentMethod: string;\n\n  @Column({ nullable: true })\n  transactionReference: string;\n\n  @Column({\n    type: 'varchar',\n    enum: SettlementStatus,\n    default: SettlementStatus.PENDING,\n  })\n  status: SettlementStatus;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "deviceId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "payoutAmount",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "paymentMethod",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "transactionReference",
+          "type": "string",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeviceEntity",
+          "field": "deviceId",
+          "targetTable": "devices"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "SettlementService"
+        ],
+        "readerResolvers": [
+          "SettlementType"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.assessmenttemplatequestionentity",
+      "name": "AssessmentTemplateQuestionEntity",
+      "tableName": "valuation_template_question_links",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/assessment-template-question.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n} from 'typeorm';\n\nexport enum TemplateOverrideMode {\n  INHERITED = 'INHERITED',\n  ADDED = 'ADDED',\n  HIDDEN = 'HIDDEN',\n  MODIFIED = 'MODIFIED',\n}\n\n@Entity('valuation_template_question_links')\nexport class AssessmentTemplateQuestionEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar' })\n  templateId: string;\n\n  @Column({ type: 'varchar' })\n  questionId: string;\n\n  @Column({ type: 'int' })\n  displayOrder: number;\n\n  @Column({ type: 'varchar', default: TemplateOverrideMode.INHERITED })\n  overrideMode: TemplateOverrideMode;\n\n  @Column({ type: 'text', nullable: true })\n  configJson: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  deductionRuleId: string | null;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "templateId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "questionId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "overrideMode",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "configJson",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "deductionRuleId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "TemplateEntity",
+          "field": "templateId",
+          "targetTable": "templates"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "QuestionEntity",
+          "field": "questionId",
+          "targetTable": "questions"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "DeductionRuleEntity",
+          "field": "deductionRuleId",
+          "targetTable": "deductionRules"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "AssessmentTemplateQuestionEntityService"
+        ],
+        "readerResolvers": [
+          "AssessmentTemplateQuestionEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.assessmenttemplateentity",
+      "name": "AssessmentTemplateEntity",
+      "tableName": "valuation_templates",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/assessment-template.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { ValuationVersionEntity } from './valuation-version.entity';\nimport { AssessmentTypeEntity } from './assessment-type.entity';\n\nexport enum TemplateLevel {\n  CATEGORY = 'CATEGORY',\n  BRAND = 'BRAND',\n  SERIES = 'SERIES',\n  MODEL = 'MODEL',\n}\n\n@Entity('valuation_templates')\nexport class AssessmentTemplateEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar' })\n  name: string;\n\n  @Column({ unique: true, length: 100, nullable: false })\n  businessCode: string;\n\n  @Column({ type: 'varchar' })\n  level: TemplateLevel;\n\n  @Column({ type: 'varchar' })\n  categoryId: string;\n\n  @Column({ type: 'varchar', nullable: true })\n  brandId: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  seriesId: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  modelId: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  parentTemplateId: string | null;\n\n  @ManyToOne(() => AssessmentTemplateEntity, {\n    onDelete: 'SET NULL',",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "name",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "level",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "categoryId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "brandId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "seriesId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "modelId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "parentTemplateId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "sourceTemplateId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "version",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "versionNo",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "versionId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "assessmentTypeId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "publishedAt",
+          "type": "datetime",
+          "isNullable": true
+        },
+        {
+          "name": "designConfig",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CategoryEntity",
+          "field": "categoryId",
+          "targetTable": "categories"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BrandEntity",
+          "field": "brandId",
+          "targetTable": "brands"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SeriesEntity",
+          "field": "seriesId",
+          "targetTable": "product_series"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ModelEntity",
+          "field": "modelId",
+          "targetTable": "models"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ParentTemplateEntity",
+          "field": "parentTemplateId",
+          "targetTable": "parentTemplates"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SourceTemplateEntity",
+          "field": "sourceTemplateId",
+          "targetTable": "sourceTemplates"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "VersionEntity",
+          "field": "versionId",
+          "targetTable": "versions"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "AssessmentTypeEntity",
+          "field": "assessmentTypeId",
+          "targetTable": "assessment_types"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "AssessmentService",
+          "PageDesignerService",
+          "TemplateCrudService",
+          "TemplateService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "PageDesignerResolver",
+          "TemplateCrudResolver",
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.assessmenttypeentity",
+      "name": "AssessmentTypeEntity",
+      "tableName": "assessment_types",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/assessment-type.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\n\n@Entity('assessment_types')\nexport class AssessmentTypeEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar', length: 50, unique: true })\n  code: string;\n\n  @Column({ type: 'varchar', length: 100, nullable: true })\n  businessCode: string;\n\n  @Column({ type: 'varchar', length: 200 })\n  name: string;\n\n  @Column({ type: 'text', nullable: true })\n  description: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  iconUrl: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  bannerUrl: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  thumbnailUrl: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  shortDescription: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  seoTitle: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  seoDescription: string | null;\n\n  @Column({ type: 'varchar', length: 200, unique: true, nullable: true })\n  slug: string | null;\n\n  @Column({ type: 'varchar', length: 10, nullable: true })\n  themeColor: string | null;\n\n  @Column({ type: 'boolean', default: true })",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "code",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "name",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "iconUrl",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "bannerUrl",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "thumbnailUrl",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "shortDescription",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "seoTitle",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "seoDescription",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "slug",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "themeColor",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "isPublic",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "showOnWebsite",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "showInMobileApp",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "sortOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "pricingSource",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "deletedAt",
+          "type": "datetime",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "AssessmentTypeService"
+        ],
+        "readerResolvers": [
+          "AssessmentTypeResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.entityoverrideentity",
+      "name": "EntityOverrideEntity",
+      "tableName": "entity_overrides",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/entity-override.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\n\nexport enum OverrideScopeType {\n  BRAND = 'BRAND',\n  SERIES = 'SERIES',\n  MODEL = 'MODEL',\n}\n\nexport enum OverrideEntityType {\n  GROUP = 'GROUP',\n  QUESTION = 'QUESTION',\n  OPTION = 'OPTION',\n}\n\nexport enum OverrideAction {\n  ADD = 'ADD',\n  HIDE = 'HIDE',\n  MODIFY = 'MODIFY',\n}\n\n@Entity('entity_overrides')\nexport class EntityOverrideEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar', length: 20 })\n  scopeType: string;\n\n  @Column({ type: 'uuid' })\n  scopeId: string;\n\n  @Column({ type: 'varchar', length: 20 })\n  entityType: string;\n\n  @Column({ type: 'uuid' })\n  entityId: string;\n\n  @Column({ type: 'varchar', length: 20 })\n  action: string;\n\n  @Column({ type: 'text', nullable: true })\n  configJson: string | null;\n\n  @CreateDateColumn()",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "scopeType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "scopeId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "entityType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "entityId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "action",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "configJson",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ScopeEntity",
+          "field": "scopeId",
+          "targetTable": "scopes"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "EntityEntity",
+          "field": "entityId",
+          "targetTable": "entitys"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "EntityOverrideEntityService"
+        ],
+        "readerResolvers": [
+          "EntityOverrideEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.templategroupentity",
+      "name": "TemplateGroupEntity",
+      "tableName": "valuation_template_groups",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/template-group.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { AssessmentTemplateEntity } from './assessment-template.entity';\nimport { TemplatePageEntity } from './template-page.entity';\nimport { TemplateQuestionEntity } from './template-question.entity';\n\n@Entity('valuation_template_groups')\nexport class TemplateGroupEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'uuid' })\n  templateId: string;\n\n  @ManyToOne(() => AssessmentTemplateEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'templateId' })\n  template: AssessmentTemplateEntity;\n\n  @Column({ type: 'uuid' })\n  pageId: string;\n\n  @ManyToOne(() => TemplatePageEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'pageId' })\n  page: TemplatePageEntity;\n\n  @Column({ type: 'varchar' })\n  name: string;\n\n  @Column({ unique: true, length: 100, nullable: false })\n  businessCode: string;\n\n  @Column({ type: 'text', nullable: true })\n  description: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  displayType: string | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  deductionLogic: string | null;\n\n  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })\n  deductionCap: number | null;\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "templateId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "pageId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "name",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "displayType",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "deductionLogic",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "deductionCap",
+          "type": "decimal",
+          "isNullable": true
+        },
+        {
+          "name": "sortOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "overrideMode",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "presentationConfig",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "TemplateEntity",
+          "field": "templateId",
+          "targetTable": "templates"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "PageEntity",
+          "field": "pageId",
+          "targetTable": "pages"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "PageDesignerService",
+          "TemplateCrudService",
+          "TemplateService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "PageDesignerResolver",
+          "TemplateCrudResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.templateoptionentity",
+      "name": "TemplateOptionEntity",
+      "tableName": "valuation_template_options",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/template-option.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n  CreateDateColumn,\n  UpdateDateColumn,\n  Index,\n} from 'typeorm';\nimport { AssessmentTemplateEntity } from './assessment-template.entity';\nimport { TemplateQuestionEntity } from './template-question.entity';\n\n@Entity('valuation_template_options')\nexport class TemplateOptionEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'uuid' })\n  templateId: string;\n\n  @ManyToOne(() => AssessmentTemplateEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'templateId' })\n  template: AssessmentTemplateEntity;\n\n  @Column({ type: 'uuid' })\n  questionId: string;\n\n  @ManyToOne(() => TemplateQuestionEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'questionId' })\n  question: TemplateQuestionEntity;\n\n  @Column({ type: 'varchar' })\n  label: string;\n\n  @Column({ unique: true, length: 100, nullable: false })\n  businessCode: string;\n\n  @Index()\n  @Column({ type: 'varchar', length: 100, nullable: true })\n  functionalCode: string | null;\n\n  @Column({ type: 'varchar' })\n  value: string;\n\n  @Column({ type: 'varchar', default: 'NONE' })\n  severity: string;\n\n  @Column({ type: 'int', default: 0 })\n  sortOrder: number;",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "templateId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "questionId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "label",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "functionalCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "value",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "severity",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "sortOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "image",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "deductionType",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "deductionValue",
+          "type": "decimal",
+          "isNullable": true
+        },
+        {
+          "name": "isHidden",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "TemplateEntity",
+          "field": "templateId",
+          "targetTable": "templates"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "QuestionEntity",
+          "field": "questionId",
+          "targetTable": "questions"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "TemplateCrudService",
+          "TemplateService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "TemplateCrudResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.templatepageentity",
+      "name": "TemplatePageEntity",
+      "tableName": "valuation_template_pages",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/template-page.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n  CreateDateColumn,\n  UpdateDateColumn,\n} from 'typeorm';\nimport { AssessmentTemplateEntity } from './assessment-template.entity';\n\n@Entity('valuation_template_pages')\nexport class TemplatePageEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'uuid' })\n  templateId: string;\n\n  @ManyToOne(() => AssessmentTemplateEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'templateId' })\n  template: AssessmentTemplateEntity;\n\n  @Column({ type: 'int' })\n  pageNumber: number;\n\n  @Column({ unique: true, length: 100, nullable: false })\n  businessCode: string;\n\n  @Column({ type: 'varchar' })\n  pageName: string;\n\n  @Column({ type: 'text', nullable: true })\n  description: string | null;\n\n  @Column({ type: 'int', default: 0 })\n  sortOrder: number;\n\n  @Column({ type: 'varchar', default: 'ACTIVE' })\n  status: string;\n\n  @Column({ type: 'text', nullable: true })\n  designConfig: string | null;\n\n  @CreateDateColumn()\n  createdAt: Date;\n\n  @UpdateDateColumn()\n  updatedAt: Date;\n}",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "templateId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "pageNumber",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "pageName",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "sortOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "designConfig",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "TemplateEntity",
+          "field": "templateId",
+          "targetTable": "templates"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "PageDesignerService",
+          "TemplateCrudService",
+          "TemplateService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "PageDesignerResolver",
+          "TemplateCrudResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.templatequestionentity",
+      "name": "TemplateQuestionEntity",
+      "tableName": "valuation_template_questions",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/template-question.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n  CreateDateColumn,\n  UpdateDateColumn,\n  Index,\n} from 'typeorm';\nimport { AssessmentTemplateEntity } from './assessment-template.entity';\nimport { TemplateGroupEntity } from './template-group.entity';\nimport { TemplateOptionEntity } from './template-option.entity';\n\nexport enum TemplateOverrideMode {\n  INHERITED = 'INHERITED',\n  ADDED = 'ADDED',\n  HIDDEN = 'HIDDEN',\n  MODIFIED = 'MODIFIED',\n}\n\n@Entity('valuation_template_questions')\nexport class TemplateQuestionEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'uuid' })\n  templateId: string;\n\n  @ManyToOne(() => AssessmentTemplateEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'templateId' })\n  template: AssessmentTemplateEntity;\n\n  @Column({ type: 'uuid' })\n  groupId: string;\n\n  @ManyToOne(() => TemplateGroupEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'groupId' })\n  group: TemplateGroupEntity;\n\n  @Column({ type: 'varchar' })\n  code: string;\n\n  @Column({ unique: true, length: 100, nullable: false })\n  businessCode: string;\n\n  @Index()\n  @Column({ type: 'varchar', length: 100, nullable: true })\n  functionalCode: string | null;\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "templateId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "groupId",
+          "type": "uuid",
+          "isNullable": false
+        },
+        {
+          "name": "code",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "functionalCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "questionText",
+          "type": "text",
+          "isNullable": false
+        },
+        {
+          "name": "helpText",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "inputType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "isNullable": false
+        },
+        {
+          "name": "sortOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "displayOrder",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "overrideMode",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "displayMode",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "configJson",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "cardConfig",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "parentQuestionId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "conditionOptionId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "TemplateEntity",
+          "field": "templateId",
+          "targetTable": "templates"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "GroupEntity",
+          "field": "groupId",
+          "targetTable": "groups"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ParentQuestionEntity",
+          "field": "parentQuestionId",
+          "targetTable": "parentQuestions"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ConditionOptionEntity",
+          "field": "conditionOptionId",
+          "targetTable": "conditionOptions"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "PageDesignerService",
+          "TemplateCrudService",
+          "TemplateOverrideService",
+          "TemplateService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "PageDesignerResolver",
+          "TemplateCrudResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationanswerentity",
+      "name": "ValuationAnswerEntity",
+      "tableName": "valuation_answers",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-answer.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n} from 'typeorm';\nimport { ValuationSessionEntity } from './valuation-session.entity';\n\n@Entity('valuation_answers')\nexport class ValuationAnswerEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  sessionId: string;\n\n  @ManyToOne(() => ValuationSessionEntity, (session) => session.answers, {\n    onDelete: 'CASCADE',\n  })\n  @JoinColumn({ name: 'sessionId' })\n  session: ValuationSessionEntity;\n\n  @Column()\n  questionId: string;\n\n  @Column({ type: 'varchar', nullable: true })\n  optionId: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  textValue: string | null;\n\n  @Column('decimal', { precision: 10, scale: 2, nullable: true })\n  numberValue: number | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  imageValue: string | null;\n\n  @Column('decimal', { precision: 10, scale: 2, nullable: true })\n  deductionApplied: number | null;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "sessionId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "questionId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "optionId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "textValue",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "numberValue",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "imageValue",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "deductionApplied",
+          "type": "number",
+          "isNullable": true
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SessionEntity",
+          "field": "sessionId",
+          "targetTable": "sessions"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "QuestionEntity",
+          "field": "questionId",
+          "targetTable": "questions"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "OptionEntity",
+          "field": "optionId",
+          "targetTable": "options"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationCalculatorService"
+        ],
+        "readerResolvers": [
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationauditlogentity",
+      "name": "ValuationAuditLogEntity",
+      "tableName": "valuation_audit_logs",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-audit-log.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n} from 'typeorm';\n\n@Entity('valuation_audit_logs')\nexport class ValuationAuditLogEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar' })\n  module: string; // 'FLOW', 'QA', 'MAPPING', 'DEDUCTION', 'CLONE', 'VERSION'\n\n  @Column({ type: 'varchar' })\n  action: string; // 'CREATE', 'UPDATE', 'DELETE', 'CLONE', 'PUBLISH'\n\n  @Column({ type: 'varchar' })\n  entityType: string;\n\n  @Column({ type: 'varchar' })\n  entityId: string;\n\n  @Column({ type: 'varchar', length: 100, nullable: true })\n  businessCode: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  oldValue: string | null;\n\n  @Column({ type: 'text', nullable: true })\n  newValue: string | null;\n\n  @Column({ type: 'varchar', default: 'system' })\n  createdBy: string;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "module",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "action",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "entityType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "entityId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "businessCode",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "oldValue",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "newValue",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "createdBy",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "EntityEntity",
+          "field": "entityId",
+          "targetTable": "entitys"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "AssessmentService",
+          "TemplateCrudService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "TemplateCrudResolver",
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationdeductionruleentity",
+      "name": "ValuationDeductionRuleEntity",
+      "tableName": "valuation_deduction_rules",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-deduction-rule.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n} from 'typeorm';\nimport { CategoryEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/category.entity';\nimport { BrandEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/brand.entity';\nimport { SeriesEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/series.entity';\nimport { ProductEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/product.entity';\nimport { DeductionType } from '@bizrok/shared';\n\n@Entity('valuation_deduction_rules')\nexport class ValuationDeductionRuleEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'varchar', nullable: true })\n  categoryId: string | null;\n\n  @ManyToOne(() => CategoryEntity, { onDelete: 'CASCADE', nullable: true })\n  @JoinColumn({ name: 'categoryId' })\n  category: CategoryEntity | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  brandId: string | null;\n\n  @ManyToOne(() => BrandEntity, { onDelete: 'CASCADE', nullable: true })\n  @JoinColumn({ name: 'brandId' })\n  brand: BrandEntity | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  seriesId: string | null;\n\n  @ManyToOne(() => SeriesEntity, { onDelete: 'CASCADE', nullable: true })\n  @JoinColumn({ name: 'seriesId' })\n  series: SeriesEntity | null;\n\n  @Column({ type: 'varchar', nullable: true })\n  modelId: string | null;\n\n  @ManyToOne(() => ProductEntity, { onDelete: 'CASCADE', nullable: true })\n  @JoinColumn({ name: 'modelId' })\n  model: ProductEntity | null;\n\n  @Column()\n  questionId: string;\n\n  @Column()",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "categoryId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "brandId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "seriesId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "modelId",
+          "type": "varchar",
+          "isNullable": true
+        },
+        {
+          "name": "questionId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "optionId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "deductionType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "deductionValue",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CategoryEntity",
+          "field": "categoryId",
+          "targetTable": "categories"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BrandEntity",
+          "field": "brandId",
+          "targetTable": "brands"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SeriesEntity",
+          "field": "seriesId",
+          "targetTable": "product_series"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ModelEntity",
+          "field": "modelId",
+          "targetTable": "models"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "QuestionEntity",
+          "field": "questionId",
+          "targetTable": "questions"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "OptionEntity",
+          "field": "optionId",
+          "targetTable": "options"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationCalculatorService"
+        ],
+        "readerResolvers": [
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationgroupentity",
+      "name": "ValuationGroupEntity",
+      "tableName": "valuationgroupentitys",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-group.entity.ts",
+      "codeSnippet": "import { ValuationPageEntity } from './valuation-page.entity';\nimport { ValuationQuestionEntity } from './valuation-question.entity';\n\nexport class ValuationGroupEntity {\n  id: string;\n  pageId: string;\n  page?: ValuationPageEntity;\n  name: string;\n  businessCode: string;\n  sortOrder: number;\n  deductionLogic: string; // ADDITIVE, HIGHEST, CAPPED_ADDITIVE\n  deductionCap: number | null;\n  status: string; // ACTIVE, INACTIVE\n  description: string | null;\n  image: string | null;\n  displayType: string | null;\n  questions: ValuationQuestionEntity[];\n}\n",
+      "columns": [],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationCalculatorService"
+        ],
+        "readerResolvers": [
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationmappingentity",
+      "name": "ValuationMappingEntity",
+      "tableName": "valuation_mappings",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-mapping.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n} from 'typeorm';\nimport { ValuationVersionEntity } from './valuation-version.entity';\n\nexport enum MappingScopeType {\n  CATEGORY = 'CATEGORY',\n  BRAND = 'BRAND',\n  SERIES = 'SERIES',\n  MODEL = 'MODEL',\n  VARIANT = 'VARIANT',\n}\n\nexport enum MappingEntityType {\n  QUESTION = 'QUESTION',\n  OPTION = 'OPTION',\n}\n\nexport enum MappingAction {\n  ADD = 'ADD',\n  HIDE = 'HIDE',\n  MODIFY = 'MODIFY',\n  REORDER = 'REORDER',\n}\n\n@Entity('valuation_mappings')\nexport class ValuationMappingEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({\n    type: 'varchar',\n    default: MappingScopeType.BRAND,\n  })\n  scopeType: MappingScopeType;\n\n  @Column({ type: 'varchar' })\n  scopeId: string;\n\n  @Column({\n    type: 'varchar',\n    default: MappingEntityType.QUESTION,\n  })\n  entityType: MappingEntityType;\n\n  @Column({ type: 'varchar' })",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "scopeType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "scopeId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "entityType",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "entityId",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "action",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "configJson",
+          "type": "text",
+          "isNullable": true
+        },
+        {
+          "name": "versionId",
+          "type": "varchar",
+          "isNullable": true
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ScopeEntity",
+          "field": "scopeId",
+          "targetTable": "scopes"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "EntityEntity",
+          "field": "entityId",
+          "targetTable": "entitys"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "VersionEntity",
+          "field": "versionId",
+          "targetTable": "versions"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationMappingEntityService"
+        ],
+        "readerResolvers": [
+          "ValuationMappingEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationoptionentity",
+      "name": "ValuationOptionEntity",
+      "tableName": "valuationoptionentitys",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-option.entity.ts",
+      "codeSnippet": "export enum OptionSeverity {\n  NONE = 'NONE',\n  MINOR = 'MINOR',\n  MAJOR = 'MAJOR',\n  CRITICAL = 'CRITICAL',\n}\n\nexport class ValuationOptionEntity {\n  id: string;\n  questionId: string;\n  label: string;\n  businessCode: string;\n  functionalCode: string | null;\n  value: string;\n  image: string | null;\n  description: string | null;\n  severity: OptionSeverity;\n  sortOrder: number;\n}\n",
+      "columns": [],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationOptionEntityService"
+        ],
+        "readerResolvers": [
+          "ValuationOptionEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationpageentity",
+      "name": "ValuationPageEntity",
+      "tableName": "valuationpageentitys",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-page.entity.ts",
+      "codeSnippet": "import { CategoryEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/category.entity';\nimport { SeriesEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/series.entity';\nimport { ValuationVersionEntity } from './valuation-version.entity';\nimport { ValuationGroupEntity } from './valuation-group.entity';\nimport { AssessmentTypeEntity } from './assessment-type.entity';\n\nexport class ValuationPageEntity {\n  id: string;\n  categoryId: string;\n  category?: CategoryEntity;\n  assessmentTypeId: string | null;\n  assessmentType?: AssessmentTypeEntity | null;\n  seriesId: string | null;\n  series?: SeriesEntity | null;\n  pageNumber: number;\n  businessCode: string;\n  pageName: string;\n  description: string | null;\n  status: string; // ACTIVE, INACTIVE\n  versionId: string | null;\n  version?: ValuationVersionEntity | null;\n  groups: ValuationGroupEntity[];\n}\n",
+      "columns": [],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationCalculatorService"
+        ],
+        "readerResolvers": [
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationquestionentity",
+      "name": "ValuationQuestionEntity",
+      "tableName": "valuationquestionentitys",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-question.entity.ts",
+      "codeSnippet": "import { ValuationGroupEntity } from './valuation-group.entity';\n\nexport enum QuestionInputType {\n  SINGLE_SELECT = 'SINGLE_SELECT',\n  MULTI_SELECT = 'MULTI_SELECT',\n  TEXT = 'TEXT',\n  NUMBER = 'NUMBER',\n  DROPDOWN = 'DROPDOWN',\n  IMAGE_UPLOAD = 'IMAGE_UPLOAD',\n  DIRECT_OPTIONS = 'DIRECT_OPTIONS',\n}\n\nexport class ValuationQuestionEntity {\n  id: string;\n  groupId: string;\n  group?: ValuationGroupEntity;\n  code: string;\n  businessCode: string;\n  functionalCode: string | null;\n  questionText: string;\n  helpText: string | null;\n  type: QuestionInputType;\n  required: boolean;\n  status: string;\n  sortOrder: number;\n}\n",
+      "columns": [],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationQuestionEntityService"
+        ],
+        "readerResolvers": [
+          "ValuationQuestionEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationresultentity",
+      "name": "ValuationResultEntity",
+      "tableName": "valuation_results",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-result.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  ManyToOne,\n  JoinColumn,\n  CreateDateColumn,\n} from 'typeorm';\nimport { ValuationSessionEntity } from './valuation-session.entity';\n\n@Entity('valuation_results')\nexport class ValuationResultEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  sessionId: string;\n\n  @ManyToOne(() => ValuationSessionEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'sessionId' })\n  session: ValuationSessionEntity;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  basePrice: number;\n\n  @Column('decimal', { precision: 10, scale: 2 })\n  finalOffer: number;\n\n  @Column('text')\n  calculationTrace: string; // JSON String trace logs\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "sessionId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "basePrice",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "finalOffer",
+          "type": "number",
+          "isNullable": false
+        },
+        {
+          "name": "calculationTrace",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SessionEntity",
+          "field": "sessionId",
+          "targetTable": "sessions"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationResultEntityService"
+        ],
+        "readerResolvers": [
+          "ValuationResultEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationsessionentity",
+      "name": "ValuationSessionEntity",
+      "tableName": "valuation_sessions",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-session.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n  ManyToOne,\n  OneToMany,\n  JoinColumn,\n} from 'typeorm';\nimport { CategoryEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/category.entity';\nimport { BrandEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/brand.entity';\nimport { SeriesEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/series.entity';\nimport { ProductEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/product.entity';\nimport { ProductVariantEntity } from '../../../../../catalog/infrastructure/persistence/typeorm/entities/variant.entity';\nimport { ValuationAnswerEntity } from './valuation-answer.entity';\nimport { SessionStatus } from '@bizrok/shared';\n\n@Entity('valuation_sessions')\nexport class ValuationSessionEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column()\n  categoryId: string;\n\n  @ManyToOne(() => CategoryEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'categoryId' })\n  category: CategoryEntity;\n\n  @Column()\n  brandId: string;\n\n  @ManyToOne(() => BrandEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'brandId' })\n  brand: BrandEntity;\n\n  @Column()\n  seriesId: string;\n\n  @ManyToOne(() => SeriesEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'seriesId' })\n  series: SeriesEntity;\n\n  @Column()\n  modelId: string;\n\n  @ManyToOne(() => ProductEntity, { onDelete: 'CASCADE' })\n  @JoinColumn({ name: 'modelId' })\n  model: ProductEntity;\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "categoryId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "brandId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "seriesId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "modelId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "variantId",
+          "type": "string",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "basePrice",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "finalPrice",
+          "type": "number",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "CategoryEntity",
+          "field": "categoryId",
+          "targetTable": "categories"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "BrandEntity",
+          "field": "brandId",
+          "targetTable": "brands"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "SeriesEntity",
+          "field": "seriesId",
+          "targetTable": "product_series"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "ModelEntity",
+          "field": "modelId",
+          "targetTable": "models"
+        },
+        {
+          "type": "ForeignKey (FK)",
+          "targetEntity": "VariantEntity",
+          "field": "variantId",
+          "targetTable": "variants"
+        }
+      ],
+      "dataLineage": {
+        "originSources": [
+          "Admin Form Input / External API"
+        ],
+        "writerServices": [
+          "ValuationSessionEntityService"
+        ],
+        "readerResolvers": [
+          "ValuationSessionEntityResolver"
+        ],
+        "uiConsumers": [
+          "Admin Dashboard / Reports"
+        ]
+      }
+    },
+    {
+      "id": "entity.valuationversionentity",
+      "name": "ValuationVersionEntity",
+      "tableName": "valuation_versions",
+      "filePath": "apps/backend/src/modules/valuation/infrastructure/persistence/typeorm/entities/valuation-version.entity.ts",
+      "codeSnippet": "import {\n  Entity,\n  PrimaryGeneratedColumn,\n  Column,\n  CreateDateColumn,\n} from 'typeorm';\n\nexport enum VersionStatus {\n  DRAFT = 'DRAFT',\n  PUBLISHED = 'PUBLISHED',\n  ARCHIVED = 'ARCHIVED',\n}\n\n@Entity('valuation_versions')\nexport class ValuationVersionEntity {\n  @PrimaryGeneratedColumn('uuid')\n  id: string;\n\n  @Column({ type: 'int' })\n  versionNumber: number;\n\n  @Column({\n    type: 'varchar',\n    default: VersionStatus.DRAFT,\n  })\n  status: VersionStatus;\n\n  @Column({ type: 'datetime', nullable: true })\n  publishedAt: Date | null;\n\n  @CreateDateColumn()\n  createdAt: Date;\n}\n",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid / id",
+          "isPrimary": true
+        },
+        {
+          "name": "versionNumber",
+          "type": "int",
+          "isNullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "isNullable": false
+        },
+        {
+          "name": "publishedAt",
+          "type": "datetime",
+          "isNullable": true
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "isNullable": false
+        }
+      ],
+      "relations": [],
+      "dataLineage": {
+        "originSources": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ],
+        "writerServices": [
+          "AssessmentService",
+          "TemplateCrudService"
+        ],
+        "readerResolvers": [
+          "AssessmentResolver",
+          "TemplateCrudResolver",
+          "ValuationOperationsResolver"
+        ],
+        "uiConsumers": [
+          "/admin/accounting",
+          "/admin/analytics",
+          "/admin/audit-logs",
+          "/admin/catalog/attributes",
+          "/admin/catalog/brands",
+          "/admin/catalog/business-flows/categories",
+          "/admin/catalog/business-flows",
+          "/admin/catalog/categories",
+          "/admin/catalog",
+          "/admin/catalog/products",
+          "/admin/catalog/series",
+          "/admin/catalog/variants",
+          "/admin/config",
+          "/admin/inventory",
+          "/admin/leads",
+          "/admin/models",
+          "/admin/offers",
+          "/admin",
+          "/admin/pickups",
+          "/admin/pricing",
+          "/admin/procurement",
+          "/admin/profitability",
+          "/admin/providers",
+          "/admin/qc",
+          "/admin/referrals",
+          "/admin/refurbishment",
+          "/admin/routing",
+          "/admin/sales",
+          "/admin/security",
+          "/admin/seed",
+          "/admin/settings/email",
+          "/admin/settings",
+          "/admin/settlements",
+          "/admin/valuation/assessment-types",
+          "/admin/valuation/clone",
+          "/admin/valuation/deductions",
+          "/admin/valuation/flow",
+          "/admin/valuation/mapping-manager",
+          "/admin/valuation/page-designer",
+          "/admin/valuation/questions",
+          "/admin/valuation/simulator",
+          "/admin/valuation/versions",
+          "/admin/valuation/workflow",
+          "/",
+          "/about",
+          "/auth/login",
+          "/contact",
+          "/faqs",
+          "/how-it-works",
+          "/sell",
+          "/[journeySlug]",
+          "/[journeySlug]/[brandSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+          "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+          "/dashboard/addresses",
+          "/dashboard/documents",
+          "/dashboard/feedback/history",
+          "/dashboard/feedback",
+          "/dashboard/invoices",
+          "/dashboard/notifications",
+          "/dashboard/orders/cancel",
+          "/dashboard/orders",
+          "/dashboard/orders/reschedule",
+          "/dashboard",
+          "/dashboard/profile",
+          "/dashboard/referrals",
+          "/dashboard/settings",
+          "/dashboard/tickets",
+          "/dashboard/tracking"
+        ]
+      }
+    }
+  ],
+  "services": [
+    {
+      "id": "service.businesscodeservice",
+      "name": "BusinessCodeService",
+      "filePath": "apps/backend/src/common/business-code/business-code.service.ts",
+      "codeSnippet": "import { Injectable, BadRequestException } from '@nestjs/common';\nimport { InjectRepository } from '@nestjs/typeorm';\nimport { Repository, DataSource } from 'typeorm';\nimport { BusinessCodeSequenceEntity } from './business-code-sequence.entity';\nimport { BusinessCodeRegistryEntity } from './business-code-registry.entity';\nimport { EventBus } from '../events/event-bus';\nimport { BUSINESS_CODE_PREFIXES } from './business-code.config';\n\n@Injectable()\nexport class BusinessCodeService {\n  constructor(\n    @InjectRepository(BusinessCodeSequenceEntity)\n    private readonly sequenceRepo: Repository<BusinessCodeSequenceEntity>,\n    @InjectRepository(BusinessCodeRegistryEntity)\n    private readonly registryRepo: Repository<BusinessCodeRegistryEntity>,\n    private readonly dataSource: DataSource,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  async generate(\n    entityType: string,\n    entityId: string,\n    context?: Record<string, any>,\n  ): Promise<string> {\n    const existing = await this.registryRepo.findOne({\n      where: { entityType, entityId },\n    });\n    if (existing) return existing.code;\n\n    const prefix = this.resolvePrefix(entityType);\n    const seq = await this.nextSequence(prefix);\n    const code = `${prefix}${String(seq).padStart(5, '0')}`;\n\n    await this.registryRepo.save({\n      code,\n      entityType,\n      entityId,\n    });\n\n    this.eventBus.emit('businessCode.created', {\n      code,\n      entityType,\n      entityId,\n      context,\n    });\n\n    return code;\n  }\n\n  private resolvePrefix(entityType: string): string {",
+      "methods": [
+        "generate",
+        "nextSequence",
+        "resolve"
+      ],
+      "entitiesUsed": [
+        "BusinessCodeRegistryEntity",
+        "BusinessCodeSequenceEntity"
+      ],
+      "tablesUsed": [
+        "business_code_registry",
+        "business_code_sequences"
+      ]
+    },
+    {
+      "id": "service.accountingservice",
+      "name": "AccountingService",
+      "filePath": "apps/backend/src/modules/accounting/application/services/accounting.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { AccountingRepository } from '../../infrastructure/persistence/typeorm/repositories/accounting.repository';\nimport { JournalEntryEntity } from '../../infrastructure/persistence/typeorm/entities/accounting.entity';\nimport { AccountingStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class AccountingService implements OnModuleInit {\n  constructor(\n    private readonly accountingRepository: AccountingRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.PROCUREMENT_COMPLETED,\n      async (data: { deviceId: string; purchasePrice: number }) => {\n        console.log(\n          `[Accounting] Procurement completed. Posting journal entries for device ${data.deviceId}`,\n        );\n        try {\n          await this.postJournalEntry({\n            deviceId: data.deviceId,\n            accountDebit: 'INVENTORY_ASSET',\n            accountCredit: 'ACCOUNTS_PAYABLE',\n            amount: data.purchasePrice,\n            description: `Acquisition of device via procurement`,\n          });\n        } catch (e) {\n          console.error('Failed to post procurement accounting entry:', e);\n        }\n      },\n    );\n\n    this.eventBus.on(\n      EventNames.SETTLEMENT_COMPLETED,\n      async (data: { deviceId: string; payoutAmount: number }) => {\n        console.log(\n          `[Accounting] Settlement completed. Posting settlement journal entries for device ${data.deviceId}`,\n        );\n        try {\n          await this.postJournalEntry({\n            deviceId: data.deviceId,\n            accountDebit: 'ACCOUNTS_PAYABLE',\n            accountCredit: 'CASH_AT_BANK',\n            amount: data.payoutAmount,\n            description: `Payout settlement to supplier/customer`,\n          });\n        } catch (e) {\n          console.error('Failed to post settlement accounting entry:', e);",
+      "methods": [
+        "postJournalEntry",
+        "getEntriesByDeviceId",
+        "getAllEntries"
+      ],
+      "entitiesUsed": [
+        "JournalEntryEntity"
+      ],
+      "tablesUsed": [
+        "journal_entries"
+      ]
+    },
+    {
+      "id": "service.addressservice",
+      "name": "AddressService",
+      "filePath": "apps/backend/src/modules/address/application/services/address.service.ts",
+      "codeSnippet": "import {\r\n  Injectable,\r\n  BadRequestException,\r\n  NotFoundException,\r\n  ForbiddenException,\r\n} from '@nestjs/common';\r\nimport { AddressRepository } from '../../infrastructure/persistence/typeorm/repositories/address.repository';\r\nimport { AddressEntity } from '../../infrastructure/persistence/typeorm/entities/address.entity';\r\n\r\nexport interface AddressInput {\r\n  label?: string;\r\n  contactName: string;\r\n  contactPhone: string;\r\n  contactEmail: string;\r\n  line1: string;\r\n  line2?: string;\r\n  landmark?: string;\r\n  district?: string;\r\n  city: string;\r\n  state: string;\r\n  pincode: string;\r\n  isDefault?: boolean;\r\n}\r\n\r\n\r\nconst PINCODE_REGEX = /^[1-9][0-9]{5}$/;\r\nconst PHONE_REGEX = /^[0-9]{10}$/;\r\nconst EMAIL_REGEX = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\r\n\r\n\r\n@Injectable()\r\nexport class AddressService {\r\n  constructor(private readonly addressRepo: AddressRepository) {}\r\n\r\n  async list(customerId: string): Promise<AddressEntity[]> {\r\n    return this.addressRepo.findByCustomerId(customerId);\r\n  }\r\n\r\n  private validate(input: AddressInput): void {\r\n    const required: [keyof AddressInput, string][] = [\r\n      ['contactName', 'Contact name'],\r\n      ['contactPhone', 'Contact phone'],\r\n      ['contactEmail', 'Email address'],\r\n      ['line1', 'Address line 1'],\r\n      ['city', 'City'],\r\n      ['state', 'State'],\r\n      ['pincode', 'Pincode'],\r\n    ];\r\n    for (const [key, label] of required) {\r\n      const value = input[key];\r",
+      "methods": [
+        "list",
+        "loadOwned",
+        "create",
+        "update",
+        "setDefault",
+        "remove"
+      ],
+      "entitiesUsed": [
+        "AddressEntity"
+      ],
+      "tablesUsed": [
+        "customer_addresses"
+      ]
+    },
+    {
+      "id": "service.authservice",
+      "name": "AuthService",
+      "filePath": "apps/backend/src/modules/auth/application/services/auth.service.ts",
+      "codeSnippet": "import {\n  Injectable,\n  Logger,\n  BadRequestException,\n  Inject,\n  forwardRef,\n} from '@nestjs/common';\nimport { CustomerRepository } from '../../infrastructure/persistence/typeorm/repositories/customer.repository';\nimport { OtpService } from './otp.service';\nimport { EmailService } from './email.service';\nimport { ReferralService } from '../../../referral/application/services/referral.service';\n\nimport { CustomerEntity } from '../../infrastructure/persistence/typeorm/entities/customer.entity';\nimport {\n  hashPassword,\n  verifyPassword,\n  validatePasswordStrength,\n} from './password.util';\nimport { randomBytes } from 'crypto';\nimport * as jwt from 'jsonwebtoken';\n\nconst JWT_SECRET = process.env.JWT_SECRET || 'bizrok-dev-secret-key';\n\nconst EMAIL_REGEX = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n\n@Injectable()\nexport class AuthService {\n  private readonly logger = new Logger(AuthService.name);\n\n  constructor(\n    private readonly customerRepo: CustomerRepository,\n    private readonly otpService: OtpService,\n    private readonly emailService: EmailService,\n    @Inject(forwardRef(() => ReferralService))\n    private readonly referralService: ReferralService,\n  ) {}\n\n\n  /**\n   * Generates a unique, immutable public Customer ID.\n   * Format: BZK-XXXXXXXX (crockford-ish base32, collision-checked).\n   */\n  private async generateCustomerId(): Promise<string> {\n    const alphabet = 'ABCDEFGHJKMNPQRSTVWXYZ0123456789';\n    for (let attempt = 0; attempt < 10; attempt++) {\n      const bytes = randomBytes(8);\n      let suffix = '';\n      for (let i = 0; i < 8; i++) {\n        suffix += alphabet[bytes[i] % alphabet.length];\n      }",
+      "methods": [
+        "generateCustomerId",
+        "sendOtp",
+        "verifyOtpAndLogin",
+        "getProfile",
+        "updateProfile",
+        "requestContactChangeOtp",
+        "confirmContactChange",
+        "changePassword"
+      ],
+      "entitiesUsed": [
+        "CustomerEntity"
+      ],
+      "tablesUsed": [
+        "customers"
+      ]
+    },
+    {
+      "id": "service.emailservice",
+      "name": "EmailService",
+      "filePath": "apps/backend/src/modules/auth/application/services/email.service.ts",
+      "codeSnippet": "import { Injectable, Logger } from '@nestjs/common';\nimport { SystemConfigRepository } from '../../infrastructure/persistence/typeorm/repositories/system-config.repository';\n\n@Injectable()\nexport class EmailService {\n  private readonly logger = new Logger(EmailService.name);\n\n  constructor(\n    private readonly systemConfigRepo: SystemConfigRepository,\n  ) {}\n\n  async sendOtpEmail(email: string, code: string): Promise<boolean> {\n    const smtpConfig = await this.getSmtpConfig();\n\n    if (!smtpConfig.host) {\n      this.logger.log(\n        `[OTP] Email to ${email}: ${code} (no SMTP configured)`,\n      );\n      return true;\n    }\n\n    try {\n      const nodemailer = require('nodemailer');\n      const transport = nodemailer.createTransport({\n        host: smtpConfig.host,\n        port: smtpConfig.port,\n        secure: smtpConfig.secure,\n        auth: {\n          user: smtpConfig.user,\n          pass: smtpConfig.pass,\n        },\n      });\n\n      await transport.sendMail({\n        from: smtpConfig.from,\n        to: email,\n        subject: 'Your Bizrok Verification Code',\n        text: `Your OTP code is: ${code}. It expires in 10 minutes.`,\n        html: `\n          <div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n            <h2>Bizrok Verification Code</h2>\n            <p>Your one-time password (OTP) is:</p>\n            <div style=\"font-size: 32px; font-weight: bold; color: #2563eb; padding: 20px; background: #f3f4f6; border-radius: 8px; text-align: center; letter-spacing: 8px;\">\n              ${code}\n            </div>\n            <p style=\"color: #6b7280; margin-top: 20px;\">This code expires in 10 minutes. Do not share it with anyone.</p>\n          </div>\n        `,\n      });\n",
+      "methods": [
+        "sendOtpEmail",
+        "sendTestEmail",
+        "getSmtpConfig"
+      ],
+      "entitiesUsed": [],
+      "tablesUsed": []
+    },
+    {
+      "id": "service.otpservice",
+      "name": "OtpService",
+      "filePath": "apps/backend/src/modules/auth/application/services/otp.service.ts",
+      "codeSnippet": "import { Injectable, Logger } from '@nestjs/common';\nimport { OtpRepository } from '../../infrastructure/persistence/typeorm/repositories/otp.repository';\nimport { EmailService } from './email.service';\nimport { MoreThanOrEqual } from 'typeorm';\n\n@Injectable()\nexport class OtpService {\n  private readonly logger = new Logger(OtpService.name);\n\n  constructor(\n    private readonly otpRepo: OtpRepository,\n    private readonly emailService: EmailService,\n  ) {}\n\n  async generateAndSendOtp(\n    phone?: string,\n    email?: string,\n  ): Promise<{ success: boolean; message: string; otpCode?: string }> {\n    const target = phone || email;\n    const type = phone ? 'PHONE' : 'EMAIL';\n\n    if (!target) {\n      return { success: false, message: 'Phone or email is required' };\n    }\n\n    const rateLimitCount = 3;\n    const rateLimitMinutes = 10;\n    const cutoffTime = new Date(Date.now() - rateLimitMinutes * 60 * 1000);\n    const field = type === 'PHONE' ? 'phone' : 'email';\n    const recentOtps = await this.otpRepo.findRecentByTarget(\n      target,\n      type,\n      cutoffTime,\n    );\n\n    if (recentOtps >= rateLimitCount) {\n      return {\n        success: false,\n        message: `Too many OTP requests. Please try again after ${rateLimitMinutes} minutes.`,\n      };\n    }\n\n    const code = this.generateCode(6);\n    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);\n\n    await this.otpRepo.create({\n      phone: phone || null,\n      email: email || null,\n      code,\n      type,",
+      "methods": [
+        "generateAndSendOtp",
+        "verifyOtp"
+      ],
+      "entitiesUsed": [],
+      "tablesUsed": []
+    },
+    {
+      "id": "service.attributeconfigservice",
+      "name": "AttributeConfigService",
+      "filePath": "apps/backend/src/modules/catalog/application/services/attribute-config.service.ts",
+      "codeSnippet": "import { Injectable, Inject } from '@nestjs/common';\nimport type { IAttributeGroupRepository } from '../../domain/repositories/attribute-group.repository.interface';\nimport { IAttributeGroupRepositoryToken } from '../../domain/repositories/attribute-group.repository.interface';\nimport type { IProductAttributeRepository } from '../../domain/repositories/product-attribute.repository.interface';\nimport { IProductAttributeRepositoryToken } from '../../domain/repositories/product-attribute.repository.interface';\nimport type { IAttributeValueRepository } from '../../domain/repositories/attribute-value.repository.interface';\nimport { IAttributeValueRepositoryToken } from '../../domain/repositories/attribute-value.repository.interface';\nimport type { IFlowAttributeRepository } from '../../domain/repositories/flow-attribute.repository.interface';\nimport { IFlowAttributeRepositoryToken } from '../../domain/repositories/flow-attribute.repository.interface';\nimport type { IVariantAttributeRepository } from '../../domain/repositories/variant-attribute.repository.interface';\nimport { IVariantAttributeRepositoryToken } from '../../domain/repositories/variant-attribute.repository.interface';\nimport { AttributeGroupEntity } from '../../infrastructure/persistence/typeorm/entities/attribute-group.entity';\nimport { ProductAttributeEntity } from '../../infrastructure/persistence/typeorm/entities/product-attribute.entity';\nimport { AttributeValueEntity } from '../../infrastructure/persistence/typeorm/entities/attribute-value.entity';\nimport { FlowAttributeEntity } from '../../infrastructure/persistence/typeorm/entities/flow-attribute.entity';\nimport { VariantAttributeEntity } from '../../infrastructure/persistence/typeorm/entities/variant-attribute.entity';\n\n@Injectable()\nexport class AttributeConfigService {\n  constructor(\n    @Inject(IAttributeGroupRepositoryToken) private readonly groupRepo: IAttributeGroupRepository,\n    @Inject(IProductAttributeRepositoryToken) private readonly attributeRepo: IProductAttributeRepository,\n    @Inject(IAttributeValueRepositoryToken) private readonly valueRepo: IAttributeValueRepository,\n    @Inject(IFlowAttributeRepositoryToken) private readonly flowAttributeRepo: IFlowAttributeRepository,\n    @Inject(IVariantAttributeRepositoryToken) private readonly variantAttributeRepo: IVariantAttributeRepository,\n  ) {}\n\n  // Attribute Groups\n  async getGroups(isActive?: boolean): Promise<AttributeGroupEntity[]> {\n    return this.groupRepo.findAll(isActive);\n  }\n\n  async getGroupById(id: string): Promise<AttributeGroupEntity | null> {\n    return this.groupRepo.findById(id);\n  }\n\n  async createGroup(data: Partial<AttributeGroupEntity>): Promise<AttributeGroupEntity> {\n    return this.groupRepo.save(data);\n  }\n\n  async updateGroup(id: string, data: Partial<AttributeGroupEntity>): Promise<AttributeGroupEntity> {\n    return this.groupRepo.save({ ...data, id });\n  }\n\n  async deleteGroup(id: string): Promise<boolean> {\n    return this.groupRepo.softDelete(id);\n  }\n\n  // Product Attributes\n  async getAttributes(groupId?: string, status?: string): Promise<ProductAttributeEntity[]> {",
+      "methods": [
+        "getGroups",
+        "getGroupById",
+        "createGroup",
+        "updateGroup",
+        "deleteGroup",
+        "getAttributes",
+        "getAttributeById",
+        "getVariantAttributes",
+        "createAttribute",
+        "updateAttribute",
+        "deleteAttribute",
+        "getAttributeValues",
+        "getAttributeValueById",
+        "createAttributeValue",
+        "updateAttributeValue",
+        "deleteAttributeValue",
+        "getFlowAttributes",
+        "setFlowAttributes",
+        "getVariantAttributeValues",
+        "setVariantAttributes"
+      ],
+      "entitiesUsed": [
+        "AttributeGroupEntity",
+        "AttributeValueEntity",
+        "FlowAttributeEntity",
+        "ProductAttributeEntity",
+        "VariantAttributeEntity"
+      ],
+      "tablesUsed": [
+        "attribute_groups",
+        "attribute_values",
+        "flow_attributes",
+        "product_attributes",
+        "variant_attributes"
+      ]
+    },
+    {
+      "id": "service.businessflowservice",
+      "name": "BusinessFlowService",
+      "filePath": "apps/backend/src/modules/catalog/application/services/business-flow.service.ts",
+      "codeSnippet": "import { Injectable, Inject, NotFoundException, ConflictException } from '@nestjs/common';\nimport type { IBusinessFlowRepository } from '../../domain/repositories/business-flow.repository.interface';\nimport { IBusinessFlowRepositoryToken } from '../../domain/repositories/business-flow.repository.interface';\nimport type { IBusinessFlowCategoryRepository } from '../../domain/repositories/business-flow-category.repository.interface';\nimport { IBusinessFlowCategoryRepositoryToken } from '../../domain/repositories/business-flow-category.repository.interface';\nimport type { ICategoryRepository } from '../../domain/repositories/category.repository.interface';\nimport { ICategoryRepositoryToken } from '../../domain/repositories/category.repository.interface';\nimport type { IFlowPricingProfileRepository } from '../../domain/repositories/flow-pricing-profile.repository.interface';\nimport { IFlowPricingProfileRepositoryToken } from '../../domain/repositories/flow-pricing-profile.repository.interface';\nimport type { IPricingRuleRepository } from '../../domain/repositories/pricing-rule.repository.interface';\nimport { IPricingRuleRepositoryToken } from '../../domain/repositories/pricing-rule.repository.interface';\nimport type { IPricingFormulaRepository } from '../../domain/repositories/pricing-formula.repository.interface';\nimport { IPricingFormulaRepositoryToken } from '../../domain/repositories/pricing-formula.repository.interface';\nimport type { IFlowAssessmentProfileRepository } from '../../domain/repositories/flow-assessment-profile.repository.interface';\nimport { IFlowAssessmentProfileRepositoryToken } from '../../domain/repositories/flow-assessment-profile.repository.interface';\nimport type { IFlowNotificationProfileRepository } from '../../domain/repositories/flow-notification-profile.repository.interface';\nimport { IFlowNotificationProfileRepositoryToken } from '../../domain/repositories/flow-notification-profile.repository.interface';\nimport type { INotificationTemplateRepository } from '../../domain/repositories/notification-template.repository.interface';\nimport { INotificationTemplateRepositoryToken } from '../../domain/repositories/notification-template.repository.interface';\nimport type { IFlowDocumentProfileRepository } from '../../domain/repositories/flow-document-profile.repository.interface';\nimport { IFlowDocumentProfileRepositoryToken } from '../../domain/repositories/flow-document-profile.repository.interface';\nimport type { IDocumentRequirementRepository } from '../../domain/repositories/document-requirement.repository.interface';\nimport { IDocumentRequirementRepositoryToken } from '../../domain/repositories/document-requirement.repository.interface';\nimport type { IFlowLogisticsProfileRepository } from '../../domain/repositories/flow-logistics-profile.repository.interface';\nimport { IFlowLogisticsProfileRepositoryToken } from '../../domain/repositories/flow-logistics-profile.repository.interface';\nimport type { ILogisticsRuleRepository } from '../../domain/repositories/logistics-rule.repository.interface';\nimport { ILogisticsRuleRepositoryToken } from '../../domain/repositories/logistics-rule.repository.interface';\nimport type { IFlowPaymentProfileRepository } from '../../domain/repositories/flow-payment-profile.repository.interface';\nimport { IFlowPaymentProfileRepositoryToken } from '../../domain/repositories/flow-payment-profile.repository.interface';\nimport type { IWorkflowStepTypeRepository } from '../../domain/repositories/workflow-step-type.repository.interface';\nimport { IWorkflowStepTypeRepositoryToken } from '../../domain/repositories/workflow-step-type.repository.interface';\nimport type { IWorkflowComponentRepository } from '../../domain/repositories/workflow-component.repository.interface';\nimport { IWorkflowComponentRepositoryToken } from '../../domain/repositories/workflow-component.repository.interface';\nimport type { IAttributeGroupRepository } from '../../domain/repositories/attribute-group.repository.interface';\nimport { IAttributeGroupRepositoryToken } from '../../domain/repositories/attribute-group.repository.interface';\nimport type { IProductAttributeRepository } from '../../domain/repositories/product-attribute.repository.interface';\nimport { IProductAttributeRepositoryToken } from '../../domain/repositories/product-attribute.repository.interface';\nimport type { IAttributeValueRepository } from '../../domain/repositories/attribute-value.repository.interface';\nimport { IAttributeValueRepositoryToken } from '../../domain/repositories/attribute-value.repository.interface';\nimport type { IFlowWorkflowStepRepository } from '../../domain/repositories/flow-workflow-step.repository.interface';\nimport { IFlowWorkflowStepRepositoryToken } from '../../domain/repositories/flow-workflow-step.repository.interface';\nimport type { IFlowAttributeRepository } from '../../domain/repositories/flow-attribute.repository.interface';\nimport { IFlowAttributeRepositoryToken } from '../../domain/repositories/flow-attribute.repository.interface';\nimport type { IFlowStepComponentRepository } from '../../domain/repositories/flow-step-component.repository.interface';\nimport { IFlowStepComponentRepositoryToken } from '../../domain/repositories/flow-step-component.repository.interface';\nimport { BusinessFlowEntity } from '../../infrastructure/persistence/typeorm/entities/business-flow.entity';\nimport { BusinessFlowCategoryEntity } from '../../infrastructure/persistence/typeorm/entities/business-flow-category.entity';\nimport { FlowPricingProfileEntity } from '../../infrastructure/persistence/typeorm/entities/flow-pricing-profile.entity';\nimport { PricingRuleEntity } from '../../infrastructure/persistence/typeorm/entities/pricing-rule.entity';\nimport { PricingFormulaEntity } from '../../infrastructure/persistence/typeorm/entities/pricing-formula.entity';",
+      "methods": [
+        "getFlows",
+        "getFlowById",
+        "getFlowBySlug",
+        "createFlow",
+        "updateFlow",
+        "deleteFlow",
+        "getFlowCategories",
+        "setFlowCategories",
+        "getJourneyBySlug",
+        "updateJourneyConfig",
+        "getPublicJourneys",
+        "getFlowPaymentProfiles",
+        "setFlowPaymentProfiles",
+        "getFlowAssessmentProfiles",
+        "setFlowAssessmentProfiles",
+        "getPricingProfiles",
+        "getPricingProfileById",
+        "createPricingProfile",
+        "updatePricingProfile",
+        "deletePricingProfile",
+        "getPricingRules",
+        "setPricingRules",
+        "getPricingFormulas",
+        "setPricingFormulas",
+        "getNotificationProfiles",
+        "getNotificationProfileById",
+        "createNotificationProfile",
+        "updateNotificationProfile",
+        "deleteNotificationProfile",
+        "getNotificationTemplates",
+        "setNotificationTemplates",
+        "getDocumentProfiles",
+        "getDocumentProfileById",
+        "createDocumentProfile",
+        "updateDocumentProfile",
+        "deleteDocumentProfile",
+        "getDocumentRequirements",
+        "setDocumentRequirements",
+        "getLogisticsProfiles",
+        "getLogisticsProfileById",
+        "createLogisticsProfile",
+        "updateLogisticsProfile",
+        "deleteLogisticsProfile",
+        "getLogisticsRules",
+        "setLogisticsRules",
+        "seedBusinessFlows"
+      ],
+      "entitiesUsed": [
+        "BusinessFlowCategoryEntity",
+        "BusinessFlowEntity",
+        "CategoryEntity",
+        "DocumentRequirementEntity",
+        "FlowAssessmentProfileEntity",
+        "FlowDocumentProfileEntity",
+        "FlowLogisticsProfileEntity",
+        "FlowNotificationProfileEntity",
+        "FlowPaymentProfileEntity",
+        "FlowPricingProfileEntity",
+        "LogisticsRuleEntity",
+        "NotificationTemplateEntity",
+        "PricingFormulaEntity",
+        "PricingRuleEntity"
+      ],
+      "tablesUsed": [
+        "business_flow_categories",
+        "business_flows",
+        "categories",
+        "document_requirements",
+        "flow_assessment_profiles",
+        "flow_document_profiles",
+        "flow_logistics_profiles",
+        "flow_notification_profiles",
+        "flow_payment_profiles",
+        "flow_pricing_profiles",
+        "logistics_rules",
+        "notification_templates",
+        "pricing_formulas",
+        "pricing_rules"
+      ]
+    },
+    {
+      "id": "service.catalogreadservice",
+      "name": "CatalogReadService",
+      "filePath": "apps/backend/src/modules/catalog/application/services/catalog-read.service.ts",
+      "codeSnippet": "import { Injectable, Inject } from '@nestjs/common';\nimport type { ICategoryRepository } from '../../domain/repositories/category.repository.interface';\nimport { ICategoryRepositoryToken } from '../../domain/repositories/category.repository.interface';\nimport type { IBrandRepository } from '../../domain/repositories/brand.repository.interface';\nimport { IBrandRepositoryToken } from '../../domain/repositories/brand.repository.interface';\nimport type { ISeriesRepository } from '../../domain/repositories/series.repository.interface';\nimport { ISeriesRepositoryToken } from '../../domain/repositories/series.repository.interface';\nimport type { IProductRepository } from '../../domain/repositories/product.repository.interface';\nimport { IProductRepositoryToken } from '../../domain/repositories/product.repository.interface';\nimport type { IVariantRepository } from '../../domain/repositories/variant.repository.interface';\nimport { IVariantRepositoryToken } from '../../domain/repositories/variant.repository.interface';\nimport { CategoryEntity } from '../../infrastructure/persistence/typeorm/entities/category.entity';\nimport { BrandEntity } from '../../infrastructure/persistence/typeorm/entities/brand.entity';\nimport { SeriesEntity } from '../../infrastructure/persistence/typeorm/entities/series.entity';\nimport { ProductEntity } from '../../infrastructure/persistence/typeorm/entities/product.entity';\nimport { ProductMediaEntity } from '../../infrastructure/persistence/typeorm/entities/product-media.entity';\nimport { ProductVariantEntity } from '../../infrastructure/persistence/typeorm/entities/variant.entity';\n\n@Injectable()\nexport class CatalogReadService {\n  constructor(\n    @Inject(ICategoryRepositoryToken)\n    private readonly categoryRepo: ICategoryRepository,\n    @Inject(IBrandRepositoryToken)\n    private readonly brandRepo: IBrandRepository,\n    @Inject(ISeriesRepositoryToken)\n    private readonly seriesRepo: ISeriesRepository,\n    @Inject(IProductRepositoryToken)\n    private readonly productRepo: IProductRepository,\n    @Inject(IVariantRepositoryToken)\n    private readonly variantRepo: IVariantRepository,\n  ) {}\n\n  async getCategories(\n    limit = 20,\n    offset = 0,\n    search = '',\n    status?: string,\n  ): Promise<[CategoryEntity[], number]> {\n    return this.categoryRepo.findAll(limit, offset, search, status);\n  }\n\n  async getCategoryById(id: string): Promise<CategoryEntity | null> {\n    return this.categoryRepo.findById(id);\n  }\n\n  async getBrands(\n    search = '',\n    categoryId?: string,\n    status?: string,",
+      "methods": [
+        "getCategories",
+        "getCategoryById",
+        "getBrands",
+        "getBrandById",
+        "getBrandCategories",
+        "getBrandsByCategory",
+        "getSeries",
+        "getSeriesById",
+        "getProducts",
+        "getProductById",
+        "getProductMedia",
+        "getVariants",
+        "getVariantById",
+        "getTrendingProducts"
+      ],
+      "entitiesUsed": [
+        "BrandEntity",
+        "CategoryEntity",
+        "ProductMediaEntity",
+        "ProductEntity",
+        "SeriesEntity",
+        "ProductVariantEntity"
+      ],
+      "tablesUsed": [
+        "brands",
+        "categories",
+        "product_media",
+        "products",
+        "product_series",
+        "product_variants"
+      ]
+    },
+    {
+      "id": "service.catalogwriteservice",
+      "name": "CatalogWriteService",
+      "filePath": "apps/backend/src/modules/catalog/application/services/catalog-write.service.ts",
+      "codeSnippet": "import { Injectable, Inject } from '@nestjs/common';\nimport type { ICategoryRepository } from '../../domain/repositories/category.repository.interface';\nimport { ICategoryRepositoryToken } from '../../domain/repositories/category.repository.interface';\nimport type { IBrandRepository } from '../../domain/repositories/brand.repository.interface';\nimport { IBrandRepositoryToken } from '../../domain/repositories/brand.repository.interface';\nimport type { ISeriesRepository } from '../../domain/repositories/series.repository.interface';\nimport { ISeriesRepositoryToken } from '../../domain/repositories/series.repository.interface';\nimport type { IProductRepository } from '../../domain/repositories/product.repository.interface';\nimport { IProductRepositoryToken } from '../../domain/repositories/product.repository.interface';\nimport type { IVariantRepository } from '../../domain/repositories/variant.repository.interface';\nimport { IVariantRepositoryToken } from '../../domain/repositories/variant.repository.interface';\nimport { CategoryEntity } from '../../infrastructure/persistence/typeorm/entities/category.entity';\nimport { BrandEntity } from '../../infrastructure/persistence/typeorm/entities/brand.entity';\nimport { SeriesEntity } from '../../infrastructure/persistence/typeorm/entities/series.entity';\nimport { ProductEntity } from '../../infrastructure/persistence/typeorm/entities/product.entity';\nimport { ProductVariantEntity } from '../../infrastructure/persistence/typeorm/entities/variant.entity';\nimport {\n  CatalogStatus,\n  slugify,\n  ensureUniqueSlug,\n  generateSku,\n  LeadStatus,\n} from '@bizrok/shared';\nimport { PriceService } from './price.service';\nimport { BusinessCodeService } from '../../../../common/business-code/business-code.service';\nimport { DataSource } from 'typeorm';\nimport { LeadEntity } from '../../../lead/infrastructure/persistence/typeorm/entities/lead.entity';\nimport { ProfitabilityReportEntity } from '../../../profitability/infrastructure/persistence/typeorm/entities/profitability.entity';\n\n@Injectable()\nexport class CatalogWriteService {\n  constructor(\n    @Inject(ICategoryRepositoryToken)\n    private readonly categoryRepo: ICategoryRepository,\n    @Inject(IBrandRepositoryToken)\n    private readonly brandRepo: IBrandRepository,\n    @Inject(ISeriesRepositoryToken)\n    private readonly seriesRepo: ISeriesRepository,\n    @Inject(IProductRepositoryToken)\n    private readonly productRepo: IProductRepository,\n    @Inject(IVariantRepositoryToken)\n    private readonly variantRepo: IVariantRepository,\n    private readonly priceService: PriceService,\n    private readonly businessCodeService: BusinessCodeService,\n    private readonly dataSource: DataSource,\n  ) {}\n\n  // 1. Category CRUD\n  async createCategory(input: {\n    name: string;",
+      "methods": [
+        "createCategory",
+        "updateCategory",
+        "deleteCategory",
+        "restoreCategory",
+        "bulkUpdateCategoryStatus",
+        "createBrand",
+        "updateBrand",
+        "deleteBrand",
+        "bulkUpdateBrandStatus",
+        "createSeries",
+        "updateSeries",
+        "deleteSeries",
+        "bulkUpdateSeriesStatus",
+        "createProduct",
+        "deleteProduct",
+        "bulkUpdateProductStatus",
+        "updateProduct",
+        "toggleProductTrending",
+        "createVariant",
+        "createVariants",
+        "updateVariant",
+        "deleteVariant",
+        "bulkUpdateStatus",
+        "seedCatalog",
+        "seedMockTransactions"
+      ],
+      "entitiesUsed": [
+        "BrandEntity",
+        "CategoryEntity",
+        "ProductEntity",
+        "SeriesEntity",
+        "ProductVariantEntity",
+        "LeadEntity",
+        "ProfitabilityReportEntity"
+      ],
+      "tablesUsed": [
+        "brands",
+        "categories",
+        "products",
+        "product_series",
+        "product_variants",
+        "leads",
+        "profitability_reports"
+      ]
+    },
+    {
+      "id": "service.priceservice",
+      "name": "PriceService",
+      "filePath": "apps/backend/src/modules/catalog/application/services/price.service.ts",
+      "codeSnippet": "import { Injectable, Inject } from '@nestjs/common';\nimport type { IVariantRepository } from '../../domain/repositories/variant.repository.interface';\nimport { IVariantRepositoryToken } from '../../domain/repositories/variant.repository.interface';\nimport { BasePriceEntity } from '../../infrastructure/persistence/typeorm/entities/base-price.entity';\n\n@Injectable()\nexport class PriceService {\n  constructor(\n    @Inject(IVariantRepositoryToken)\n    private readonly variantRepo: IVariantRepository,\n  ) {}\n\n  async createInitialPrice(\n    variantId: string,\n    price: number,\n  ): Promise<BasePriceEntity> {\n    const basePrice: Partial<BasePriceEntity> = {\n      variantId,\n      price,\n      effectiveFrom: new Date(),\n      effectiveTo: null,\n      version: 1,\n    };\n    return this.variantRepo.saveBasePrice(basePrice);\n  }\n\n  async updatePrice(\n    variantId: string,\n    price: number,\n    effectiveFrom: Date,\n  ): Promise<BasePriceEntity> {\n    const currentPrice = await this.variantRepo.getCurrentPrice(variantId);\n    const nextVersion = currentPrice ? currentPrice.version + 1 : 1;\n\n    if (currentPrice) {\n      currentPrice.effectiveTo = effectiveFrom;\n      await this.variantRepo.saveBasePrice(currentPrice);\n    }\n\n    const nextPrice: Partial<BasePriceEntity> = {\n      variantId,\n      price,\n      effectiveFrom,\n      effectiveTo: null,\n      version: nextVersion,\n    };\n\n    return this.variantRepo.saveBasePrice(nextPrice);\n  }\n",
+      "methods": [
+        "createInitialPrice",
+        "updatePrice",
+        "getPriceHistory",
+        "getCurrentPrice"
+      ],
+      "entitiesUsed": [
+        "BasePriceEntity"
+      ],
+      "tablesUsed": [
+        "base_prices"
+      ]
+    },
+    {
+      "id": "service.workflowconfigservice",
+      "name": "WorkflowConfigService",
+      "filePath": "apps/backend/src/modules/catalog/application/services/workflow-config.service.ts",
+      "codeSnippet": "import { Injectable, Inject } from '@nestjs/common';\nimport type { IWorkflowStepTypeRepository } from '../../domain/repositories/workflow-step-type.repository.interface';\nimport { IWorkflowStepTypeRepositoryToken } from '../../domain/repositories/workflow-step-type.repository.interface';\nimport type { IWorkflowComponentRepository } from '../../domain/repositories/workflow-component.repository.interface';\nimport { IWorkflowComponentRepositoryToken } from '../../domain/repositories/workflow-component.repository.interface';\nimport type { IFlowWorkflowStepRepository } from '../../domain/repositories/flow-workflow-step.repository.interface';\nimport { IFlowWorkflowStepRepositoryToken } from '../../domain/repositories/flow-workflow-step.repository.interface';\nimport type { IFlowStepComponentRepository } from '../../domain/repositories/flow-step-component.repository.interface';\nimport { IFlowStepComponentRepositoryToken } from '../../domain/repositories/flow-step-component.repository.interface';\nimport { WorkflowStepTypeEntity } from '../../infrastructure/persistence/typeorm/entities/workflow-step-type.entity';\nimport { WorkflowComponentEntity } from '../../infrastructure/persistence/typeorm/entities/workflow-component.entity';\nimport { FlowWorkflowStepEntity } from '../../infrastructure/persistence/typeorm/entities/flow-workflow-step.entity';\nimport { FlowStepComponentEntity } from '../../infrastructure/persistence/typeorm/entities/flow-step-component.entity';\n\n@Injectable()\nexport class WorkflowConfigService {\n  constructor(\n    @Inject(IWorkflowStepTypeRepositoryToken) private readonly stepTypeRepo: IWorkflowStepTypeRepository,\n    @Inject(IWorkflowComponentRepositoryToken) private readonly componentRepo: IWorkflowComponentRepository,\n    @Inject(IFlowWorkflowStepRepositoryToken) private readonly flowStepRepo: IFlowWorkflowStepRepository,\n    @Inject(IFlowStepComponentRepositoryToken) private readonly stepComponentRepo: IFlowStepComponentRepository,\n  ) {}\n\n  async getStepTypes(isActive?: boolean): Promise<WorkflowStepTypeEntity[]> {\n    return this.stepTypeRepo.findAll(isActive);\n  }\n\n  async getStepTypeById(id: string): Promise<WorkflowStepTypeEntity | null> {\n    return this.stepTypeRepo.findById(id);\n  }\n\n  async createStepType(data: Partial<WorkflowStepTypeEntity>): Promise<WorkflowStepTypeEntity> {\n    return this.stepTypeRepo.save(data);\n  }\n\n  async updateStepType(id: string, data: Partial<WorkflowStepTypeEntity>): Promise<WorkflowStepTypeEntity> {\n    return this.stepTypeRepo.save({ ...data, id });\n  }\n\n  async deleteStepType(id: string): Promise<boolean> {\n    return this.stepTypeRepo.softDelete(id);\n  }\n\n  async getComponents(isActive?: boolean): Promise<WorkflowComponentEntity[]> {\n    return this.componentRepo.findAll(isActive);\n  }\n\n  async getComponentById(id: string): Promise<WorkflowComponentEntity | null> {\n    return this.componentRepo.findById(id);\n  }",
+      "methods": [
+        "getStepTypes",
+        "getStepTypeById",
+        "createStepType",
+        "updateStepType",
+        "deleteStepType",
+        "getComponents",
+        "getComponentById",
+        "createComponent",
+        "updateComponent",
+        "deleteComponent",
+        "getFlowSteps",
+        "createFlowStep",
+        "updateFlowStep",
+        "deleteFlowStep",
+        "reorderFlowSteps",
+        "getStepComponents",
+        "setStepComponents"
+      ],
+      "entitiesUsed": [
+        "FlowStepComponentEntity",
+        "FlowWorkflowStepEntity",
+        "WorkflowComponentEntity",
+        "WorkflowStepTypeEntity"
+      ],
+      "tablesUsed": [
+        "flow_step_components",
+        "flow_workflow_steps",
+        "workflow_components",
+        "workflow_step_types"
+      ]
+    },
+    {
+      "id": "service.inventoryservice",
+      "name": "InventoryService",
+      "filePath": "apps/backend/src/modules/inventory/application/services/inventory.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { DeviceRepository } from '../../infrastructure/persistence/typeorm/repositories/device.repository';\nimport { WarehouseRepository } from '../../infrastructure/persistence/typeorm/repositories/warehouse.repository';\nimport { DeviceEntity } from '../../infrastructure/persistence/typeorm/entities/device.entity';\nimport { WarehouseEntity } from '../../infrastructure/persistence/typeorm/entities/warehouse.entity';\nimport { DeviceCategory, LifecycleStage, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class InventoryService implements OnModuleInit {\n  constructor(\n    private readonly deviceRepository: DeviceRepository,\n    private readonly warehouseRepository: WarehouseRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.LEAD_CREATED,\n      async (data: {\n        leadId: string;\n        deviceCategory: string;\n        deviceModel: string;\n      }) => {\n        console.log(\n          `[Inventory] Lead created. Registering device skeleton for lead ${data.leadId}.`,\n        );\n        await this.registerDevice(\n          data.leadId,\n          data.deviceCategory as DeviceCategory,\n          data.deviceModel,\n        );\n      },\n    );\n\n    this.eventBus.on(\n      EventNames.VALUATION_CREATED,\n      async (data: { leadId: string; valuationId: string }) => {\n        let device = await this.deviceRepository.findByLeadId(data.leadId);\n        if (!device) {\n          device = await this.registerDevice(\n            data.leadId,\n            DeviceCategory.SMARTPHONE,\n            'Unknown Model',\n          );\n        }\n        device.valuationId = data.valuationId;\n        device.currentStage = LifecycleStage.VALUATION;\n        await this.deviceRepository.save(device);\n      },",
+      "methods": [
+        "registerDevice",
+        "updateDeviceDetails",
+        "getDeviceById",
+        "getDeviceByLeadId",
+        "getAllDevices",
+        "createWarehouse",
+        "getWarehouses",
+        "updateWarehouse",
+        "deleteWarehouse"
+      ],
+      "entitiesUsed": [
+        "DeviceEntity",
+        "WarehouseEntity"
+      ],
+      "tablesUsed": [
+        "devices",
+        "warehouses"
+      ]
+    },
+    {
+      "id": "service.leadservice",
+      "name": "LeadService",
+      "filePath": "apps/backend/src/modules/lead/application/services/lead.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { LeadRepository } from '../../infrastructure/persistence/typeorm/repositories/lead.repository';\nimport { LeadEntity } from '../../infrastructure/persistence/typeorm/entities/lead.entity';\nimport { CreateLeadInput } from '../dto/create-lead.input';\nimport { UpdateLeadInput } from '../dto/update-lead.input';\nimport { LeadStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class LeadService implements OnModuleInit {\n  constructor(\n    private readonly leadRepository: LeadRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.VALUATION_CREATED,\n      async (data: { leadId: string }) => {\n        try {\n          await this.updateLeadStatus(\n            data.leadId,\n            LeadStatus.VALUATION_REQUESTED,\n          );\n        } catch (error) {\n          console.error(\n            `Error handling valuation.created for lead ${data.leadId}:`,\n            error,\n          );\n        }\n      },\n    );\n  }\n\n  async createLead(input: CreateLeadInput): Promise<LeadEntity> {\n    const { brandId, productId, variantId, quoteAmount, assessmentAnswers, ...leadFields } = input;\n    const lead: Partial<LeadEntity> = {\n      ...leadFields,\n      journeyData: { brandId, productId, variantId, quoteAmount, assessmentAnswers },\n      status: LeadStatus.NEW,\n    };\n    const saved = await this.leadRepository.save(lead);\n\n    this.eventBus.emit(EventNames.LEAD_CREATED, {\n      leadId: saved.id,\n      deviceCategory: saved.deviceCategory,\n      deviceModel: saved.deviceModel,\n    });\n\n    return saved;",
+      "methods": [
+        "createLead",
+        "getLeadById",
+        "getAllLeads",
+        "updateLeadStatus",
+        "updateLead"
+      ],
+      "entitiesUsed": [
+        "LeadEntity"
+      ],
+      "tablesUsed": [
+        "leads"
+      ]
+    },
+    {
+      "id": "service.offerservice",
+      "name": "OfferService",
+      "filePath": "apps/backend/src/modules/offer/application/services/offer.service.ts",
+      "codeSnippet": "import { Injectable } from '@nestjs/common';\nimport { OfferRepository } from '../../infrastructure/persistence/typeorm/repositories/offer.repository';\nimport { OfferEntity } from '../../infrastructure/persistence/typeorm/entities/offer.entity';\nimport { CreateOfferInput } from '../dto/create-offer.input';\nimport { OfferStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class OfferService {\n  constructor(\n    private readonly offerRepository: OfferRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  async createOffer(input: CreateOfferInput): Promise<OfferEntity> {\n    const offer: Partial<OfferEntity> = {\n      ...input,\n      status: OfferStatus.DRAFT,\n    };\n    const savedOffer = await this.offerRepository.save(offer);\n\n    this.eventBus.emit(EventNames.OFFER_CREATED, {\n      leadId: savedOffer.leadId,\n      offerId: savedOffer.id,\n      offerAmount: savedOffer.offerAmount,\n    });\n\n    return savedOffer;\n  }\n\n  async getOfferById(id: string): Promise<OfferEntity | null> {\n    return this.offerRepository.findById(id);\n  }\n\n  async getOffersByLeadId(leadId: string): Promise<OfferEntity[]> {\n    return this.offerRepository.findByLeadId(leadId);\n  }\n\n  async deleteOffer(id: string): Promise<boolean> {\n    return this.offerRepository.delete(id);\n  }\n\n  async updateOfferStatus(\n    id: string,\n    status: OfferStatus,\n  ): Promise<OfferEntity> {\n    const offer = await this.offerRepository.findById(id);\n    if (!offer) {\n      throw new Error(`Offer with ID ${id} not found`);\n    }",
+      "methods": [
+        "createOffer",
+        "getOfferById",
+        "getOffersByLeadId",
+        "deleteOffer",
+        "updateOfferStatus"
+      ],
+      "entitiesUsed": [
+        "OfferEntity"
+      ],
+      "tablesUsed": [
+        "offers"
+      ]
+    },
+    {
+      "id": "service.orderservice",
+      "name": "OrderService",
+      "filePath": "apps/backend/src/modules/order/application/services/order.service.ts",
+      "codeSnippet": "import { Injectable, Logger, NotFoundException, BadRequestException } from '@nestjs/common';\nimport { DataSource } from 'typeorm';\nimport { CustomerOrderRepository } from '../../infrastructure/persistence/typeorm/repositories/customer-order.repository';\nimport { CustomerOrderEntity } from '../../infrastructure/persistence/typeorm/entities/customer-order.entity';\nimport { CreateOrderInput } from '../dto/create-order.input';\nimport { CustomerOrderStatus } from '@bizrok/shared';\nimport { BusinessCodeSequenceEntity } from '../../../../common/business-code/business-code-sequence.entity';\n\n@Injectable()\nexport class OrderService {\n  private readonly logger = new Logger(OrderService.name);\n\n  constructor(\n    private readonly orderRepository: CustomerOrderRepository,\n    private readonly dataSource: DataSource,\n  ) {}\n\n  private async generateOrderCode(): Promise<string> {\n    const now = new Date();\n    const dd = String(now.getDate()).padStart(2, '0');\n    const mm = String(now.getMonth() + 1).padStart(2, '0');\n    const yy = String(now.getFullYear()).slice(-2);\n    const datePrefix = `ORD${dd}${mm}${yy}`;\n\n    const queryRunner = this.dataSource.createQueryRunner();\n    await queryRunner.connect();\n    try {\n      await queryRunner.startTransaction();\n\n      let row = await queryRunner.manager.findOne(BusinessCodeSequenceEntity, {\n        where: { prefix: datePrefix },\n      });\n\n      if (!row) {\n        row = queryRunner.manager.create(BusinessCodeSequenceEntity, {\n          prefix: datePrefix,\n          nextValue: 1,\n        });\n        await queryRunner.manager.save(row);\n        await queryRunner.commitTransaction();\n        return `${datePrefix}000001`;\n      }\n\n      const seq = row.nextValue;\n      row.nextValue = seq + 1;\n      await queryRunner.manager.save(row);\n      await queryRunner.commitTransaction();\n      return `${datePrefix}${String(seq).padStart(6, '0')}`;\n    } catch (error) {\n      await queryRunner.rollbackTransaction();",
+      "methods": [
+        "generateOrderCode",
+        "createOrder",
+        "getOrdersByCustomerId",
+        "getOrderById",
+        "getAllOrders",
+        "countOrders",
+        "updateOrderStatus",
+        "cancelOrder"
+      ],
+      "entitiesUsed": [
+        "BusinessCodeSequenceEntity",
+        "CustomerOrderEntity"
+      ],
+      "tablesUsed": [
+        "business_code_sequences",
+        "customer_orders"
+      ]
+    },
+    {
+      "id": "service.paymentservice",
+      "name": "PaymentService",
+      "filePath": "apps/backend/src/modules/payment/application/services/payment.service.ts",
+      "codeSnippet": "import { Injectable, Logger, NotFoundException } from '@nestjs/common';\nimport { PaymentRepository } from '../../infrastructure/persistence/typeorm/repositories/payment.repository';\nimport { PaymentEntity } from '../../infrastructure/persistence/typeorm/entities/payment.entity';\nimport { InitiatePaymentInput } from '../dto/initiate-payment.input';\nimport { PaymentMethod, PaymentStatus } from '@bizrok/shared';\n\n@Injectable()\nexport class PaymentService {\n  private readonly logger = new Logger(PaymentService.name);\n\n  constructor(\n    private readonly paymentRepository: PaymentRepository,\n  ) {}\n\n  async initiatePayment(\n    orderId: string,\n    customerId: string,\n    amount: number,\n    method: string,\n  ): Promise<PaymentEntity> {\n    const status =\n      method === PaymentMethod.CASH_ON_PICKUP\n        ? PaymentStatus.PROCESSING\n        : PaymentStatus.PENDING;\n\n    const payment: Partial<PaymentEntity> = {\n      orderId,\n      customerId,\n      amount,\n      method: method as PaymentMethod,\n      status,\n    };\n\n    const saved = await this.paymentRepository.save(payment);\n    this.logger.log(\n      `Payment initiated: ${saved.id} for order ${orderId}, method: ${method}, amount: ${amount}`,\n    );\n    return saved;\n  }\n\n  async processPayment(\n    paymentId: string,\n    transactionRef?: string,\n  ): Promise<PaymentEntity> {\n    const payment = await this.paymentRepository.findById(paymentId);\n    if (!payment) {\n      throw new NotFoundException(`Payment with ID ${paymentId} not found`);\n    }\n\n    payment.status = PaymentStatus.COMPLETED;",
+      "methods": [
+        "initiatePayment",
+        "processPayment",
+        "getPaymentsByOrder",
+        "getPaymentsByCustomer",
+        "getAllPayments",
+        "countPayments"
+      ],
+      "entitiesUsed": [
+        "PaymentEntity"
+      ],
+      "tablesUsed": [
+        "payments"
+      ]
+    },
+    {
+      "id": "service.pickupservice",
+      "name": "PickupService",
+      "filePath": "apps/backend/src/modules/pickup/application/services/pickup.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { PickupRepository } from '../../infrastructure/persistence/typeorm/repositories/pickup.repository';\nimport { PickupEntity } from '../../infrastructure/persistence/typeorm/entities/pickup.entity';\nimport { CreatePickupInput } from '../dto/create-pickup.input';\nimport { PickupStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class PickupService implements OnModuleInit {\n  constructor(\n    private readonly pickupRepository: PickupRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.OFFER_ACCEPTED,\n      async (data: { leadId: string }) => {\n        console.log(\n          `[Logistics] Offer accepted for lead ${data.leadId}. Ready for pickup scheduling.`,\n        );\n      },\n    );\n  }\n\n  async createPickup(input: CreatePickupInput): Promise<PickupEntity> {\n    const pickup: Partial<PickupEntity> = {\n      ...input,\n      status: PickupStatus.SCHEDULED,\n    };\n    const savedPickup = await this.pickupRepository.save(pickup);\n\n    this.eventBus.emit(EventNames.PICKUP_SCHEDULED, {\n      leadId: savedPickup.leadId,\n      pickupId: savedPickup.id,\n    });\n\n    return savedPickup;\n  }\n\n  async getPickupById(id: string): Promise<PickupEntity | null> {\n    return this.pickupRepository.findById(id);\n  }\n\n  async getPickupsByLeadId(leadId: string): Promise<PickupEntity[]> {\n    return this.pickupRepository.findByLeadId(leadId);\n  }\n\n  async deletePickup(id: string): Promise<boolean> {\n    return this.pickupRepository.delete(id);",
+      "methods": [
+        "createPickup",
+        "getPickupById",
+        "getPickupsByLeadId",
+        "deletePickup",
+        "updatePickupStatus"
+      ],
+      "entitiesUsed": [
+        "PickupEntity"
+      ],
+      "tablesUsed": [
+        "pickups"
+      ]
+    },
+    {
+      "id": "service.procurementservice",
+      "name": "ProcurementService",
+      "filePath": "apps/backend/src/modules/procurement/application/services/procurement.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { ProcurementRepository } from '../../infrastructure/persistence/typeorm/repositories/procurement.repository';\nimport { ProcurementEntity } from '../../infrastructure/persistence/typeorm/entities/procurement.entity';\nimport { CreateProcurementInput } from '../dto/create-procurement.input';\nimport { ProcurementStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class ProcurementService implements OnModuleInit {\n  constructor(\n    private readonly procurementRepository: ProcurementRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.PICKUP_DELIVERED,\n      (data: { leadId: string }) => {\n        console.log(\n          `[Procurement] Pickup delivered for lead ${data.leadId}. Preparing intake.`,\n        );\n      },\n    );\n  }\n\n  async createProcurement(\n    input: CreateProcurementInput,\n  ): Promise<ProcurementEntity> {\n    const procurement: Partial<ProcurementEntity> = {\n      ...input,\n      status: ProcurementStatus.PENDING,\n    };\n    const saved = await this.procurementRepository.save(procurement);\n\n    this.eventBus.emit(EventNames.PROCUREMENT_CREATED, {\n      deviceId: saved.deviceId,\n      procurementId: saved.id,\n      purchasePrice: Number(saved.purchasePrice),\n    });\n\n    return saved;\n  }\n\n  async deleteProcurement(id: string): Promise<boolean> {\n    return this.procurementRepository.delete(id);\n  }\n\n  async completeProcurement(id: string): Promise<ProcurementEntity> {\n    const procurement = await this.procurementRepository.findById(id);\n    if (!procurement) {",
+      "methods": [
+        "createProcurement",
+        "deleteProcurement",
+        "completeProcurement",
+        "getProcurementById",
+        "getProcurementByDeviceId",
+        "getAllProcurements"
+      ],
+      "entitiesUsed": [
+        "ProcurementEntity"
+      ],
+      "tablesUsed": [
+        "procurements"
+      ]
+    },
+    {
+      "id": "service.profitabilityservice",
+      "name": "ProfitabilityService",
+      "filePath": "apps/backend/src/modules/profitability/application/services/profitability.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { ProfitabilityRepository } from '../../infrastructure/persistence/typeorm/repositories/profitability.repository';\nimport { ProfitabilityReportEntity } from '../../infrastructure/persistence/typeorm/entities/profitability.entity';\nimport { EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class ProfitabilityService implements OnModuleInit {\n  constructor(\n    private readonly profitabilityRepository: ProfitabilityRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    // 1. Listen to procurement completion\n    this.eventBus.on(\n      EventNames.PROCUREMENT_COMPLETED,\n      async (data: { deviceId: string; purchasePrice: number }) => {\n        console.log(\n          `[Profitability] Initializing acquisition costs for device ${data.deviceId}`,\n        );\n        try {\n          let report = await this.profitabilityRepository.findByDeviceId(\n            data.deviceId,\n          );\n          if (!report) {\n            report = new ProfitabilityReportEntity();\n            report.deviceId = data.deviceId;\n          }\n          report.acquisitionCost = Number(data.purchasePrice);\n          await this.profitabilityRepository.save(report);\n        } catch (e) {\n          console.error('Failed to update procurement profitability:', e);\n        }\n      },\n    );\n\n    // 2. Listen to refurbishment completion\n    this.eventBus.on(\n      EventNames.REFURBISHMENT_COMPLETED,\n      async (data: {\n        deviceId: string;\n        partsCost: number;\n        laborCost: number;\n      }) => {\n        console.log(\n          `[Profitability] Adding repair costs for device ${data.deviceId}`,\n        );\n        try {\n          let report = await this.profitabilityRepository.findByDeviceId(",
+      "methods": [
+        "getReportByDeviceId",
+        "getAllReports"
+      ],
+      "entitiesUsed": [
+        "ProfitabilityReportEntity"
+      ],
+      "tablesUsed": [
+        "profitability_reports"
+      ]
+    },
+    {
+      "id": "service.qcservice",
+      "name": "QCService",
+      "filePath": "apps/backend/src/modules/qc/application/services/qc.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { QCRepository } from '../../infrastructure/persistence/typeorm/repositories/qc.repository';\nimport { QCAuditEntity } from '../../infrastructure/persistence/typeorm/entities/qc.entity';\nimport { SubmitQCInput } from '../dto/submit-qc.input';\nimport { QCStatus, DeviceGrade, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class QCService implements OnModuleInit {\n  constructor(\n    private readonly qcRepository: QCRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.PROCUREMENT_COMPLETED,\n      (data: { deviceId: string }) => {\n        console.log(\n          `[QC] Procurement completed for device ${data.deviceId}. Ready for inspection.`,\n        );\n      },\n    );\n  }\n\n  async submitQC(input: SubmitQCInput): Promise<QCAuditEntity> {\n    const isPassed = input.functionalStatus.toUpperCase() === 'PASSED';\n    const status = isPassed\n      ? QCStatus.COMPLETED_PASSED\n      : QCStatus.COMPLETED_FAILED;\n\n    const qc: Partial<QCAuditEntity> = {\n      ...input,\n      status,\n    };\n    const saved = await this.qcRepository.save(qc);\n\n    const needsRefurbishment =\n      !isPassed ||\n      (input.cosmeticGrade !== DeviceGrade.NEW &&\n        input.cosmeticGrade !== DeviceGrade.GRADE_A_PLUS &&\n        input.cosmeticGrade !== DeviceGrade.GRADE_A);\n\n    this.eventBus.emit(EventNames.QC_COMPLETED, {\n      deviceId: saved.deviceId,\n      qcId: saved.id,\n      cosmeticGrade: saved.cosmeticGrade,\n      needsRefurbishment,\n    });\n",
+      "methods": [
+        "submitQC",
+        "getQCById",
+        "getQCByDeviceId",
+        "updateQcAudit",
+        "deleteQcAudit"
+      ],
+      "entitiesUsed": [
+        "QCAuditEntity"
+      ],
+      "tablesUsed": [
+        "qc_audits"
+      ]
+    },
+    {
+      "id": "service.referralservice",
+      "name": "ReferralService",
+      "filePath": "apps/backend/src/modules/referral/application/services/referral.service.ts",
+      "codeSnippet": "import { Injectable, Logger, BadRequestException } from '@nestjs/common';\r\nimport { randomBytes } from 'crypto';\r\nimport { ReferralRepository } from '../../infrastructure/persistence/typeorm/repositories/referral.repository';\r\nimport { ReferralConfigEntity } from '../../infrastructure/persistence/typeorm/entities/referral-config.entity';\r\nimport { ReferralEntity } from '../../infrastructure/persistence/typeorm/entities/referral.entity';\r\nimport { CustomerRepository } from '../../../auth/infrastructure/persistence/typeorm/repositories/customer.repository';\r\n\r\nexport interface ReferralConfigInput {\r\n  enabled?: boolean;\r\n  referrerReward?: number;\r\n  refereeReward?: number;\r\n  qualifyingEvent?: string;\r\n  maxRewardsPerCustomer?: number;\r\n  minOrderValue?: number;\r\n  headline?: string;\r\n  terms?: string;\r\n}\r\n\r\nexport interface ReferralSummary {\r\n  referralCode: string;\r\n  config: ReferralConfigEntity;\r\n  totalReferrals: number;\r\n  rewardedReferrals: number;\r\n  pendingReferrals: number;\r\n  totalEarned: number;\r\n  referrals: ReferralEntity[];\r\n}\r\n\r\nconst CODE_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';\r\nconst CODE_PREFIX = 'BZRK';\r\n\r\n@Injectable()\r\nexport class ReferralService {\r\n  private readonly logger = new Logger(ReferralService.name);\r\n\r\n  constructor(\r\n    private readonly referralRepo: ReferralRepository,\r\n    private readonly customerRepo: CustomerRepository,\r\n  ) {}\r\n\r\n  /**\r\n   * Returns the singleton config, seeding a sensible default row on first use.\r\n   * All values remain fully editable from the admin panel.\r\n   */\r\n  async getConfig(): Promise<ReferralConfigEntity> {\r\n    let config = await this.referralRepo.getConfig();\r\n    if (!config) {\r\n      // Reward amounts intentionally seed at 0 — they are NOT hardcoded and\r\n      // must be configured by an admin from the referral settings page.\r\n      config = await this.referralRepo.saveConfig({\r",
+      "methods": [
+        "getConfig",
+        "updateConfig",
+        "generateUniqueCode",
+        "ensureReferralCode",
+        "getSummary",
+        "registerReferral",
+        "listAll",
+        "updateStatus"
+      ],
+      "entitiesUsed": [
+        "ReferralConfigEntity",
+        "ReferralEntity"
+      ],
+      "tablesUsed": [
+        "referral_config",
+        "referrals"
+      ]
+    },
+    {
+      "id": "service.refurbishmentservice",
+      "name": "RefurbishmentService",
+      "filePath": "apps/backend/src/modules/refurbishment/application/services/refurbishment.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { RefurbishmentRepository } from '../../infrastructure/persistence/typeorm/repositories/refurbishment.repository';\nimport { RefurbishmentEntity } from '../../infrastructure/persistence/typeorm/entities/refurbishment.entity';\nimport { CreateWorkOrderInput } from '../dto/create-work-order.input';\nimport { RefurbishmentStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class RefurbishmentService implements OnModuleInit {\n  constructor(\n    private readonly refurbishmentRepository: RefurbishmentRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.QC_COMPLETED,\n      async (data: { deviceId: string; needsRefurbishment: boolean }) => {\n        if (data.needsRefurbishment) {\n          console.log(\n            `[Refurbishment] QC completed. Refurbishment needed for device ${data.deviceId}. Creating work order.`,\n          );\n          await this.createWorkOrder({ deviceId: data.deviceId });\n        }\n      },\n    );\n  }\n\n  async createWorkOrder(\n    input: CreateWorkOrderInput,\n  ): Promise<RefurbishmentEntity> {\n    const workOrder: Partial<RefurbishmentEntity> = {\n      deviceId: input.deviceId,\n      technicianName: input.technicianName || 'Unassigned',\n      partsReplaced: [],\n      partsCost: 0,\n      laborCost: 0,\n      status: RefurbishmentStatus.PENDING,\n    };\n    return this.refurbishmentRepository.save(workOrder);\n  }\n\n  async updateWorkOrderStatus(\n    id: string,\n    status: RefurbishmentStatus,\n    technicianName?: string,\n  ): Promise<RefurbishmentEntity> {\n    const workOrder = await this.refurbishmentRepository.findById(id);\n    if (!workOrder) {\n      throw new Error(`Work order with ID ${id} not found`);",
+      "methods": [
+        "createWorkOrder",
+        "updateWorkOrderStatus",
+        "completeRefurbishment",
+        "getWorkOrderById",
+        "getWorkOrdersByDeviceId",
+        "deleteWorkOrder"
+      ],
+      "entitiesUsed": [
+        "RefurbishmentEntity"
+      ],
+      "tablesUsed": [
+        "refurbishments"
+      ]
+    },
+    {
+      "id": "service.salesservice",
+      "name": "SalesService",
+      "filePath": "apps/backend/src/modules/sales/application/services/sales.service.ts",
+      "codeSnippet": "import { Injectable } from '@nestjs/common';\nimport { SalesRepository } from '../../infrastructure/persistence/typeorm/repositories/sales.repository';\nimport { SalesOrderEntity } from '../../infrastructure/persistence/typeorm/entities/sales.entity';\nimport { CreateSalesOrderInput } from '../dto/create-sales-order.input';\nimport { SalesStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class SalesService {\n  constructor(\n    private readonly salesRepository: SalesRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  async createSalesOrder(\n    input: CreateSalesOrderInput,\n  ): Promise<SalesOrderEntity> {\n    const order: Partial<SalesOrderEntity> = {\n      ...input,\n      status: SalesStatus.DRAFT,\n    };\n    return this.salesRepository.save(order);\n  }\n\n  async completeSale(id: string): Promise<SalesOrderEntity> {\n    const order = await this.salesRepository.findById(id);\n    if (!order) {\n      throw new Error(`Sales order with ID ${id} not found`);\n    }\n    order.status = SalesStatus.PAID;\n    const updated = await this.salesRepository.save(order);\n\n    this.eventBus.emit(EventNames.DEVICE_SOLD, {\n      deviceId: updated.deviceId,\n      salesId: updated.id,\n      salePrice: Number(updated.salePrice),\n      customerName: updated.customerName,\n      salesChannel: updated.salesChannel,\n    });\n\n    return updated;\n  }\n\n  async getSalesOrderById(id: string): Promise<SalesOrderEntity | null> {\n    return this.salesRepository.findById(id);\n  }\n\n  async getSalesOrderByDeviceId(\n    deviceId: string,\n  ): Promise<SalesOrderEntity | null> {",
+      "methods": [
+        "createSalesOrder",
+        "completeSale",
+        "getSalesOrderById",
+        "getSalesOrderByDeviceId",
+        "getAllSalesOrders",
+        "updateSalesOrder",
+        "deleteSalesOrder"
+      ],
+      "entitiesUsed": [
+        "SalesOrderEntity"
+      ],
+      "tablesUsed": [
+        "sales_orders"
+      ]
+    },
+    {
+      "id": "service.settlementservice",
+      "name": "SettlementService",
+      "filePath": "apps/backend/src/modules/settlement/application/services/settlement.service.ts",
+      "codeSnippet": "import { Injectable, OnModuleInit } from '@nestjs/common';\nimport { SettlementRepository } from '../../infrastructure/persistence/typeorm/repositories/settlement.repository';\nimport { SettlementEntity } from '../../infrastructure/persistence/typeorm/entities/settlement.entity';\nimport { CreateSettlementInput } from '../dto/create-settlement.input';\nimport { SettlementStatus, EventNames } from '@bizrok/shared';\nimport { EventBus } from '../../../../common/events/event-bus';\n\n@Injectable()\nexport class SettlementService implements OnModuleInit {\n  constructor(\n    private readonly settlementRepository: SettlementRepository,\n    private readonly eventBus: EventBus,\n  ) {}\n\n  onModuleInit() {\n    this.eventBus.on(\n      EventNames.PROCUREMENT_COMPLETED,\n      async (data: { deviceId: string; purchasePrice: number }) => {\n        console.log(\n          `[Settlement] Procurement completed. Auto-creating pending payout for device ${data.deviceId} of amount ${data.purchasePrice}`,\n        );\n        try {\n          await this.createSettlement({\n            deviceId: data.deviceId,\n            payoutAmount: data.purchasePrice,\n            paymentMethod: 'BANK_TRANSFER',\n          });\n        } catch (e) {\n          console.error('Failed to auto-create settlement:', e);\n        }\n      },\n    );\n  }\n\n  async createSettlement(\n    input: CreateSettlementInput,\n  ): Promise<SettlementEntity> {\n    const settlement: Partial<SettlementEntity> = {\n      ...input,\n      status: SettlementStatus.PENDING,\n    };\n    return this.settlementRepository.save(settlement);\n  }\n\n  async processPayout(\n    id: string,\n    transactionReference: string,\n  ): Promise<SettlementEntity> {\n    const settlement = await this.settlementRepository.findById(id);\n    if (!settlement) {",
+      "methods": [
+        "createSettlement",
+        "processPayout",
+        "getSettlementById",
+        "getSettlementByDeviceId",
+        "getAllSettlements",
+        "deleteSettlement"
+      ],
+      "entitiesUsed": [
+        "SettlementEntity"
+      ],
+      "tablesUsed": [
+        "settlements"
+      ]
+    },
+    {
+      "id": "service.assessmenttypeservice",
+      "name": "AssessmentTypeService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/assessment-type.service.ts",
+      "codeSnippet": "import {\n  Injectable,\n  OnModuleInit,\n  NotFoundException,\n  BadRequestException,\n} from '@nestjs/common';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport { AssessmentTypeEntity } from '../../infrastructure/persistence/typeorm/entities/assessment-type.entity';\nimport { BusinessCodeService } from '../../../../common/business-code/business-code.service';\n\n@Injectable()\nexport class AssessmentTypeService implements OnModuleInit {\n  constructor(\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly businessCodeService: BusinessCodeService,\n  ) {}\n\n  async onModuleInit(): Promise<void> {\n    await this.ensureGeneralType();\n    await this.backfillSlugs();\n  }\n\n  async findAll(isActive?: boolean): Promise<AssessmentTypeEntity[]> {\n    return this.assessmentRepo.findAssessmentTypes(isActive);\n  }\n\n  async findById(id: string): Promise<AssessmentTypeEntity> {\n    const at = await this.assessmentRepo.findAssessmentTypeById(id);\n    if (!at) throw new NotFoundException(`AssessmentType ${id} not found`);\n    return at;\n  }\n\n  async findByCode(code: string): Promise<AssessmentTypeEntity | null> {\n    return this.assessmentRepo.findAssessmentTypeByCode(code);\n  }\n\n  async findBySlug(slug: string): Promise<AssessmentTypeEntity | null> {\n    return this.assessmentRepo.findAssessmentTypeBySlug(slug);\n  }\n\n  async resolveGeneralTypeId(): Promise<string> {\n    const general =\n      await this.assessmentRepo.findAssessmentTypeByCode('GENERAL');\n    if (general) return general.id;\n    throw new NotFoundException('GENERAL assessment type not found');\n  }\n\n  async listPricingSourceOptions(): Promise<\n    { value: string; label: string }[]\n  > {",
+      "methods": [
+        "onModuleInit",
+        "findAll",
+        "findById",
+        "findByCode",
+        "findBySlug",
+        "resolveGeneralTypeId",
+        "listPricingSourceOptions",
+        "ensureGeneralType",
+        "backfillSlugs",
+        "create",
+        "update",
+        "delete",
+        "reorder",
+        "toggleActive",
+        "validateUniqueness",
+        "validateSlugUniqueness",
+        "validateNameUniqueness"
+      ],
+      "entitiesUsed": [
+        "AssessmentTypeEntity"
+      ],
+      "tablesUsed": [
+        "assessment_types"
+      ]
+    },
+    {
+      "id": "service.assessmentservice",
+      "name": "AssessmentService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/assessment.service.ts",
+      "codeSnippet": "import {\n  Injectable,\n  NotFoundException,\n  BadRequestException,\n} from '@nestjs/common';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport {\n  ValuationVersionEntity,\n  VersionStatus,\n} from '../../infrastructure/persistence/typeorm/entities/valuation-version.entity';\nimport { ValuationAuditLogEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-audit-log.entity';\nimport { TemplateService } from './template.service';\nimport {\n  AssessmentTemplateEntity,\n  TemplateLevel,\n} from '../../infrastructure/persistence/typeorm/entities/assessment-template.entity';\nimport { AssessmentTypeService } from './assessment-type.service';\nimport { BusinessCodeService } from '../../../../common/business-code/business-code.service';\n\n@Injectable()\nexport class AssessmentService {\n  constructor(\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly templateService: TemplateService,\n    private readonly assessmentTypeService: AssessmentTypeService,\n    private readonly businessCodeService: BusinessCodeService,\n  ) {}\n\n  /**\n   * Helper to write valuation audit logs\n   */\n  private async logAudit(params: {\n    module: string;\n    action: string;\n    entityType: string;\n    entityId: string;\n    businessCode?: string;\n    oldValue?: any;\n    newValue?: any;\n    createdBy?: string;\n  }) {\n    const log = new ValuationAuditLogEntity();\n    log.module = params.module;\n    log.action = params.action;\n    log.entityType = params.entityType;\n    log.entityId = params.entityId;\n    log.businessCode = params.businessCode || null;\n    log.oldValue = params.oldValue ? JSON.stringify(params.oldValue) : null;\n    log.newValue = params.newValue ? JSON.stringify(params.newValue) : null;\n    log.createdBy = params.createdBy || 'system';",
+      "methods": [
+        "logAudit",
+        "resolveAssessmentMerged",
+        "cloneFlowSetup",
+        "createVersionDraft",
+        "publishVersion"
+      ],
+      "entitiesUsed": [
+        "AuditLogEntity",
+        "AssessmentTemplateEntity",
+        "ValuationAuditLogEntity",
+        "ValuationVersionEntity"
+      ],
+      "tablesUsed": [
+        "audit_logs",
+        "valuation_templates",
+        "valuation_audit_logs",
+        "valuation_versions"
+      ]
+    },
+    {
+      "id": "service.functionalcodeservice",
+      "name": "FunctionalCodeService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/functional-code.service.ts",
+      "codeSnippet": "import { Injectable, Logger } from '@nestjs/common';\nimport { DataSource } from 'typeorm';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\n\n@Injectable()\nexport class FunctionalCodeService {\n  private readonly logger = new Logger(FunctionalCodeService.name);\n\n  constructor(\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly dataSource: DataSource,\n  ) {}\n\n  async generateQuestionFunctionalCode(\n    templateId: string,\n    code: string,\n    questionText: string,\n  ): Promise<string> {\n    const template = await this.assessmentRepo.findTemplateById(templateId);\n    let catCode = 'GEN';\n    if (template?.categoryId) {\n      try {\n        const catRow = await this.dataSource\n          .createQueryBuilder()\n          .select('cat.slug', 'slug')\n          .addSelect('cat.name', 'name')\n          .from('categories', 'cat')\n          .where('cat.id = :id', { id: template.categoryId })\n          .getRawOne();\n        const slugOrName = catRow?.slug || catRow?.name || '';\n        const s = slugOrName.toLowerCase();\n        if (\n          s.includes('smartphone') ||\n          s.includes('phone') ||\n          s.includes('mobile')\n        )\n          catCode = 'SP';\n        else if (s.includes('laptop') || s.includes('notebook')) catCode = 'LP';\n        else if (s.includes('tablet') || s.includes('ipad')) catCode = 'TB';\n        else if (s.includes('watch') || s.includes('wearable')) catCode = 'SW';\n        else if (\n          s.includes('accessory') ||\n          s.includes('charger') ||\n          s.includes('cable')\n        )\n          catCode = 'AC';\n      } catch {}\n    }\n\n    const c = code.toUpperCase();",
+      "methods": [
+        "generateQuestionFunctionalCode",
+        "generateOptionFunctionalCode"
+      ],
+      "entitiesUsed": [],
+      "tablesUsed": []
+    },
+    {
+      "id": "service.pagedesignerservice",
+      "name": "PageDesignerService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/page-designer.service.ts",
+      "codeSnippet": "import { Injectable, NotFoundException, Logger } from '@nestjs/common';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport { TemplatePageEntity } from '../../infrastructure/persistence/typeorm/entities/template-page.entity';\nimport { TemplateGroupEntity } from '../../infrastructure/persistence/typeorm/entities/template-group.entity';\nimport { TemplateQuestionEntity } from '../../infrastructure/persistence/typeorm/entities/template-question.entity';\nimport { AssessmentTemplateEntity } from '../../infrastructure/persistence/typeorm/entities/assessment-template.entity';\nimport {\n  PageDesignConfig,\n  GroupPresentationConfig,\n  QuestionCardConfig,\n  ThemeConfig,\n  PageVisibilityRule,\n  getDefaultPageDesignConfig,\n  getDefaultGroupPresentationConfig,\n  getDefaultQuestionCardConfig,\n  getDefaultThemeConfig,\n} from '../../domain/interfaces/design-config.types';\n\n@Injectable()\nexport class PageDesignerService {\n  private readonly logger = new Logger(PageDesignerService.name);\n\n  constructor(private readonly assessmentRepo: AssessmentRepository) {}\n\n  async updatePageDesignConfig(\n    pageId: string,\n    config: Partial<PageDesignConfig>,\n  ): Promise<TemplatePageEntity> {\n    const page = await this.assessmentRepo.findTemplatePageById(pageId);\n    if (!page) throw new NotFoundException(`Page ${pageId} not found`);\n\n    const existing = page.designConfig\n      ? JSON.parse(page.designConfig)\n      : getDefaultPageDesignConfig();\n    const merged = { ...existing, ...this.cleanUndefined(config) };\n    page.designConfig = JSON.stringify(merged);\n    return this.assessmentRepo.saveTemplatePage(page);\n  }\n\n  async updateGroupPresentationConfig(\n    groupId: string,\n    config: Partial<GroupPresentationConfig>,\n  ): Promise<TemplateGroupEntity> {\n    const group = await this.assessmentRepo.findTemplateGroupById(groupId);\n    if (!group) throw new NotFoundException(`Group ${groupId} not found`);\n\n    const existing = group.presentationConfig\n      ? JSON.parse(group.presentationConfig)\n      : getDefaultGroupPresentationConfig();\n    const merged = { ...existing, ...this.cleanUndefined(config) };",
+      "methods": [
+        "updatePageDesignConfig",
+        "updateGroupPresentationConfig",
+        "updateQuestionCardConfig",
+        "updateTemplateTheme",
+        "setNestedQuestion",
+        "removeNestedQuestion",
+        "getQuestionTree",
+        "updatePageVisibilityRules",
+        "getPageVisibilityRules",
+        "saveDesignAsTemplate",
+        "getDesignTemplates",
+        "getAssessmentAnalytics"
+      ],
+      "entitiesUsed": [
+        "AssessmentTemplateEntity",
+        "TemplateGroupEntity",
+        "TemplatePageEntity",
+        "TemplateQuestionEntity"
+      ],
+      "tablesUsed": [
+        "valuation_templates",
+        "valuation_template_groups",
+        "valuation_template_pages",
+        "valuation_template_questions"
+      ]
+    },
+    {
+      "id": "service.templatecrudservice",
+      "name": "TemplateCrudService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/template-crud.service.ts",
+      "codeSnippet": "import {\n  Injectable,\n  NotFoundException,\n  BadRequestException,\n} from '@nestjs/common';\nimport { DataSource } from 'typeorm';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport {\n  AssessmentTemplateEntity,\n  TemplateLevel,\n} from '../../infrastructure/persistence/typeorm/entities/assessment-template.entity';\nimport { TemplateOverrideMode } from '../../infrastructure/persistence/typeorm/entities/assessment-template-question.entity';\nimport { ValuationVersionEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-version.entity';\nimport { ValuationAuditLogEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-audit-log.entity';\nimport { TemplatePageEntity } from '../../infrastructure/persistence/typeorm/entities/template-page.entity';\nimport { TemplateGroupEntity } from '../../infrastructure/persistence/typeorm/entities/template-group.entity';\nimport { TemplateQuestionEntity } from '../../infrastructure/persistence/typeorm/entities/template-question.entity';\nimport { TemplateOptionEntity } from '../../infrastructure/persistence/typeorm/entities/template-option.entity';\nimport { BusinessCodeService } from '../../../../common/business-code/business-code.service';\nimport { FunctionalCodeService } from './functional-code.service';\nimport {\n  ValuationVersionEntity as VersionEntity,\n  VersionStatus,\n} from '../../infrastructure/persistence/typeorm/entities/valuation-version.entity';\n\n@Injectable()\nexport class TemplateCrudService {\n  constructor(\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly businessCodeService: BusinessCodeService,\n    private readonly functionalCodeService: FunctionalCodeService,\n    private readonly dataSource: DataSource,\n  ) {}\n\n  async getActiveVersion(): Promise<ValuationVersionEntity | null> {\n    let v = await this.assessmentRepo.findVersionByStatus(\n      VersionStatus.PUBLISHED,\n    );\n    if (!v)\n      v = await this.assessmentRepo.findVersionByStatus(VersionStatus.DRAFT);\n    return v || null;\n  }\n\n  private async resolveAssessmentTypeId(\n    assessmentTypeId?: string,\n  ): Promise<string> {\n    if (assessmentTypeId) return assessmentTypeId;\n    const general =\n      await this.assessmentRepo.findAssessmentTypeByCode('GENERAL');\n    if (general) return general.id;",
+      "methods": [
+        "getActiveVersion",
+        "resolveAssessmentTypeId",
+        "ensureTemplateExists",
+        "deepCopyTemplate",
+        "ensureDefaultCategoryTemplate",
+        "getTemplateWithQuestions",
+        "getTemplatePages",
+        "updateTemplateName",
+        "deleteTemplate",
+        "cleanupOrphanedTemplateData",
+        "createTemplatePage",
+        "updateTemplatePage",
+        "deleteTemplatePage",
+        "getTemplateAncestorIds",
+        "validateScope",
+        "resolvePageTemplateId",
+        "resolveGroupTemplateId",
+        "resolveQuestionTemplateId",
+        "materializeTemplatePage",
+        "materializeTemplateGroup",
+        "materializeTemplateQuestion",
+        "createTemplateGroup",
+        "updateTemplateGroup",
+        "deleteTemplateGroup",
+        "createTemplateQuestion",
+        "updateTemplateQuestion",
+        "deleteTemplateQuestion",
+        "createTemplateOption",
+        "updateTemplateOption",
+        "deleteTemplateOption",
+        "bulkCreateTemplateOptions",
+        "logAudit"
+      ],
+      "entitiesUsed": [
+        "AuditLogEntity",
+        "AssessmentTemplateEntity",
+        "TemplateGroupEntity",
+        "TemplateOptionEntity",
+        "TemplatePageEntity",
+        "TemplateQuestionEntity",
+        "ValuationAuditLogEntity",
+        "ValuationVersionEntity"
+      ],
+      "tablesUsed": [
+        "audit_logs",
+        "valuation_templates",
+        "valuation_template_groups",
+        "valuation_template_options",
+        "valuation_template_pages",
+        "valuation_template_questions",
+        "valuation_audit_logs",
+        "valuation_versions"
+      ]
+    },
+    {
+      "id": "service.templateoverrideservice",
+      "name": "TemplateOverrideService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/template-override.service.ts",
+      "codeSnippet": "import {\n  Injectable,\n  NotFoundException,\n  BadRequestException,\n} from '@nestjs/common';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport { TemplateOverrideMode } from '../../infrastructure/persistence/typeorm/entities/assessment-template-question.entity';\nimport { TemplateQuestionEntity } from '../../infrastructure/persistence/typeorm/entities/template-question.entity';\nimport { TemplateCrudService } from './template-crud.service';\n\n@Injectable()\nexport class TemplateOverrideService {\n  constructor(\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly templateCrud: TemplateCrudService,\n  ) {}\n\n  async addQuestionToTemplate(\n    templateId: string,\n    questionId: string,\n    overrideMode: string = TemplateOverrideMode.ADDED,\n    configJson?: string,\n    deductionRuleId?: string,\n  ): Promise<TemplateQuestionEntity> {\n    const pages = await this.assessmentRepo.findTemplatePages(templateId);\n    if (pages.length === 0) {\n      throw new BadRequestException('Template has no pages. Add a page first.');\n    }\n    const groups = await this.assessmentRepo.findTemplateGroups(pages[0].id);\n    if (groups.length === 0) {\n      throw new BadRequestException(\n        'Template has no groups. Add a group first.',\n      );\n    }\n    const maxOrder = await this.assessmentRepo\n      .findTemplateQuestionsV2(templateId)\n      .then((qs) => qs.reduce((max, q) => Math.max(max, q.displayOrder), -1));\n    return this.templateCrud.createTemplateQuestion({\n      templateId,\n      groupId: groups[0].id,\n      code: '',\n      questionText: '',\n      inputType: 'SINGLE_SELECT',\n      displayOrder: maxOrder + 1,\n      overrideMode: overrideMode,\n      configJson,\n    });\n  }\n\n  async hideQuestionInTemplate(",
+      "methods": [
+        "addQuestionToTemplate",
+        "hideQuestionInTemplate",
+        "unhideQuestionInTemplate",
+        "hideGroupInTemplate",
+        "unhideGroupInTemplate",
+        "modifyQuestionInTemplate",
+        "hideOptionInTemplate",
+        "showOptionInTemplate"
+      ],
+      "entitiesUsed": [
+        "TemplateQuestionEntity"
+      ],
+      "tablesUsed": [
+        "valuation_template_questions"
+      ]
+    },
+    {
+      "id": "service.templateservice",
+      "name": "TemplateService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/template.service.ts",
+      "codeSnippet": "import { Injectable, NotFoundException, Logger } from '@nestjs/common';\nimport { DataSource } from 'typeorm';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport {\n  AssessmentTemplateEntity,\n  TemplateLevel,\n} from '../../infrastructure/persistence/typeorm/entities/assessment-template.entity';\nimport { TemplateQuestionEntity } from '../../infrastructure/persistence/typeorm/entities/template-question.entity';\nimport { TemplateOptionEntity } from '../../infrastructure/persistence/typeorm/entities/template-option.entity';\nimport { TemplatePageEntity } from '../../infrastructure/persistence/typeorm/entities/template-page.entity';\nimport { TemplateGroupEntity } from '../../infrastructure/persistence/typeorm/entities/template-group.entity';\nimport { TemplateCrudService } from './template-crud.service';\n\nexport interface ResolvedTemplateQuestion {\n  question: TemplateQuestionEntity;\n  options: TemplateOptionEntity[];\n  overrideMode: string;\n  displayOrder: number;\n  configJson: string | null;\n  deductionRuleId: string | null;\n  sourceLevel: TemplateLevel;\n}\n\nexport interface ResolvedTemplateResult {\n  pages: TemplatePageEntity[];\n  groups: TemplateGroupEntity[];\n  questions: TemplateQuestionEntity[];\n  hierarchy: {\n    category: AssessmentTemplateEntity | null;\n    brand: AssessmentTemplateEntity | null;\n    series: AssessmentTemplateEntity | null;\n    model: AssessmentTemplateEntity | null;\n  };\n}\n\n@Injectable()\nexport class TemplateService {\n  private readonly logger = new Logger(TemplateService.name);\n\n  constructor(\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly templateCrud: TemplateCrudService,\n    private readonly dataSource: DataSource,\n  ) {}\n\n  private async resolveAssessmentTypeId(\n    assessmentTypeId?: string,\n  ): Promise<string> {\n    if (assessmentTypeId) return assessmentTypeId;\n    const general =",
+      "methods": [
+        "resolveAssessmentTypeId",
+        "resolveTemplate",
+        "getTemplateTree",
+        "overrideImpactPreview",
+        "resolveEffectivePages",
+        "findEffectiveParent"
+      ],
+      "entitiesUsed": [
+        "AssessmentTemplateEntity",
+        "TemplateGroupEntity",
+        "TemplateOptionEntity",
+        "TemplatePageEntity",
+        "TemplateQuestionEntity"
+      ],
+      "tablesUsed": [
+        "valuation_templates",
+        "valuation_template_groups",
+        "valuation_template_options",
+        "valuation_template_pages",
+        "valuation_template_questions"
+      ]
+    },
+    {
+      "id": "service.valuationcalculatorservice",
+      "name": "ValuationCalculatorService",
+      "filePath": "apps/backend/src/modules/valuation/application/services/valuation-calculator.service.ts",
+      "codeSnippet": "import { Injectable } from '@nestjs/common';\nimport { ValuationPageEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-page.entity';\nimport { ValuationGroupEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-group.entity';\nimport { ValuationAnswerEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-answer.entity';\nimport { ValuationDeductionRuleEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-deduction-rule.entity';\nimport { DeductionType } from '@bizrok/shared';\n\n@Injectable()\nexport class ValuationCalculatorService {\n  /**\n   * Calculates the final offer price and generates detailed tracing logs.\n   */\n  calculateValuation(params: {\n    pages: ValuationPageEntity[];\n    basePrice: number;\n    selections: { questionId: string; optionId: string }[];\n    deductionRules: ValuationDeductionRuleEntity[];\n    brandId?: string;\n    seriesId?: string;\n    modelId?: string;\n    categoryId?: string;\n  }): {\n    finalPrice: number;\n    calculationSteps: Record<string, any>;\n    answers: Partial<ValuationAnswerEntity>[];\n  } {\n    const {\n      pages,\n      basePrice,\n      selections,\n      deductionRules,\n      brandId,\n      seriesId,\n      modelId,\n      categoryId,\n    } = params;\n\n    const calculationSteps: any = {\n      basePrice,\n      rawDeductions: [],\n      groupCapsApplied: [],\n      summary: {},\n    };\n\n    const activeDeductions: any[] = [];\n\n    // 1. Resolve deduction rule for each selection using specificity hierarchy\n    selections.forEach((sel) => {\n      const matchingRules = deductionRules.filter(\n        (r) => r.questionId === sel.questionId && r.optionId === sel.optionId,",
+      "methods": [],
+      "entitiesUsed": [
+        "ValuationAnswerEntity",
+        "ValuationDeductionRuleEntity",
+        "ValuationGroupEntity",
+        "ValuationPageEntity"
+      ],
+      "tablesUsed": [
+        "valuation_answers",
+        "valuation_deduction_rules",
+        "valuationgroupentitys",
+        "valuationpageentitys"
+      ]
+    }
+  ],
+  "resolvers": [
+    {
+      "id": "resolver.healthresolver",
+      "name": "HealthResolver",
+      "filePath": "apps/backend/src/common/health/health.resolver.ts",
+      "codeSnippet": "import { Resolver, Query } from '@nestjs/graphql';\nimport { HealthType } from './health.types';\nimport { checkPortOpen } from './health.utils';\n\n@Resolver()\nexport class HealthResolver {\n  @Query(() => HealthType)\n  async systemHealth(): Promise<HealthType> {\n    const dbHost = process.env.DB_HOST || 'localhost';\n    const dbPort = Number(process.env.DB_PORT) || 5432;\n    const redisHost = process.env.REDIS_HOST || 'localhost';\n    const redisPort = Number(process.env.REDIS_PORT) || 6379;\n\n    const [postgresRunning, redisRunning, esRunning] = await Promise.all([\n      checkPortOpen(dbPort, dbHost),\n      checkPortOpen(redisPort, redisHost),\n      checkPortOpen(9200, 'localhost'),\n    ]);\n\n    return {\n      database: postgresRunning ? { type: 'PostgreSQL', status: 'connected' } : { type: 'SQLite', status: 'connected' },\n      redis: redisRunning ? { status: 'connected' } : { status: 'mock' },\n      elasticsearch: esRunning ? { status: 'connected' } : { status: 'mock' },\n    };\n  }\n}\n",
+      "queries": [
+        {
+          "name": "systemHealth",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [],
+      "servicesUsed": []
+    },
+    {
+      "id": "resolver.journalentrytype",
+      "name": "JournalEntryType",
+      "filePath": "apps/backend/src/modules/accounting/interface/resolvers/accounting.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Args, ID, Int } from '@nestjs/graphql';\nimport { AccountingService } from '../../application/services/accounting.service';\nimport { AccountingStatus } from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('JournalEntry')\nexport class JournalEntryType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  deviceId: string;\n\n  @Field()\n  accountDebit: string;\n\n  @Field()\n  accountCredit: string;\n\n  @Field()\n  amount: number;\n\n  @Field()\n  description: string;\n\n  @Field(() => AccountingStatus)\n  status: AccountingStatus;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('JournalEntryResponse')\nexport class JournalEntryResponseType {\n  @Field(() => [JournalEntryType])\n  nodes: JournalEntryType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@Resolver(() => JournalEntryType)\nexport class AccountingResolver {\n  constructor(private readonly accountingService: AccountingService) {}\n\n  @Query(() => [JournalEntryType], { name: 'journalEntriesByDevice' })",
+      "queries": [
+        {
+          "name": "journalEntriesByDevice",
+          "returnType": "unknown"
+        },
+        {
+          "name": "journalEntries",
+          "returnType": "unknown"
+        },
+        {
+          "name": "journalEntryList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [],
+      "servicesUsed": [
+        "AccountingService"
+      ]
+    },
+    {
+      "id": "resolver.addresstype",
+      "name": "AddressType",
+      "filePath": "apps/backend/src/modules/address/interface/resolvers/address.resolver.ts",
+      "codeSnippet": "import {\r\n  Resolver,\r\n  Query,\r\n  Mutation,\r\n  Args,\r\n  ID,\r\n  Context,\r\n  ObjectType,\r\n  Field,\r\n  InputType,\r\n} from '@nestjs/graphql';\r\nimport { UseGuards } from '@nestjs/common';\r\nimport { AuthGuard } from '../../../auth/infrastructure/auth.guard';\r\nimport { AddressService } from '../../application/services/address.service';\r\nimport { AddressEntity } from '../../infrastructure/persistence/typeorm/entities/address.entity';\r\nimport { PincodeProvider } from '../../../../../api-provider/pincode/pincode.provider';\r\n\r\n@ObjectType('Address')\r\nexport class AddressType {\r\n  @Field(() => ID)\r\n  id: string;\r\n\r\n  @Field()\r\n  label: string;\r\n\r\n  @Field()\r\n  contactName: string;\r\n\r\n  @Field()\r\n  contactPhone: string;\r\n\r\n  @Field()\r\n  contactEmail: string;\r\n\r\n  @Field()\r\n  line1: string;\r\n\r\n  @Field(() => String, { nullable: true })\r\n  line2: string | null;\r\n\r\n  @Field(() => String, { nullable: true })\r\n  landmark: string | null;\r\n\r\n  @Field(() => String, { nullable: true })\r\n  district: string | null;\r\n\r\n  @Field()\r\n  city: string;\r\n\r\n  @Field()\r",
+      "queries": [
+        {
+          "name": "myAddresses",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pincodeLookup",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [],
+      "servicesUsed": [
+        "AddressService"
+      ]
+    },
+    {
+      "id": "resolver.authresolver",
+      "name": "AuthResolver",
+      "filePath": "apps/backend/src/modules/auth/interface/resolvers/auth.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  Context,\n} from '@nestjs/graphql';\nimport { UseGuards } from '@nestjs/common';\nimport { AuthService } from '../../application/services/auth.service';\nimport { EmailService } from '../../application/services/email.service';\nimport { AuthGuard } from '../../infrastructure/auth.guard';\nimport { CustomerEntity } from '../../infrastructure/persistence/typeorm/entities/customer.entity';\nimport {\n  CustomerType,\n  AuthResponseType,\n  SendOtpResponseType,\n  SendTestEmailResponseType,\n  MutationResponseType,\n} from './types';\n\n@Resolver()\nexport class AuthResolver {\n  constructor(\n    private readonly authService: AuthService,\n    private readonly emailService: EmailService,\n  ) {}\n\n  /**\n   * Maps a persisted CustomerEntity to the GraphQL type, deriving the\n   * `hasPassword` flag without ever exposing the stored hash.\n   */\n  private toCustomerType(customer: CustomerEntity): CustomerType {\n    const { passwordHash, ...rest } = customer;\n    return {\n      ...rest,\n      hasPassword: !!passwordHash,\n    } as unknown as CustomerType;\n  }\n\n  private requireCustomerId(ctx: any): string {\n    const customerId = ctx.req?.customerId;\n    if (!customerId) {\n      throw new Error('Not authenticated');\n    }\n    return customerId;\n  }\n\n  @Mutation(() => SendTestEmailResponseType)\n  async sendTestEmail(\n    @Args('recipientEmail', { type: () => String }) recipientEmail: string,",
+      "queries": [
+        {
+          "name": "me",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "sendTestEmail",
+          "returnType": "unknown"
+        },
+        {
+          "name": "sendOtp",
+          "returnType": "unknown"
+        },
+        {
+          "name": "me",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "AuthService",
+        "EmailService"
+      ]
+    },
+    {
+      "id": "resolver.systemconfigentrytype",
+      "name": "SystemConfigEntryType",
+      "filePath": "apps/backend/src/modules/auth/interface/resolvers/system-config.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ObjectType, Field, ID } from '@nestjs/graphql';\nimport { SystemConfigRepository } from '../../infrastructure/persistence/typeorm/repositories/system-config.repository';\nimport { SystemConfigEntity } from '../../infrastructure/persistence/typeorm/entities/system-config.entity';\n\n@ObjectType('SystemConfigEntry')\nexport class SystemConfigEntryType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  key: string;\n\n  @Field()\n  value: string;\n\n  @Field({ nullable: true })\n  description?: string;\n\n  @Field()\n  category: string;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('SystemConfigResponse')\nexport class SystemConfigResponseType {\n  @Field(() => [SystemConfigEntryType])\n  nodes: SystemConfigEntryType[];\n\n  @Field(() => Number)\n  totalCount: number;\n}\n\nfunction entityToType(e: SystemConfigEntity): SystemConfigEntryType {\n  return {\n    id: e.id,\n    key: e.key,\n    value: e.value,\n    description: e.description ?? undefined,\n    category: e.category,\n    updatedAt: e.updatedAt,\n  };\n}\n\n@Resolver()\nexport class SystemConfigResolver {\n  constructor(\n    private readonly systemConfigRepo: SystemConfigRepository,\n  ) {}",
+      "queries": [
+        {
+          "name": "systemConfigs",
+          "returnType": "unknown"
+        },
+        {
+          "name": "systemConfig",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "updateSystemConfig",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": []
+    },
+    {
+      "id": "resolver.attributeconfigresolver",
+      "name": "AttributeConfigResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/attribute-config.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';\nimport { AttributeConfigService } from '../../application/services/attribute-config.service';\nimport {\n  AttributeGroupType,\n  ProductAttributeType,\n  AttributeValueType,\n  FlowAttributeType,\n  VariantAttributeType,\n  CreateAttributeGroupInput,\n  CreateProductAttributeInput,\n  CreateAttributeValueInput,\n  SetFlowAttributesInput,\n  SetVariantAttributesInput,\n} from './business-flow.types';\n\n@Resolver()\nexport class AttributeConfigResolver {\n  constructor(private readonly service: AttributeConfigService) {}\n\n  // Attribute Groups\n  @Query(() => [AttributeGroupType], { name: 'attributeGroups' })\n  async getGroups(\n    @Args('isActive', { type: () => Boolean, nullable: true }) isActive?: boolean,\n  ) {\n    return this.service.getGroups(isActive);\n  }\n\n  @Query(() => AttributeGroupType, { name: 'attributeGroup', nullable: true })\n  async getGroup(@Args('id', { type: () => ID }) id: string) {\n    return this.service.getGroupById(id);\n  }\n\n  @Mutation(() => AttributeGroupType)\n  async createAttributeGroup(@Args('input') input: CreateAttributeGroupInput) {\n    return this.service.createGroup(input);\n  }\n\n  @Mutation(() => AttributeGroupType)\n  async updateAttributeGroup(\n    @Args('id', { type: () => ID }) id: string,\n    @Args('input') input: CreateAttributeGroupInput,\n  ) {\n    return this.service.updateGroup(id, input);\n  }\n\n  @Mutation(() => Boolean)\n  async deleteAttributeGroup(@Args('id', { type: () => ID }) id: string) {\n    return this.service.deleteGroup(id);\n  }\n",
+      "queries": [
+        {
+          "name": "attributeGroups",
+          "returnType": "unknown"
+        },
+        {
+          "name": "attributeGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "productAttributes",
+          "returnType": "unknown"
+        },
+        {
+          "name": "productAttribute",
+          "returnType": "unknown"
+        },
+        {
+          "name": "variantAttributes",
+          "returnType": "unknown"
+        },
+        {
+          "name": "attributeValues",
+          "returnType": "unknown"
+        },
+        {
+          "name": "attributeValue",
+          "returnType": "unknown"
+        },
+        {
+          "name": "flowAttributes",
+          "returnType": "unknown"
+        },
+        {
+          "name": "variantAttributeValues",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createAttributeGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateAttributeGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "productAttributes",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createProductAttribute",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateProductAttribute",
+          "returnType": "unknown"
+        },
+        {
+          "name": "attributeValues",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createAttributeValue",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateAttributeValue",
+          "returnType": "unknown"
+        },
+        {
+          "name": "flowAttributes",
+          "returnType": "unknown"
+        },
+        {
+          "name": "variantAttributeValues",
+          "returnType": "unknown"
+        },
+        {
+          "name": "setVariantAttributes",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "AttributeConfigService"
+      ]
+    },
+    {
+      "id": "resolver.auditlogresolver",
+      "name": "AuditLogResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/audit-log.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';\nimport { InjectRepository } from '@nestjs/typeorm';\nimport { Repository } from 'typeorm';\nimport { AuditLogEntity } from '../../infrastructure/persistence/typeorm/entities/audit-log.entity';\nimport { AuditLogType } from './types';\n\n@Resolver(() => AuditLogType)\nexport class AuditLogResolver {\n  constructor(\n    @InjectRepository(AuditLogEntity)\n    private readonly auditLogRepo: Repository<AuditLogEntity>,\n  ) {}\n\n  @Query(() => [AuditLogType], { name: 'auditLogs' })\n  async getAuditLogs(\n    @Args('entityName') entityName: string,\n    @Args('entityId', { type: () => ID }) entityId: string,\n  ): Promise<any[]> {\n    const logs = await this.auditLogRepo.find({\n      where: { entityName, entityId },\n      order: { createdAt: 'DESC' },\n    });\n    return logs.map((log) => ({\n      ...log,\n      oldValues: log.oldValues ? JSON.stringify(log.oldValues) : null,\n      newValues: log.newValues ? JSON.stringify(log.newValues) : null,\n    }));\n  }\n\n  @Query(() => [AuditLogType], { name: 'allAuditLogs' })\n  async getAllAuditLogs(): Promise<any[]> {\n    const logs = await this.auditLogRepo.find({\n      order: { createdAt: 'DESC' },\n      take: 100,\n    });\n    return logs.map((log) => ({\n      ...log,\n      oldValues: log.oldValues ? JSON.stringify(log.oldValues) : null,\n      newValues: log.newValues ? JSON.stringify(log.newValues) : null,\n    }));\n  }\n\n  @Mutation(() => Boolean, { name: 'rollbackBatch' })\n  async rollbackBatch(\n    @Args('correlationId') correlationId: string,\n  ): Promise<boolean> {\n    const logs = await this.auditLogRepo.find({\n      where: { correlationId },\n    });\n    if (logs.length === 0) return false;",
+      "queries": [
+        {
+          "name": "auditLogs",
+          "returnType": "unknown"
+        },
+        {
+          "name": "allAuditLogs",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "rollbackBatch",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": []
+    },
+    {
+      "id": "resolver.brandresolver",
+      "name": "BrandResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/brand.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ResolveField,\n  Parent,\n  ID,\n} from '@nestjs/graphql';\nimport { CatalogReadService } from '../../application/services/catalog-read.service';\nimport { CatalogWriteService } from '../../application/services/catalog-write.service';\nimport {\n  BrandType,\n  CategoryType,\n  CreateBrandInput,\n  UpdateBrandInput,\n} from './types';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Resolver(() => BrandType)\nexport class BrandResolver {\n  constructor(\n    private readonly readService: CatalogReadService,\n    private readonly writeService: CatalogWriteService,\n  ) {}\n\n  @Query(() => [BrandType], { name: 'brands' })\n  async getBrands(\n    @Args('search', { type: () => String, nullable: true }) search?: string,\n    @Args('categoryId', { type: () => ID, nullable: true }) categoryId?: string,\n    @Args('status', { type: () => CatalogStatus, nullable: true }) status?: CatalogStatus,\n  ): Promise<any[]> {\n    return this.readService.getBrands(search ?? '', categoryId, status);\n  }\n\n  @Query(() => BrandType, { name: 'brand', nullable: true })\n  async getBrand(@Args('id', { type: () => ID }) id: string): Promise<any> {\n    return this.readService.getBrandById(id);\n  }\n\n  @Mutation(() => BrandType)\n  async createBrand(@Args('input') input: CreateBrandInput): Promise<any> {\n    return this.writeService.createBrand(input);\n  }\n\n  @Mutation(() => Boolean)\n  async deleteBrand(\n    @Args('id', { type: () => ID }) id: string,\n  ): Promise<boolean> {\n    return this.writeService.deleteBrand(id);",
+      "queries": [
+        {
+          "name": "brands",
+          "returnType": "unknown"
+        },
+        {
+          "name": "brand",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createBrand",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteBrand",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateBrand",
+          "returnType": "unknown"
+        },
+        {
+          "name": "bulkUpdateBrandStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "CatalogReadService",
+        "CatalogWriteService"
+      ]
+    },
+    {
+      "id": "resolver.businessflowresolver",
+      "name": "BusinessFlowResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/business-flow.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { BusinessFlowService } from '../../application/services/business-flow.service';\nimport {\n  BusinessFlowType,\n  BusinessFlowResponse,\n  CreateBusinessFlowInput,\n  UpdateBusinessFlowInput,\n  SetFlowCategoriesInput,\n  FlowPricingProfileType,\n  CreatePricingProfileInput,\n  SetPricingRulesInput,\n  SetPricingFormulasInput,\n  SetFlowAssessmentProfilesInput,\n  FlowNotificationProfileType,\n  CreateNotificationProfileInput,\n  SetNotificationTemplatesInput,\n  FlowDocumentProfileType,\n  CreateDocumentProfileInput,\n  SetDocumentRequirementsInput,\n  FlowLogisticsProfileType,\n  CreateLogisticsProfileInput,\n  SetLogisticsRulesInput,\n  SetFlowPaymentProfilesInput,\n  BusinessFlowCategoryType,\n  FlowPaymentProfileType,\n  FlowAssessmentProfileType,\n  PricingRuleType2,\n  PricingFormulaType,\n  NotificationTemplateType,\n  DocumentRequirementType,\n  LogisticsRuleType,\n  JourneyResolutionResponse,\n  JourneyResolutionType,\n  UpdateJourneyConfigInput,\n} from './business-flow.types';\nimport { BusinessFlowStatus } from '@bizrok/shared';\n\n@Resolver(() => BusinessFlowType)\nexport class BusinessFlowResolver {\n  constructor(private readonly service: BusinessFlowService) {}\n\n  @Query(() => BusinessFlowResponse, { name: 'businessFlows' })\n  async getFlows(\n    @Args('search', { type: () => String, nullable: true }) search?: string,\n    @Args('status', { type: () => BusinessFlowStatus, nullable: true }) status?: BusinessFlowStatus,\n  ): Promise<BusinessFlowResponse> {\n    const nodes = await this.service.getFlows(search, status);\n    return { nodes: nodes as any, totalCount: nodes.length };\n  }\n",
+      "queries": [
+        {
+          "name": "businessFlows",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlow",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlowBySlug",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlowCategories",
+          "returnType": "unknown"
+        },
+        {
+          "name": "resolveJourneySlug",
+          "returnType": "unknown"
+        },
+        {
+          "name": "publicJourneys",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlowPaymentProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlowAssessmentProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pricingProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pricingProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pricingRules",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pricingFormulas",
+          "returnType": "unknown"
+        },
+        {
+          "name": "notificationProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "notificationProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "notificationTemplates",
+          "returnType": "unknown"
+        },
+        {
+          "name": "documentProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "documentProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "documentRequirements",
+          "returnType": "unknown"
+        },
+        {
+          "name": "logisticsProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "logisticsProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "logisticsRules",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createBusinessFlow",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateBusinessFlow",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlowCategories",
+          "returnType": "unknown"
+        },
+        {
+          "name": "resolveJourneySlug",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlowPaymentProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "businessFlowAssessmentProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pricingProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createPricingProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updatePricingProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pricingRules",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pricingFormulas",
+          "returnType": "unknown"
+        },
+        {
+          "name": "notificationProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createNotificationProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateNotificationProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "notificationTemplates",
+          "returnType": "unknown"
+        },
+        {
+          "name": "documentProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createDocumentProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateDocumentProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "documentRequirements",
+          "returnType": "unknown"
+        },
+        {
+          "name": "logisticsProfiles",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createLogisticsProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateLogisticsProfile",
+          "returnType": "unknown"
+        },
+        {
+          "name": "logisticsRules",
+          "returnType": "unknown"
+        },
+        {
+          "name": "setLogisticsRules",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "BusinessFlowService"
+      ]
+    },
+    {
+      "id": "resolver.categoryresolver",
+      "name": "CategoryResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/category.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ResolveField,\n  Parent,\n  ID,\n  Int,\n} from '@nestjs/graphql';\nimport { CatalogReadService } from '../../application/services/catalog-read.service';\nimport { CatalogWriteService } from '../../application/services/catalog-write.service';\nimport {\n  CategoryType,\n  CategoryResponse,\n  CreateCategoryInput,\n  UpdateCategoryInput,\n  BrandType,\n} from './types';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Resolver(() => CategoryType)\nexport class CategoryResolver {\n  constructor(\n    private readonly readService: CatalogReadService,\n    private readonly writeService: CatalogWriteService,\n  ) {}\n\n  @Query(() => CategoryResponse, { name: 'categories' })\n  async getCategories(\n    @Args('limit', { type: () => Int, nullable: true }) limit?: number,\n    @Args('offset', { type: () => Int, nullable: true }) offset?: number,\n    @Args('search', { type: () => String, nullable: true }) search?: string,\n    @Args('status', { type: () => CatalogStatus, nullable: true }) status?: CatalogStatus,\n  ): Promise<CategoryResponse> {\n    const [nodes, totalCount] = await this.readService.getCategories(\n      limit ?? 20,\n      offset ?? 0,\n      search ?? '',\n      status,\n    );\n    return { nodes: nodes as any, totalCount };\n  }\n\n  @Query(() => CategoryType, { name: 'category', nullable: true })\n  async getCategory(@Args('id', { type: () => ID }) id: string): Promise<any> {\n    return this.readService.getCategoryById(id);\n  }\n\n  @Mutation(() => CategoryType)",
+      "queries": [
+        {
+          "name": "categories",
+          "returnType": "unknown"
+        },
+        {
+          "name": "category",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createCategory",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteCategory",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateCategory",
+          "returnType": "unknown"
+        },
+        {
+          "name": "bulkUpdateCategoryStatus",
+          "returnType": "unknown"
+        },
+        {
+          "name": "restoreCategory",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "CatalogReadService",
+        "CatalogWriteService"
+      ]
+    },
+    {
+      "id": "resolver.productresolver",
+      "name": "ProductResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/product.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ResolveField,\n  Parent,\n  ID,\n  Int,\n} from '@nestjs/graphql';\nimport { CatalogReadService } from '../../application/services/catalog-read.service';\nimport { CatalogWriteService } from '../../application/services/catalog-write.service';\nimport {\n  ProductType,\n  ProductResponse,\n  CreateProductInput,\n  UpdateProductInput,\n  ProductMediaType,\n  ProductVariantType,\n  SeriesType,\n  CategoryType,\n  BrandType,\n} from './types';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Resolver(() => ProductType)\nexport class ProductResolver {\n  constructor(\n    private readonly readService: CatalogReadService,\n    private readonly writeService: CatalogWriteService,\n  ) {}\n\n  @Query(() => ProductResponse, { name: 'products' })\n  async getProducts(\n    @Args('seriesId', { type: () => ID, nullable: true }) seriesId?: string,\n    @Args('search', { type: () => String, nullable: true }) search?: string,\n    @Args('limit', { type: () => Int, nullable: true }) limit?: number,\n    @Args('offset', { type: () => Int, nullable: true }) offset?: number,\n    @Args('status', { type: () => CatalogStatus, nullable: true }) status?: CatalogStatus,\n  ): Promise<ProductResponse> {\n    const [nodes, totalCount] = await this.readService.getProducts(\n      seriesId,\n      limit ?? 200,\n      offset ?? 0,\n      search ?? '',\n      status,\n    );\n    return { nodes: nodes as any, totalCount };\n  }\n",
+      "queries": [
+        {
+          "name": "products",
+          "returnType": "unknown"
+        },
+        {
+          "name": "product",
+          "returnType": "unknown"
+        },
+        {
+          "name": "trendingProducts",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "toggleProductTrending",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createProduct",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateProduct",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteProduct",
+          "returnType": "unknown"
+        },
+        {
+          "name": "bulkUpdateProductStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "CatalogReadService",
+        "CatalogWriteService"
+      ]
+    },
+    {
+      "id": "resolver.searchresulttype",
+      "name": "SearchResultType",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/search.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Args,\n  ID,\n  Int,\n  ObjectType,\n  Field,\n} from '@nestjs/graphql';\nimport { DataSource } from 'typeorm';\nimport { Injectable } from '@nestjs/common';\n\n@ObjectType('SearchResult')\nexport class SearchResultType {\n  @Field()\n  entityType: string;\n\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  businessCode: string;\n\n  @Field()\n  name: string;\n\n  @Field({ nullable: true })\n  status?: string;\n}\n\n@ObjectType('ResolveCodeResult')\nexport class ResolveCodeResultType {\n  @Field()\n  entityType: string;\n\n  @Field(() => ID)\n  entityId: string;\n\n  @Field()\n  code: string;\n}\n\nconst SEARCH_TABLES: {\n  table: string;\n  entityType: string;\n  nameCol: string;\n  statusCol?: string;\n}[] = [\n  {\n    table: 'categories',",
+      "queries": [
+        {
+          "name": "searchAll",
+          "returnType": "unknown"
+        },
+        {
+          "name": "resolveBusinessCode",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [],
+      "servicesUsed": []
+    },
+    {
+      "id": "resolver.seedresolver",
+      "name": "SeedResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/seed.resolver.ts",
+      "codeSnippet": "import { Resolver, Mutation } from '@nestjs/graphql';\nimport { CatalogWriteService } from '../../application/services/catalog-write.service';\nimport { BusinessFlowService } from '../../application/services/business-flow.service';\n\n@Resolver()\nexport class SeedResolver {\n  constructor(\n    private readonly writeService: CatalogWriteService,\n    private readonly businessFlowService: BusinessFlowService,\n  ) {}\n\n  @Mutation(() => String)\n  async seedCatalog(): Promise<string> {\n    return this.writeService.seedCatalog();\n  }\n\n  @Mutation(() => String)\n  async seedBusinessFlows(): Promise<string> {\n    return this.businessFlowService.seedBusinessFlows();\n  }\n\n  @Mutation(() => String)\n  async seedMockTransactions(): Promise<string> {\n    return this.writeService.seedMockTransactions();\n  }\n}\n\n",
+      "queries": [],
+      "mutations": [
+        {
+          "name": "seedCatalog",
+          "returnType": "unknown"
+        },
+        {
+          "name": "seedBusinessFlows",
+          "returnType": "unknown"
+        },
+        {
+          "name": "seedMockTransactions",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "BusinessFlowService",
+        "CatalogWriteService"
+      ]
+    },
+    {
+      "id": "resolver.seriesresolver",
+      "name": "SeriesResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/series.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ResolveField,\n  Parent,\n  ID,\n} from '@nestjs/graphql';\nimport { CatalogReadService } from '../../application/services/catalog-read.service';\nimport { CatalogWriteService } from '../../application/services/catalog-write.service';\nimport {\n  SeriesType,\n  CategoryType,\n  BrandType,\n  CreateSeriesInput,\n  UpdateSeriesInput,\n} from './types';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Resolver(() => SeriesType)\nexport class SeriesResolver {\n  constructor(\n    private readonly readService: CatalogReadService,\n    private readonly writeService: CatalogWriteService,\n  ) {}\n\n  @Query(() => [SeriesType], { name: 'series' })\n  async getSeries(\n    @Args('brandId', { type: () => ID, nullable: true }) brandId?: string,\n    @Args('categoryId', { type: () => ID, nullable: true }) categoryId?: string,\n    @Args('status', { type: () => CatalogStatus, nullable: true }) status?: CatalogStatus,\n  ): Promise<any[]> {\n    return this.readService.getSeries(brandId, categoryId, status);\n  }\n\n  @Query(() => SeriesType, { name: 'seriesById', nullable: true })\n  async getSeriesById(\n    @Args('id', { type: () => ID }) id: string,\n  ): Promise<any> {\n    return this.readService.getSeriesById(id);\n  }\n\n  @Mutation(() => SeriesType)\n  async createSeries(@Args('input') input: CreateSeriesInput): Promise<any> {\n    return this.writeService.createSeries(input);\n  }\n\n  @Mutation(() => Boolean)\n  async deleteSeries(",
+      "queries": [
+        {
+          "name": "series",
+          "returnType": "unknown"
+        },
+        {
+          "name": "seriesById",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createSeries",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteSeries",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateSeries",
+          "returnType": "unknown"
+        },
+        {
+          "name": "bulkUpdateSeriesStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "CatalogReadService",
+        "CatalogWriteService"
+      ]
+    },
+    {
+      "id": "resolver.productvariantresolver",
+      "name": "ProductVariantResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/variant.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ResolveField,\n  Parent,\n  ID,\n  Int,\n} from '@nestjs/graphql';\nimport { CatalogReadService } from '../../application/services/catalog-read.service';\nimport { CatalogWriteService } from '../../application/services/catalog-write.service';\nimport { PriceService } from '../../application/services/price.service';\nimport {\n  ProductVariantType,\n  ProductVariantResponse,\n  CreateVariantInput,\n  CreateVariantsInput,\n  UpdateVariantInput,\n  UpdatePriceInput,\n  BasePriceType,\n  ProductType,\n} from './types';\nimport { CatalogStatus } from '@bizrok/shared';\n\n@Resolver(() => ProductVariantType)\nexport class ProductVariantResolver {\n  constructor(\n    private readonly readService: CatalogReadService,\n    private readonly writeService: CatalogWriteService,\n    private readonly priceService: PriceService,\n  ) {}\n\n  @Query(() => ProductVariantResponse, { name: 'variants' })\n  async getVariants(\n    @Args('productId', { type: () => ID, nullable: true }) productId?: string,\n    @Args('limit', { type: () => Int, nullable: true }) limit?: number,\n    @Args('offset', { type: () => Int, nullable: true }) offset?: number,\n    @Args('status', { type: () => CatalogStatus, nullable: true }) status?: CatalogStatus,\n  ): Promise<ProductVariantResponse> {\n    const [nodes, totalCount] = await this.readService.getVariants(\n      productId,\n      limit ?? 20,\n      offset ?? 0,\n      status,\n    );\n    return { nodes: nodes as any, totalCount };\n  }\n\n  @Query(() => ProductVariantType, { name: 'variant', nullable: true })",
+      "queries": [
+        {
+          "name": "variants",
+          "returnType": "unknown"
+        },
+        {
+          "name": "variant",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createVariant",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createVariants",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteVariant",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateVariant",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateVariantPrice",
+          "returnType": "unknown"
+        },
+        {
+          "name": "bulkUpdateVariantStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "CatalogReadService",
+        "CatalogWriteService",
+        "PriceService"
+      ]
+    },
+    {
+      "id": "resolver.workflowconfigresolver",
+      "name": "WorkflowConfigResolver",
+      "filePath": "apps/backend/src/modules/catalog/interface/resolvers/workflow-config.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';\nimport { WorkflowConfigService } from '../../application/services/workflow-config.service';\nimport {\n  WorkflowStepTypeObj,\n  WorkflowComponentObj,\n  FlowWorkflowStepType,\n  FlowStepComponentType,\n  CreateWorkflowStepTypeInput,\n  CreateWorkflowComponentInput,\n  SetFlowWorkflowStepsInput,\n  SetStepComponentsInput,\n} from './business-flow.types';\n\n@Resolver()\nexport class WorkflowConfigResolver {\n  constructor(private readonly service: WorkflowConfigService) {}\n\n  @Query(() => [WorkflowStepTypeObj], { name: 'workflowStepTypes' })\n  async getStepTypes(\n    @Args('isActive', { type: () => Boolean, nullable: true }) isActive?: boolean,\n  ) {\n    return this.service.getStepTypes(isActive);\n  }\n\n  @Query(() => WorkflowStepTypeObj, { name: 'workflowStepType', nullable: true })\n  async getStepType(@Args('id', { type: () => ID }) id: string) {\n    return this.service.getStepTypeById(id);\n  }\n\n  @Mutation(() => WorkflowStepTypeObj)\n  async createWorkflowStepType(@Args('input') input: CreateWorkflowStepTypeInput) {\n    return this.service.createStepType(input);\n  }\n\n  @Mutation(() => WorkflowStepTypeObj)\n  async updateWorkflowStepType(\n    @Args('id', { type: () => ID }) id: string,\n    @Args('input') input: CreateWorkflowStepTypeInput,\n  ) {\n    return this.service.updateStepType(id, input);\n  }\n\n  @Mutation(() => Boolean)\n  async deleteWorkflowStepType(@Args('id', { type: () => ID }) id: string) {\n    return this.service.deleteStepType(id);\n  }\n\n  @Query(() => [WorkflowComponentObj], { name: 'workflowComponents' })\n  async getComponents(\n    @Args('isActive', { type: () => Boolean, nullable: true }) isActive?: boolean,",
+      "queries": [
+        {
+          "name": "workflowStepTypes",
+          "returnType": "unknown"
+        },
+        {
+          "name": "workflowStepType",
+          "returnType": "unknown"
+        },
+        {
+          "name": "workflowComponents",
+          "returnType": "unknown"
+        },
+        {
+          "name": "workflowComponent",
+          "returnType": "unknown"
+        },
+        {
+          "name": "flowWorkflowSteps",
+          "returnType": "unknown"
+        },
+        {
+          "name": "flowStepComponents",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createWorkflowStepType",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateWorkflowStepType",
+          "returnType": "unknown"
+        },
+        {
+          "name": "workflowComponents",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createWorkflowComponent",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateWorkflowComponent",
+          "returnType": "unknown"
+        },
+        {
+          "name": "flowWorkflowSteps",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createFlowWorkflowStep",
+          "returnType": "unknown"
+        },
+        {
+          "name": "setFlowWorkflowSteps",
+          "returnType": "unknown"
+        },
+        {
+          "name": "flowStepComponents",
+          "returnType": "unknown"
+        },
+        {
+          "name": "setFlowStepComponents",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "WorkflowConfigService"
+      ]
+    },
+    {
+      "id": "resolver.warehousetype",
+      "name": "WarehouseType",
+      "filePath": "apps/backend/src/modules/inventory/interface/resolvers/inventory.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { InventoryService } from '../../application/services/inventory.service';\nimport { DeviceCategory, LifecycleStage } from '@bizrok/shared';\nimport { NotFoundException } from '@nestjs/common';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('Warehouse')\nexport class WarehouseType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  name: string;\n\n  @Field()\n  location: string;\n}\n\n@ObjectType('WarehouseResponse')\nexport class WarehouseResponseType {\n  @Field(() => [WarehouseType])\n  nodes: WarehouseType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@ObjectType('Device')\nexport class DeviceType {\n  @Field(() => ID)\n  id: string;\n\n  @Field({ nullable: true })\n  serialNumber?: string;\n\n  @Field({ nullable: true })\n  imei?: string;\n\n  @Field(() => DeviceCategory)\n  category: DeviceCategory;\n\n  @Field()\n  brand: string;\n\n  @Field()\n  model: string;\n\n  @Field(() => LifecycleStage)\n  currentStage: LifecycleStage;",
+      "queries": [
+        {
+          "name": "devices",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deviceList",
+          "returnType": "unknown"
+        },
+        {
+          "name": "device",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deviceByLead",
+          "returnType": "unknown"
+        },
+        {
+          "name": "warehouses",
+          "returnType": "unknown"
+        },
+        {
+          "name": "warehouseList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "updateDeviceDetails",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createWarehouse",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateWarehouse",
+          "returnType": "unknown"
+        },
+        {
+          "name": "warehouses",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "InventoryService"
+      ]
+    },
+    {
+      "id": "resolver.leadtype",
+      "name": "LeadType",
+      "filePath": "apps/backend/src/modules/lead/interface/resolvers/lead.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { LeadService } from '../../application/services/lead.service';\nimport { CreateLeadInput } from '../../application/dto/create-lead.input';\nimport { UpdateLeadInput } from '../../application/dto/update-lead.input';\nimport { LeadStatus } from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { JSONScalar } from '../../../../common/scalars/json.scalar';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('Lead')\nexport class LeadType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  customerName: string;\n\n  @Field()\n  customerEmail: string;\n\n  @Field()\n  customerPhone: string;\n\n  @Field()\n  deviceCategory: string;\n\n  @Field()\n  deviceModel: string;\n\n  @Field(() => LeadStatus)\n  status: LeadStatus;\n\n  @Field(() => JSONScalar, { nullable: true })\n  journeyData: Record<string, any>;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('LeadResponse')\nexport class LeadResponseType {\n  @Field(() => [LeadType])\n  nodes: LeadType[];\n\n  @Field()\n  totalCount: number;\n}",
+      "queries": [
+        {
+          "name": "leads",
+          "returnType": "unknown"
+        },
+        {
+          "name": "leadList",
+          "returnType": "unknown"
+        },
+        {
+          "name": "lead",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createLead",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateLead",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateLeadStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "LeadService"
+      ]
+    },
+    {
+      "id": "resolver.offertype",
+      "name": "OfferType",
+      "filePath": "apps/backend/src/modules/offer/interface/resolvers/offer.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { OfferService } from '../../application/services/offer.service';\nimport { CreateOfferInput } from '../../application/dto/create-offer.input';\nimport { OfferStatus } from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('Offer')\nexport class OfferType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  valuationId: string;\n\n  @Field()\n  leadId: string;\n\n  @Field()\n  offerAmount: number;\n\n  @Field(() => OfferStatus)\n  status: OfferStatus;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('OfferResponse')\nexport class OfferResponseType {\n  @Field(() => [OfferType])\n  nodes: OfferType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@Resolver(() => OfferType)\nexport class OfferResolver {\n  constructor(private readonly offerService: OfferService) {}\n\n  @Query(() => OfferType, { name: 'offer', nullable: true })\n  async getOfferById(\n    @Args('id', { type: () => ID }) id: string,\n  ): Promise<OfferType | null> {\n    return this.offerService.getOfferById(id);\n  }",
+      "queries": [
+        {
+          "name": "offer",
+          "returnType": "unknown"
+        },
+        {
+          "name": "offersByLead",
+          "returnType": "unknown"
+        },
+        {
+          "name": "offerList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createOffer",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteOffer",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateOfferStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "OfferService"
+      ]
+    },
+    {
+      "id": "resolver.customerordertype",
+      "name": "CustomerOrderType",
+      "filePath": "apps/backend/src/modules/order/interface/resolvers/order.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ID,\n  Int,\n  Float,\n  Context,\n} from '@nestjs/graphql';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { UseGuards } from '@nestjs/common';\nimport { OrderService } from '../../application/services/order.service';\nimport { CreateOrderInput } from '../../application/dto/create-order.input';\nimport { CustomerOrderStatus } from '@bizrok/shared';\nimport { paginate } from '../../../../common/paginate';\nimport { CustomerOrderEntity } from '../../infrastructure/persistence/typeorm/entities/customer-order.entity';\nimport { AuthGuard } from '../../../auth/infrastructure/auth.guard';\n\n@ObjectType('CustomerOrder')\nexport class CustomerOrderType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  customerId: string;\n\n  @Field({ nullable: true })\n  leadId?: string;\n\n  @Field()\n  orderCode: string;\n\n  @Field()\n  customerName: string;\n\n  @Field()\n  customerPhone: string;\n\n  @Field({ nullable: true })\n  customerEmail?: string;\n\n  @Field()\n  deviceCategory: string;\n\n  @Field()\n  deviceBrand: string;\n\n  @Field()\n  deviceProduct: string;",
+      "queries": [
+        {
+          "name": "orders",
+          "returnType": "unknown"
+        },
+        {
+          "name": "order",
+          "returnType": "unknown"
+        },
+        {
+          "name": "myOrders",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createOrder",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateOrderStatus",
+          "returnType": "unknown"
+        },
+        {
+          "name": "cancelOrder",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "OrderService"
+      ]
+    },
+    {
+      "id": "resolver.paymenttype",
+      "name": "PaymentType",
+      "filePath": "apps/backend/src/modules/payment/interface/resolvers/payment.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ID,\n  Int,\n  Float,\n} from '@nestjs/graphql';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { PaymentService } from '../../application/services/payment.service';\nimport { InitiatePaymentInput } from '../../application/dto/initiate-payment.input';\nimport { PaymentMethod, PaymentStatus } from '@bizrok/shared';\nimport { paginate } from '../../../../common/paginate';\nimport { PaymentEntity } from '../../infrastructure/persistence/typeorm/entities/payment.entity';\n\n@ObjectType('Payment')\nexport class PaymentType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  orderId: string;\n\n  @Field()\n  customerId: string;\n\n  @Field(() => Float)\n  amount: number;\n\n  @Field(() => PaymentMethod)\n  method: PaymentMethod;\n\n  @Field(() => PaymentStatus)\n  status: PaymentStatus;\n\n  @Field({ nullable: true })\n  transactionRef?: string;\n\n  @Field(() => String, { nullable: true })\n  gatewayResponse?: string;\n\n  @Field({ nullable: true })\n  notes?: string;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;",
+      "queries": [
+        {
+          "name": "payments",
+          "returnType": "unknown"
+        },
+        {
+          "name": "paymentsByOrder",
+          "returnType": "unknown"
+        },
+        {
+          "name": "paymentsByCustomer",
+          "returnType": "unknown"
+        },
+        {
+          "name": "payment",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "initiatePayment",
+          "returnType": "unknown"
+        },
+        {
+          "name": "processPayment",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "PaymentService"
+      ]
+    },
+    {
+      "id": "resolver.pickuptype",
+      "name": "PickupType",
+      "filePath": "apps/backend/src/modules/pickup/interface/resolvers/pickup.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { PickupService } from '../../application/services/pickup.service';\nimport { CreatePickupInput } from '../../application/dto/create-pickup.input';\nimport { PickupStatus } from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('Pickup')\nexport class PickupType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  leadId: string;\n\n  @Field()\n  courierName: string;\n\n  @Field()\n  trackingNumber: string;\n\n  @Field(() => PickupStatus)\n  status: PickupStatus;\n\n  @Field()\n  scheduledDate: Date;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('PickupResponse')\nexport class PickupResponseType {\n  @Field(() => [PickupType])\n  nodes: PickupType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@Resolver(() => PickupType)\nexport class PickupResolver {\n  constructor(private readonly pickupService: PickupService) {}\n\n  @Query(() => PickupType, { name: 'pickup', nullable: true })\n  async getPickupById(\n    @Args('id', { type: () => ID }) id: string,",
+      "queries": [
+        {
+          "name": "pickup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pickupsByLead",
+          "returnType": "unknown"
+        },
+        {
+          "name": "pickupList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createPickup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deletePickup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updatePickupStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "PickupService"
+      ]
+    },
+    {
+      "id": "resolver.procurementtype",
+      "name": "ProcurementType",
+      "filePath": "apps/backend/src/modules/procurement/interface/resolvers/procurement.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { ProcurementService } from '../../application/services/procurement.service';\nimport { CreateProcurementInput } from '../../application/dto/create-procurement.input';\nimport {\n  ProcurementStatus,\n  ProcurementType as SharedProcurementType,\n} from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('Procurement')\nexport class ProcurementType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  deviceId: string;\n\n  @Field()\n  purchasePrice: number;\n\n  @Field(() => SharedProcurementType)\n  procurementType: SharedProcurementType;\n\n  @Field(() => ProcurementStatus)\n  status: ProcurementStatus;\n\n  @Field()\n  invoiceNumber: string;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('ProcurementResponse')\nexport class ProcurementResponseType {\n  @Field(() => [ProcurementType])\n  nodes: ProcurementType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@Resolver(() => ProcurementType)\nexport class ProcurementResolver {\n  constructor(private readonly procurementService: ProcurementService) {}\n",
+      "queries": [
+        {
+          "name": "procurement",
+          "returnType": "unknown"
+        },
+        {
+          "name": "procurements",
+          "returnType": "unknown"
+        },
+        {
+          "name": "procurementList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createProcurement",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteProcurement",
+          "returnType": "unknown"
+        },
+        {
+          "name": "completeProcurement",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "ProcurementService"
+      ]
+    },
+    {
+      "id": "resolver.profitabilityreporttype",
+      "name": "ProfitabilityReportType",
+      "filePath": "apps/backend/src/modules/profitability/interface/resolvers/profitability.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Args, ID, Int } from '@nestjs/graphql';\nimport { ProfitabilityService } from '../../application/services/profitability.service';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('ProfitabilityReport')\nexport class ProfitabilityReportType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  deviceId: string;\n\n  @Field()\n  acquisitionCost: number;\n\n  @Field()\n  partsCost: number;\n\n  @Field()\n  laborCost: number;\n\n  @Field()\n  overheadCost: number;\n\n  @Field()\n  sellingPrice: number;\n\n  @Field()\n  netProfit: number;\n\n  @Field()\n  marginPercent: number;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('ProfitabilityReportResponse')\nexport class ProfitabilityReportResponseType {\n  @Field(() => [ProfitabilityReportType])\n  nodes: ProfitabilityReportType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n",
+      "queries": [
+        {
+          "name": "profitabilityReportByDevice",
+          "returnType": "unknown"
+        },
+        {
+          "name": "profitabilityReports",
+          "returnType": "unknown"
+        },
+        {
+          "name": "profitabilityReportList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [],
+      "servicesUsed": [
+        "ProfitabilityService"
+      ]
+    },
+    {
+      "id": "resolver.qcaudittype",
+      "name": "QCAuditType",
+      "filePath": "apps/backend/src/modules/qc/interface/resolvers/qc.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { QCService } from '../../application/services/qc.service';\nimport { SubmitQCInput } from '../../application/dto/submit-qc.input';\nimport { QCStatus, DeviceGrade } from '@bizrok/shared';\nimport { NotFoundException } from '@nestjs/common';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('QCAudit')\nexport class QCAuditType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  deviceId: string;\n\n  @Field()\n  inspectorName: string;\n\n  @Field(() => DeviceGrade)\n  cosmeticGrade: DeviceGrade;\n\n  @Field()\n  functionalStatus: string;\n\n  @Field({ nullable: true })\n  notes: string;\n\n  @Field(() => QCStatus)\n  status: QCStatus;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('QCAuditResponse')\nexport class QCAuditResponseType {\n  @Field(() => [QCAuditType])\n  nodes: QCAuditType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@Resolver(() => QCAuditType)\nexport class QCResolver {\n  constructor(private readonly qcService: QCService) {}",
+      "queries": [
+        {
+          "name": "qcAudit",
+          "returnType": "unknown"
+        },
+        {
+          "name": "qcAuditsByDevice",
+          "returnType": "unknown"
+        },
+        {
+          "name": "qcAuditList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "submitQC",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateQcAudit",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteQcAudit",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "QCService"
+      ]
+    },
+    {
+      "id": "resolver.referralconfigtype",
+      "name": "ReferralConfigType",
+      "filePath": "apps/backend/src/modules/referral/interface/resolvers/referral.resolver.ts",
+      "codeSnippet": "import {\r\n  Resolver,\r\n  Query,\r\n  Mutation,\r\n  Args,\r\n  ID,\r\n  Context,\r\n  ObjectType,\r\n  Field,\r\n  InputType,\r\n  Float,\r\n  Int,\r\n} from '@nestjs/graphql';\r\nimport { UseGuards } from '@nestjs/common';\r\nimport { AuthGuard } from '../../../auth/infrastructure/auth.guard';\r\nimport { ReferralService } from '../../application/services/referral.service';\r\nimport { ReferralEntity } from '../../infrastructure/persistence/typeorm/entities/referral.entity';\r\nimport { ReferralConfigEntity } from '../../infrastructure/persistence/typeorm/entities/referral-config.entity';\r\n\r\n@ObjectType('ReferralConfig')\r\nexport class ReferralConfigType {\r\n  @Field(() => ID)\r\n  id: string;\r\n\r\n  @Field()\r\n  enabled: boolean;\r\n\r\n  @Field(() => Float)\r\n  referrerReward: number;\r\n\r\n  @Field(() => Float)\r\n  refereeReward: number;\r\n\r\n  @Field()\r\n  qualifyingEvent: string;\r\n\r\n  @Field(() => Int)\r\n  maxRewardsPerCustomer: number;\r\n\r\n  @Field(() => Float)\r\n  minOrderValue: number;\r\n\r\n  @Field(() => String, { nullable: true })\r\n  headline: string | null;\r\n\r\n  @Field(() => String, { nullable: true })\r\n  terms: string | null;\r\n}\r\n\r\n@ObjectType('Referral')\r",
+      "queries": [
+        {
+          "name": "myReferrals",
+          "returnType": "unknown"
+        },
+        {
+          "name": "referralConfig",
+          "returnType": "unknown"
+        },
+        {
+          "name": "allReferrals",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "updateReferralConfig",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateReferralStatus",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "ReferralService"
+      ]
+    },
+    {
+      "id": "resolver.refurbishmenttype",
+      "name": "RefurbishmentType",
+      "filePath": "apps/backend/src/modules/refurbishment/interface/resolvers/refurbishment.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { RefurbishmentService } from '../../application/services/refurbishment.service';\nimport { CreateWorkOrderInput } from '../../application/dto/create-work-order.input';\nimport { RefurbishmentStatus } from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('Refurbishment')\nexport class RefurbishmentType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  deviceId: string;\n\n  @Field({ nullable: true })\n  technicianName: string;\n\n  @Field(() => [String])\n  partsReplaced: string[];\n\n  @Field()\n  partsCost: number;\n\n  @Field()\n  laborCost: number;\n\n  @Field(() => RefurbishmentStatus)\n  status: RefurbishmentStatus;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('RefurbishmentResponse')\nexport class RefurbishmentResponseType {\n  @Field(() => [RefurbishmentType])\n  nodes: RefurbishmentType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@Resolver(() => RefurbishmentType)\nexport class RefurbishmentResolver {\n  constructor(private readonly refurbishmentService: RefurbishmentService) {}\n",
+      "queries": [
+        {
+          "name": "refurbishment",
+          "returnType": "unknown"
+        },
+        {
+          "name": "refurbishmentsByDevice",
+          "returnType": "unknown"
+        },
+        {
+          "name": "refurbishmentList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createWorkOrder",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateWorkOrderStatus",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteWorkOrder",
+          "returnType": "unknown"
+        },
+        {
+          "name": "completeRefurbishment",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "RefurbishmentService"
+      ]
+    },
+    {
+      "id": "resolver.salesordertype",
+      "name": "SalesOrderType",
+      "filePath": "apps/backend/src/modules/sales/interface/resolvers/sales.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ID,\n  Int,\n  Float,\n} from '@nestjs/graphql';\nimport { SalesService } from '../../application/services/sales.service';\nimport { CreateSalesOrderInput } from '../../application/dto/create-sales-order.input';\nimport { SalesStatus } from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('SalesOrder')\nexport class SalesOrderType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  deviceId: string;\n\n  @Field()\n  salePrice: number;\n\n  @Field()\n  customerName: string;\n\n  @Field()\n  salesChannel: string;\n\n  @Field(() => SalesStatus)\n  status: SalesStatus;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('SalesOrderResponse')\nexport class SalesOrderResponseType {\n  @Field(() => [SalesOrderType])\n  nodes: SalesOrderType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}",
+      "queries": [
+        {
+          "name": "salesOrder",
+          "returnType": "unknown"
+        },
+        {
+          "name": "salesOrders",
+          "returnType": "unknown"
+        },
+        {
+          "name": "salesOrderList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createSalesOrder",
+          "returnType": "unknown"
+        },
+        {
+          "name": "completeSale",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateSalesOrder",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteSalesOrder",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "SalesService"
+      ]
+    },
+    {
+      "id": "resolver.settlementtype",
+      "name": "SettlementType",
+      "filePath": "apps/backend/src/modules/settlement/interface/resolvers/settlement.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { SettlementService } from '../../application/services/settlement.service';\nimport { CreateSettlementInput } from '../../application/dto/create-settlement.input';\nimport { SettlementStatus } from '@bizrok/shared';\nimport { ObjectType, Field } from '@nestjs/graphql';\nimport { paginate } from '../../../../common/paginate';\n\n@ObjectType('Settlement')\nexport class SettlementType {\n  @Field(() => ID)\n  id: string;\n\n  @Field()\n  deviceId: string;\n\n  @Field()\n  payoutAmount: number;\n\n  @Field()\n  paymentMethod: string;\n\n  @Field({ nullable: true })\n  transactionReference: string;\n\n  @Field(() => SettlementStatus)\n  status: SettlementStatus;\n\n  @Field()\n  createdAt: Date;\n\n  @Field()\n  updatedAt: Date;\n}\n\n@ObjectType('SettlementResponse')\nexport class SettlementResponseType {\n  @Field(() => [SettlementType])\n  nodes: SettlementType[];\n\n  @Field(() => Int)\n  totalCount: number;\n}\n\n@Resolver(() => SettlementType)\nexport class SettlementResolver {\n  constructor(private readonly settlementService: SettlementService) {}\n\n  @Query(() => SettlementType, { name: 'settlement', nullable: true })\n  async getSettlementById(\n    @Args('id', { type: () => ID }) id: string,",
+      "queries": [
+        {
+          "name": "settlement",
+          "returnType": "unknown"
+        },
+        {
+          "name": "settlementByDevice",
+          "returnType": "unknown"
+        },
+        {
+          "name": "settlements",
+          "returnType": "unknown"
+        },
+        {
+          "name": "settlementList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createSettlement",
+          "returnType": "unknown"
+        },
+        {
+          "name": "processPayout",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteSettlement",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "SettlementService"
+      ]
+    },
+    {
+      "id": "resolver.assessmenttyperesolver",
+      "name": "AssessmentTypeResolver",
+      "filePath": "apps/backend/src/modules/valuation/interface/resolvers/assessment-type.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID, Int } from '@nestjs/graphql';\nimport { AssessmentTypeService } from '../../application/services/assessment-type.service';\nimport {\n  AssessmentTypeResponseType,\n  AssessmentTypeType,\n  CreateAssessmentTypeInput,\n  PricingSourceOptionType,\n  UpdateAssessmentTypeInput,\n} from './types';\nimport { paginate } from '../../../../common/paginate';\n\n@Resolver(() => AssessmentTypeType)\nexport class AssessmentTypeResolver {\n  constructor(private readonly assessmentTypeService: AssessmentTypeService) {}\n\n  @Query(() => [AssessmentTypeType], { name: 'assessmentTypes' })\n  async getAssessmentTypes(\n    @Args('isActive', { type: () => Boolean, nullable: true })\n    isActive?: boolean,\n  ) {\n    return this.assessmentTypeService.findAll(isActive);\n  }\n\n  @Query(() => AssessmentTypeResponseType, { name: 'assessmentTypeList' })\n  async getAssessmentTypeList(\n    @Args('isActive', { type: () => Boolean, nullable: true })\n    isActive?: boolean,\n    @Args('limit', { type: () => Int, nullable: true }) limit?: number,\n    @Args('offset', { type: () => Int, nullable: true }) offset?: number,\n    @Args('search', { type: () => String, nullable: true }) search?: string,\n  ): Promise<AssessmentTypeResponseType> {\n    const all = await this.assessmentTypeService.findAll(isActive);\n    return paginate(all, limit, offset, search) as any;\n  }\n\n  @Query(() => AssessmentTypeType, {\n    name: 'assessmentTypeById',\n    nullable: true,\n  })\n  async getAssessmentTypeById(@Args('id', { type: () => ID }) id: string) {\n    return this.assessmentTypeService.findById(id);\n  }\n\n  @Query(() => AssessmentTypeType, {\n    name: 'assessmentTypeByCode',\n    nullable: true,\n  })\n  async getAssessmentTypeByCode(\n    @Args('code', { type: () => String }) code: string,\n  ) {",
+      "queries": [
+        {
+          "name": "assessmentTypes",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTypeList",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTypeById",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTypeByCode",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTypeBySlug",
+          "returnType": "unknown"
+        },
+        {
+          "name": "previewAssessmentTypeUrl",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentPricingSourceOptions",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createAssessmentType",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateAssessmentType",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteAssessmentType",
+          "returnType": "unknown"
+        },
+        {
+          "name": "toggleAssessmentTypeActive",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "AssessmentTypeService"
+      ]
+    },
+    {
+      "id": "resolver.assessmentresolver",
+      "name": "AssessmentResolver",
+      "filePath": "apps/backend/src/modules/valuation/interface/resolvers/assessment.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ID,\n  Float,\n  Int,\n} from '@nestjs/graphql';\nimport { BadRequestException, NotFoundException } from '@nestjs/common';\nimport { AssessmentService } from '../../application/services/assessment.service';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport { TemplateService } from '../../application/services/template.service';\nimport { TemplateCrudService } from '../../application/services/template-crud.service';\nimport {\n  ValuationPageType,\n  ValuationGroupType,\n  ValuationQuestionType,\n  ValuationOptionType,\n  ValuationAuditLogType,\n  CloneFlowResultType,\n  ValuationDeductionRuleType,\n  AssessmentTemplateType,\n  AssessmentTemplateQuestionType,\n  TemplateTreeType,\n  TemplatePageType,\n  OverrideImpactPreviewType,\n} from './types';\n\nimport { ValuationPageEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-page.entity';\nimport { ValuationGroupEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-group.entity';\nimport {\n  ValuationQuestionEntity,\n  QuestionInputType,\n} from '../../infrastructure/persistence/typeorm/entities/valuation-question.entity';\nimport {\n  ValuationOptionEntity,\n  OptionSeverity,\n} from '../../infrastructure/persistence/typeorm/entities/valuation-option.entity';\nimport { ValuationDeductionRuleEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-deduction-rule.entity';\nimport { ValuationAuditLogEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-audit-log.entity';\n\n@Resolver()\nexport class AssessmentResolver {\n  constructor(\n    private readonly assessmentService: AssessmentService,\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly templateService: TemplateService,\n    private readonly templateCrud: TemplateCrudService,\n  ) {}",
+      "queries": [
+        {
+          "name": "valuationPages",
+          "returnType": "unknown"
+        },
+        {
+          "name": "valuationGroups",
+          "returnType": "unknown"
+        },
+        {
+          "name": "valuationQuestions",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templateTree",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templateWithQuestions",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templateQuestions",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTemplates",
+          "returnType": "unknown"
+        },
+        {
+          "name": "overrideImpactPreview",
+          "returnType": "unknown"
+        },
+        {
+          "name": "valuationAuditLogs",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deductionRules",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTemplateById",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templatePages",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createValuationPage",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateValuationPage",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteValuationPage",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createValuationGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateValuationGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteValuationGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createValuationQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateValuationQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteValuationQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createValuationOption",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateValuationOption",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteValuationOption",
+          "returnType": "unknown"
+        },
+        {
+          "name": "cloneValuationFlow",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "AssessmentService",
+        "TemplateCrudService",
+        "TemplateService"
+      ]
+    },
+    {
+      "id": "resolver.pagedesignerresolver",
+      "name": "PageDesignerResolver",
+      "filePath": "apps/backend/src/modules/valuation/interface/resolvers/page-designer.resolver.ts",
+      "codeSnippet": "import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';\nimport { PageDesignerService } from '../../application/services/page-designer.service';\nimport {\n  TemplatePageType,\n  TemplateGroupType,\n  TemplateQuestionType,\n  AssessmentTemplateType,\n  PageDesignConfigInput,\n  GroupPresentationConfigInput,\n  QuestionCardConfigInput,\n  ThemeConfigInput,\n  PageVisibilityRuleInput,\n  PageVisibilityRuleType,\n  AssessmentAnalyticsType,\n  DesignTemplateType,\n} from './types';\nimport { TemplatePageEntity } from '../../infrastructure/persistence/typeorm/entities/template-page.entity';\nimport { TemplateGroupEntity } from '../../infrastructure/persistence/typeorm/entities/template-group.entity';\nimport { TemplateQuestionEntity } from '../../infrastructure/persistence/typeorm/entities/template-question.entity';\nimport { AssessmentTemplateEntity } from '../../infrastructure/persistence/typeorm/entities/assessment-template.entity';\n\n@Resolver()\nexport class PageDesignerResolver {\n  constructor(private readonly pageDesignerService: PageDesignerService) {}\n\n  @Mutation(() => TemplatePageType)\n  async updatePageDesignConfig(\n    @Args('pageId') pageId: string,\n    @Args('config') config: PageDesignConfigInput,\n  ): Promise<TemplatePageEntity> {\n    return this.pageDesignerService.updatePageDesignConfig(pageId, config as any);\n  }\n\n  @Mutation(() => TemplateGroupType)\n  async updateGroupPresentationConfig(\n    @Args('groupId') groupId: string,\n    @Args('config') config: GroupPresentationConfigInput,\n  ): Promise<TemplateGroupEntity> {\n    return this.pageDesignerService.updateGroupPresentationConfig(groupId, config as any);\n  }\n\n  @Mutation(() => TemplateQuestionType)\n  async updateQuestionCardConfig(\n    @Args('questionId') questionId: string,\n    @Args('config') config: QuestionCardConfigInput,\n  ): Promise<TemplateQuestionEntity> {\n    return this.pageDesignerService.updateQuestionCardConfig(questionId, config as any);\n  }\n\n  @Mutation(() => AssessmentTemplateType)",
+      "queries": [
+        {
+          "name": "getQuestionTree",
+          "returnType": "unknown"
+        },
+        {
+          "name": "getPageVisibilityRules",
+          "returnType": "unknown"
+        },
+        {
+          "name": "getDesignTemplates",
+          "returnType": "unknown"
+        },
+        {
+          "name": "getAssessmentAnalytics",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "updatePageDesignConfig",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateGroupPresentationConfig",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateQuestionCardConfig",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateTemplateTheme",
+          "returnType": "unknown"
+        },
+        {
+          "name": "setNestedQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "removeNestedQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updatePageVisibilityRules",
+          "returnType": "unknown"
+        },
+        {
+          "name": "saveDesignAsTemplate",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "PageDesignerService"
+      ]
+    },
+    {
+      "id": "resolver.templatecrudresolver",
+      "name": "TemplateCrudResolver",
+      "filePath": "apps/backend/src/modules/valuation/interface/resolvers/template-crud.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ID,\n  Float,\n  Int,\n} from '@nestjs/graphql';\nimport { TemplateCrudService } from '../../application/services/template-crud.service';\nimport { TemplateService } from '../../application/services/template.service';\nimport { TemplateOverrideService } from '../../application/services/template-override.service';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport {\n  TemplatePageType,\n  TemplateGroupType,\n  TemplateQuestionType,\n  TemplateOptionType,\n  BulkCreateTemplateOptionsInput,\n  AssessmentTemplateType,\n  AssessmentTemplateQuestionType,\n  TemplateTreeType,\n  CreateTemplateInput,\n  AddTemplateQuestionInput,\n  OverrideImpactPreviewType,\n  EntityOverrideType,\n  AssessmentTemplateResponseType,\n  AssessmentTemplateQuestionResponseType,\n  EntityOverrideResponseType,\n} from './types';\nimport { BadRequestException } from '@nestjs/common';\nimport { TemplateOptionEntity } from '../../infrastructure/persistence/typeorm/entities/template-option.entity';\nimport { BusinessCodeService } from '../../../../common/business-code/business-code.service';\nimport { DataSource } from 'typeorm';\nimport { paginate } from '../../../../common/paginate';\n\n@Resolver()\nexport class TemplateCrudResolver {\n  constructor(\n    private readonly templateService: TemplateService,\n    private readonly templateCrud: TemplateCrudService,\n    private readonly templateOverride: TemplateOverrideService,\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly businessCodeService: BusinessCodeService,\n    private readonly dataSource: DataSource,\n  ) {}\n\n  // ---- Template Queries ----\n\n  @Query(() => TemplateTreeType, { name: 'templateTree' })",
+      "queries": [
+        {
+          "name": "templateTree",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templateWithQuestions",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templatePages",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templateQuestions",
+          "returnType": "unknown"
+        },
+        {
+          "name": "templateQuestionList",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTemplates",
+          "returnType": "unknown"
+        },
+        {
+          "name": "assessmentTemplateList",
+          "returnType": "unknown"
+        },
+        {
+          "name": "overrideImpactPreview",
+          "returnType": "unknown"
+        },
+        {
+          "name": "entityOverrides",
+          "returnType": "unknown"
+        },
+        {
+          "name": "entityOverrideList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "createAssessmentTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateTemplateName",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteAssessmentTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "ensureTemplateExists",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createTemplatePage",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateTemplatePage",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteTemplatePage",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createTemplateGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateTemplateGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteTemplateGroup",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createTemplateQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateTemplateQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteTemplateQuestion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createTemplateOption",
+          "returnType": "unknown"
+        },
+        {
+          "name": "updateTemplateOption",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteTemplateOption",
+          "returnType": "unknown"
+        },
+        {
+          "name": "bulkCreateTemplateOptions",
+          "returnType": "unknown"
+        },
+        {
+          "name": "addQuestionToTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "hideQuestionInTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "hideGroupInTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "unhideQuestionInTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "unhideGroupInTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "modifyQuestionInTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "hideOptionInTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "showOptionInTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "addOptionToTemplate",
+          "returnType": "unknown"
+        },
+        {
+          "name": "applyEntityOverride",
+          "returnType": "unknown"
+        },
+        {
+          "name": "removeEntityOverride",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "BusinessCodeService",
+        "TemplateCrudService",
+        "TemplateOverrideService",
+        "TemplateService"
+      ]
+    },
+    {
+      "id": "resolver.assessmenttemplatefieldresolver",
+      "name": "AssessmentTemplateFieldResolver",
+      "filePath": "apps/backend/src/modules/valuation/interface/resolvers/template-field.resolver.ts",
+      "codeSnippet": "import { ResolveField, Parent, Resolver } from '@nestjs/graphql';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport { AssessmentTemplateType } from './types';\n\n@Resolver(() => AssessmentTemplateType)\nexport class AssessmentTemplateFieldResolver {\n  constructor(private readonly assessmentRepo: AssessmentRepository) {}\n\n  @ResolveField(() => AssessmentTemplateType, { nullable: true })\n  async parentTemplate(\n    @Parent() template: { parentTemplateId?: string | null },\n  ) {\n    if (!template.parentTemplateId) return null;\n    return this.assessmentRepo.findTemplateById(template.parentTemplateId);\n  }\n}\n",
+      "queries": [],
+      "mutations": [],
+      "servicesUsed": []
+    },
+    {
+      "id": "resolver.valuationoperationsresolver",
+      "name": "ValuationOperationsResolver",
+      "filePath": "apps/backend/src/modules/valuation/interface/resolvers/valuation-operations.resolver.ts",
+      "codeSnippet": "import {\n  Resolver,\n  Query,\n  Mutation,\n  Args,\n  ID,\n  Float,\n  Int,\n} from '@nestjs/graphql';\nimport { AssessmentService } from '../../application/services/assessment.service';\nimport { AssessmentRepository } from '../../infrastructure/persistence/typeorm/repositories/assessment.repository';\nimport { ValuationCalculatorService } from '../../application/services/valuation-calculator.service';\nimport { DeductionType } from '@bizrok/shared';\nimport {\n  ValuationDeductionRuleType,\n  ValuationVersionType,\n  ValuationSessionType,\n  ValuationAuditLogType,\n  CloneFlowResultType,\n  ValuationSimulationResultType,\n  RunSimulationInput,\n  ExecuteSessionInput,\n  DeductionRuleResponseType,\n  ValuationVersionResponseType,\n  ValuationAuditLogResponseType,\n} from './types';\nimport { ValuationDeductionRuleEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-deduction-rule.entity';\nimport { ValuationVersionEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-version.entity';\nimport { ValuationSessionEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-session.entity';\nimport { ValuationAnswerEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-answer.entity';\nimport { ValuationResultEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-result.entity';\nimport { ValuationAuditLogEntity } from '../../infrastructure/persistence/typeorm/entities/valuation-audit-log.entity';\nimport { NotFoundException } from '@nestjs/common';\nimport { paginate } from '../../../../common/paginate';\n\n@Resolver()\nexport class ValuationOperationsResolver {\n  constructor(\n    private readonly assessmentService: AssessmentService,\n    private readonly assessmentRepo: AssessmentRepository,\n    private readonly calculatorService: ValuationCalculatorService,\n  ) {}\n\n  // ---- Deduction Rules ----\n\n  @Query(() => [ValuationDeductionRuleType], { name: 'deductionRules' })\n  async getDeductionRules(\n    @Args('categoryId', { type: () => ID, nullable: true }) categoryId?: string,\n    @Args('brandId', { type: () => ID, nullable: true }) brandId?: string,\n    @Args('seriesId', { type: () => ID, nullable: true }) seriesId?: string,",
+      "queries": [
+        {
+          "name": "deductionRules",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deductionRuleList",
+          "returnType": "unknown"
+        },
+        {
+          "name": "valuationVersions",
+          "returnType": "unknown"
+        },
+        {
+          "name": "valuationVersionList",
+          "returnType": "unknown"
+        },
+        {
+          "name": "valuationAuditLogs",
+          "returnType": "unknown"
+        },
+        {
+          "name": "valuationAuditLogList",
+          "returnType": "unknown"
+        }
+      ],
+      "mutations": [
+        {
+          "name": "updateDeductionRule",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteDeductionRule",
+          "returnType": "unknown"
+        },
+        {
+          "name": "runValuationSimulation",
+          "returnType": "unknown"
+        },
+        {
+          "name": "createVersionDraft",
+          "returnType": "unknown"
+        },
+        {
+          "name": "publishVersion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "deleteVersion",
+          "returnType": "unknown"
+        },
+        {
+          "name": "executeSession",
+          "returnType": "unknown"
+        },
+        {
+          "name": "cloneValuationFlow",
+          "returnType": "unknown"
+        }
+      ],
+      "servicesUsed": [
+        "AssessmentService",
+        "ValuationCalculatorService"
+      ]
+    }
+  ],
+  "controllers": [],
+  "gqlOperations": [
+    {
+      "id": "gql.query.systemHealth",
+      "name": "systemHealth",
+      "type": "query",
+      "resolverId": "resolver.healthresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/config/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.journalEntriesByDevice",
+      "name": "journalEntriesByDevice",
+      "type": "query",
+      "resolverId": "resolver.journalentrytype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.journalEntries",
+      "name": "journalEntries",
+      "type": "query",
+      "resolverId": "resolver.journalentrytype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/accounting/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.journalEntryList",
+      "name": "journalEntryList",
+      "type": "query",
+      "resolverId": "resolver.journalentrytype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.myAddresses",
+      "name": "myAddresses",
+      "type": "query",
+      "resolverId": "resolver.addresstype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.pincodeLookup",
+      "name": "pincodeLookup",
+      "type": "query",
+      "resolverId": "resolver.addresstype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.me",
+      "name": "me",
+      "type": "mutation",
+      "resolverId": "resolver.authresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/about/page.tsx",
+        "apps/customer-website/src/app/(public)/auth/login/page.tsx",
+        "apps/customer-website/src/app/(public)/contact/page.tsx",
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/layout.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/AssessmentStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/BrandStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CategoryStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ConditionStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/shared.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/app/api/graphql/route.ts",
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/app/dashboard/documents/page.tsx",
+        "apps/customer-website/src/app/dashboard/feedback/history/page.tsx",
+        "apps/customer-website/src/app/dashboard/feedback/page.tsx",
+        "apps/customer-website/src/app/dashboard/invoices/page.tsx",
+        "apps/customer-website/src/app/dashboard/notifications/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/cancel/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/reschedule/page.tsx",
+        "apps/customer-website/src/app/dashboard/page.tsx",
+        "apps/customer-website/src/app/dashboard/profile/page.tsx",
+        "apps/customer-website/src/app/dashboard/referrals/page.tsx",
+        "apps/customer-website/src/app/dashboard/settings/page.tsx",
+        "apps/customer-website/src/app/dashboard/tickets/page.tsx",
+        "apps/customer-website/src/app/dashboard/tracking/page.tsx",
+        "apps/customer-website/src/app/layout.tsx",
+        "apps/customer-website/src/app/not-found.tsx",
+        "apps/customer-website/src/app/providers.tsx",
+        "apps/customer-website/src/components/assessment/AssessmentRenderEngine.tsx",
+        "apps/customer-website/src/components/assessment/ContinueButton.tsx",
+        "apps/customer-website/src/components/assessment/GroupRenderer.tsx",
+        "apps/customer-website/src/components/assessment/index.ts",
+        "apps/customer-website/src/components/assessment/layouts/AccordionLayout.tsx",
+        "apps/customer-website/src/components/assessment/layouts/GridCardsLayout.tsx",
+        "apps/customer-website/src/components/assessment/layouts/ImageCardsLayout.tsx",
+        "apps/customer-website/src/components/assessment/layouts/QuestionListLayout.tsx",
+        "apps/customer-website/src/components/assessment/layouts/YesNoCardsLayout.tsx",
+        "apps/customer-website/src/components/assessment/PageHeader.tsx",
+        "apps/customer-website/src/components/assessment/PageRenderer.tsx",
+        "apps/customer-website/src/components/assessment/ProgressBar.tsx",
+        "apps/customer-website/src/components/assessment/QuestionRenderer.tsx",
+        "apps/customer-website/src/components/assessment/selections/ButtonSelection.tsx",
+        "apps/customer-website/src/components/assessment/selections/ChipSelection.tsx",
+        "apps/customer-website/src/components/assessment/selections/RadioSelection.tsx",
+        "apps/customer-website/src/components/assessment/SummaryPanel.tsx",
+        "apps/customer-website/src/components/assessment/types.ts",
+        "apps/customer-website/src/components/dashboard/DashboardGuard.tsx",
+        "apps/customer-website/src/components/dashboard/DashboardShell.tsx",
+        "apps/customer-website/src/components/Footer.tsx",
+        "apps/customer-website/src/components/Header.tsx",
+        "apps/customer-website/src/components/ui/AnimatedCounter.tsx",
+        "apps/customer-website/src/components/ui/ConfirmDialog.tsx",
+        "apps/customer-website/src/components/ui/EmptyState.tsx",
+        "apps/customer-website/src/components/ui/ErrorState.tsx",
+        "apps/customer-website/src/components/ui/LoadingState.tsx",
+        "apps/customer-website/src/components/ui/Reveal.tsx",
+        "apps/customer-website/src/components/ui/StatusBadge.tsx",
+        "apps/customer-website/src/components/ui/Toast.tsx",
+        "apps/customer-website/src/context/CustomerContext.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/hooks/useSellNavigation.ts",
+        "apps/customer-website/src/lib/apollo-client.ts",
+        "apps/customer-website/src/lib/navigation.ts",
+        "apps/customer-website/src/lib/sell-routing.ts",
+        "apps/customer-website/src/lib/utils.ts",
+        "apps/customer-website/src/stores/useBookingStore.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/accounting/page.tsx",
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/audit-logs/page.tsx",
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/config/page.tsx",
+        "apps/frontend/src/app/admin/inventory/page.tsx",
+        "apps/frontend/src/app/admin/layout.tsx",
+        "apps/frontend/src/app/admin/leads/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/admin/page.tsx",
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/admin/pricing/page.tsx",
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/admin/profitability/page.tsx",
+        "apps/frontend/src/app/admin/providers/page.tsx",
+        "apps/frontend/src/app/admin/qc/page.tsx",
+        "apps/frontend/src/app/admin/referrals/page.tsx",
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/admin/routing/page.tsx",
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/admin/seed/page.tsx",
+        "apps/frontend/src/app/admin/settings/email/page.tsx",
+        "apps/frontend/src/app/admin/settings/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/app/admin/valuation/versions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx",
+        "apps/frontend/src/app/api/upload/multiple/route.ts",
+        "apps/frontend/src/app/api/upload/route.ts",
+        "apps/frontend/src/app/api/validate-image-url/route.ts",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/components/admin/Breadcrumb.tsx",
+        "apps/frontend/src/components/admin/ConfirmActionModal.tsx",
+        "apps/frontend/src/components/admin/DataTable.tsx",
+        "apps/frontend/src/components/admin/ErrorState.tsx",
+        "apps/frontend/src/components/admin/LoadingState.tsx",
+        "apps/frontend/src/components/admin/PageHeader.tsx",
+        "apps/frontend/src/components/admin/SearchInput.tsx",
+        "apps/frontend/src/components/admin/SkeletonTable.tsx",
+        "apps/frontend/src/components/admin/StatusBadge.tsx",
+        "apps/frontend/src/components/admin/Toast.tsx",
+        "apps/frontend/src/components/admin/UnsavedChangesWarning.tsx",
+        "apps/frontend/src/components/ConfirmDeleteModal.tsx",
+        "apps/frontend/src/components/Drawer.tsx",
+        "apps/frontend/src/components/EditModal.tsx",
+        "apps/frontend/src/components/excel-utils.tsx",
+        "apps/frontend/src/components/MediaGallery.tsx",
+        "apps/frontend/src/components/MediaUploader.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts",
+        "apps/frontend/src/lib/form-validation.ts",
+        "apps/frontend/src/stores/useLifecycleStore.ts"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.sendTestEmail",
+      "name": "sendTestEmail",
+      "type": "mutation",
+      "resolverId": "resolver.authresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/settings/email/page.tsx"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.sendOtp",
+      "name": "sendOtp",
+      "type": "mutation",
+      "resolverId": "resolver.authresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/auth/login/page.tsx"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.systemConfigs",
+      "name": "systemConfigs",
+      "type": "query",
+      "resolverId": "resolver.systemconfigentrytype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/settings/email/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.systemConfig",
+      "name": "systemConfig",
+      "type": "query",
+      "resolverId": "resolver.systemconfigentrytype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/settings/email/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateSystemConfig",
+      "name": "updateSystemConfig",
+      "type": "mutation",
+      "resolverId": "resolver.systemconfigentrytype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/settings/email/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.attributeGroups",
+      "name": "attributeGroups",
+      "type": "query",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.attributeGroup",
+      "name": "attributeGroup",
+      "type": "query",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.productAttributes",
+      "name": "productAttributes",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.productAttribute",
+      "name": "productAttribute",
+      "type": "query",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.variantAttributes",
+      "name": "variantAttributes",
+      "type": "query",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.attributeValues",
+      "name": "attributeValues",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.attributeValue",
+      "name": "attributeValue",
+      "type": "query",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.flowAttributes",
+      "name": "flowAttributes",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.variantAttributeValues",
+      "name": "variantAttributeValues",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createAttributeGroup",
+      "name": "createAttributeGroup",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateAttributeGroup",
+      "name": "updateAttributeGroup",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createProductAttribute",
+      "name": "createProductAttribute",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateProductAttribute",
+      "name": "updateProductAttribute",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createAttributeValue",
+      "name": "createAttributeValue",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateAttributeValue",
+      "name": "updateAttributeValue",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.setVariantAttributes",
+      "name": "setVariantAttributes",
+      "type": "mutation",
+      "resolverId": "resolver.attributeconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.auditLogs",
+      "name": "auditLogs",
+      "type": "query",
+      "resolverId": "resolver.auditlogresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.allAuditLogs",
+      "name": "allAuditLogs",
+      "type": "query",
+      "resolverId": "resolver.auditlogresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/audit-logs/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.rollbackBatch",
+      "name": "rollbackBatch",
+      "type": "mutation",
+      "resolverId": "resolver.auditlogresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.brands",
+      "name": "brands",
+      "type": "query",
+      "resolverId": "resolver.brandresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/BrandStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/routing/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.brand",
+      "name": "brand",
+      "type": "query",
+      "resolverId": "resolver.brandresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/AssessmentStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/BrandStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/hooks/useSellNavigation.ts",
+        "apps/customer-website/src/lib/sell-routing.ts",
+        "apps/customer-website/src/stores/useBookingStore.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/inventory/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/qc/page.tsx",
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/admin/routing/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createBrand",
+      "name": "createBrand",
+      "type": "mutation",
+      "resolverId": "resolver.brandresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteBrand",
+      "name": "deleteBrand",
+      "type": "mutation",
+      "resolverId": "resolver.brandresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateBrand",
+      "name": "updateBrand",
+      "type": "mutation",
+      "resolverId": "resolver.brandresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.bulkUpdateBrandStatus",
+      "name": "bulkUpdateBrandStatus",
+      "type": "mutation",
+      "resolverId": "resolver.brandresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.businessFlows",
+      "name": "businessFlows",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.businessFlow",
+      "name": "businessFlow",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.businessFlowBySlug",
+      "name": "businessFlowBySlug",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.businessFlowCategories",
+      "name": "businessFlowCategories",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.resolveJourneySlug",
+      "name": "resolveJourneySlug",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.publicJourneys",
+      "name": "publicJourneys",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.businessFlowPaymentProfiles",
+      "name": "businessFlowPaymentProfiles",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.businessFlowAssessmentProfiles",
+      "name": "businessFlowAssessmentProfiles",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.pricingProfiles",
+      "name": "pricingProfiles",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.pricingProfile",
+      "name": "pricingProfile",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.pricingRules",
+      "name": "pricingRules",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.pricingFormulas",
+      "name": "pricingFormulas",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.notificationProfiles",
+      "name": "notificationProfiles",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.notificationProfile",
+      "name": "notificationProfile",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.notificationTemplates",
+      "name": "notificationTemplates",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.documentProfiles",
+      "name": "documentProfiles",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.documentProfile",
+      "name": "documentProfile",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.documentRequirements",
+      "name": "documentRequirements",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.logisticsProfiles",
+      "name": "logisticsProfiles",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.logisticsProfile",
+      "name": "logisticsProfile",
+      "type": "query",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.logisticsRules",
+      "name": "logisticsRules",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createBusinessFlow",
+      "name": "createBusinessFlow",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateBusinessFlow",
+      "name": "updateBusinessFlow",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createPricingProfile",
+      "name": "createPricingProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updatePricingProfile",
+      "name": "updatePricingProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createNotificationProfile",
+      "name": "createNotificationProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateNotificationProfile",
+      "name": "updateNotificationProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createDocumentProfile",
+      "name": "createDocumentProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateDocumentProfile",
+      "name": "updateDocumentProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createLogisticsProfile",
+      "name": "createLogisticsProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateLogisticsProfile",
+      "name": "updateLogisticsProfile",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.setLogisticsRules",
+      "name": "setLogisticsRules",
+      "type": "mutation",
+      "resolverId": "resolver.businessflowresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.categories",
+      "name": "categories",
+      "type": "query",
+      "resolverId": "resolver.categoryresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CategoryStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/routing/page.tsx",
+        "apps/frontend/src/app/admin/seed/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.category",
+      "name": "category",
+      "type": "query",
+      "resolverId": "resolver.categoryresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/AssessmentStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/BrandStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CategoryStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/shared.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/hooks/useSellNavigation.ts",
+        "apps/customer-website/src/lib/sell-routing.ts",
+        "apps/customer-website/src/stores/useBookingStore.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/inventory/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/routing/page.tsx",
+        "apps/frontend/src/app/admin/settings/email/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createCategory",
+      "name": "createCategory",
+      "type": "mutation",
+      "resolverId": "resolver.categoryresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteCategory",
+      "name": "deleteCategory",
+      "type": "mutation",
+      "resolverId": "resolver.categoryresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateCategory",
+      "name": "updateCategory",
+      "type": "mutation",
+      "resolverId": "resolver.categoryresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.bulkUpdateCategoryStatus",
+      "name": "bulkUpdateCategoryStatus",
+      "type": "mutation",
+      "resolverId": "resolver.categoryresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.restoreCategory",
+      "name": "restoreCategory",
+      "type": "mutation",
+      "resolverId": "resolver.categoryresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.products",
+      "name": "products",
+      "type": "query",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.product",
+      "name": "product",
+      "type": "query",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/hooks/useSellNavigation.ts",
+        "apps/customer-website/src/lib/sell-routing.ts",
+        "apps/customer-website/src/stores/useBookingStore.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/pricing/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.trendingProducts",
+      "name": "trendingProducts",
+      "type": "query",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.toggleProductTrending",
+      "name": "toggleProductTrending",
+      "type": "mutation",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/products/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createProduct",
+      "name": "createProduct",
+      "type": "mutation",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateProduct",
+      "name": "updateProduct",
+      "type": "mutation",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteProduct",
+      "name": "deleteProduct",
+      "type": "mutation",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.bulkUpdateProductStatus",
+      "name": "bulkUpdateProductStatus",
+      "type": "mutation",
+      "resolverId": "resolver.productresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/products/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.searchAll",
+      "name": "searchAll",
+      "type": "query",
+      "resolverId": "resolver.searchresulttype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.resolveBusinessCode",
+      "name": "resolveBusinessCode",
+      "type": "query",
+      "resolverId": "resolver.searchresulttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.seedCatalog",
+      "name": "seedCatalog",
+      "type": "mutation",
+      "resolverId": "resolver.seedresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/seed/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.seedBusinessFlows",
+      "name": "seedBusinessFlows",
+      "type": "mutation",
+      "resolverId": "resolver.seedresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.seedMockTransactions",
+      "name": "seedMockTransactions",
+      "type": "mutation",
+      "resolverId": "resolver.seedresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/seed/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.series",
+      "name": "series",
+      "type": "query",
+      "resolverId": "resolver.seriesresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/AssessmentStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/stores/useBookingStore.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.seriesById",
+      "name": "seriesById",
+      "type": "query",
+      "resolverId": "resolver.seriesresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createSeries",
+      "name": "createSeries",
+      "type": "mutation",
+      "resolverId": "resolver.seriesresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/series/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteSeries",
+      "name": "deleteSeries",
+      "type": "mutation",
+      "resolverId": "resolver.seriesresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/series/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateSeries",
+      "name": "updateSeries",
+      "type": "mutation",
+      "resolverId": "resolver.seriesresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/series/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.bulkUpdateSeriesStatus",
+      "name": "bulkUpdateSeriesStatus",
+      "type": "mutation",
+      "resolverId": "resolver.seriesresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/series/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.variants",
+      "name": "variants",
+      "type": "query",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/components/assessment/types.ts",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/pricing/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.variant",
+      "name": "variant",
+      "type": "query",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/page.tsx",
+        "apps/customer-website/src/components/assessment/types.ts",
+        "apps/customer-website/src/components/ui/StatusBadge.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/hooks/useSellNavigation.ts",
+        "apps/customer-website/src/lib/sell-routing.ts",
+        "apps/customer-website/src/stores/useBookingStore.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/inventory/page.tsx",
+        "apps/frontend/src/app/admin/leads/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/admin/pricing/page.tsx",
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/admin/qc/page.tsx",
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/app/admin/valuation/versions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/components/admin/ConfirmActionModal.tsx",
+        "apps/frontend/src/components/admin/DataTable.tsx",
+        "apps/frontend/src/components/Drawer.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createVariant",
+      "name": "createVariant",
+      "type": "mutation",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createVariants",
+      "name": "createVariants",
+      "type": "mutation",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteVariant",
+      "name": "deleteVariant",
+      "type": "mutation",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateVariant",
+      "name": "updateVariant",
+      "type": "mutation",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/pricing/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateVariantPrice",
+      "name": "updateVariantPrice",
+      "type": "mutation",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/pricing/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.bulkUpdateVariantStatus",
+      "name": "bulkUpdateVariantStatus",
+      "type": "mutation",
+      "resolverId": "resolver.productvariantresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.workflowStepTypes",
+      "name": "workflowStepTypes",
+      "type": "query",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.workflowStepType",
+      "name": "workflowStepType",
+      "type": "query",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.workflowComponents",
+      "name": "workflowComponents",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.workflowComponent",
+      "name": "workflowComponent",
+      "type": "query",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.flowWorkflowSteps",
+      "name": "flowWorkflowSteps",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.flowStepComponents",
+      "name": "flowStepComponents",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createWorkflowStepType",
+      "name": "createWorkflowStepType",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateWorkflowStepType",
+      "name": "updateWorkflowStepType",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createWorkflowComponent",
+      "name": "createWorkflowComponent",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateWorkflowComponent",
+      "name": "updateWorkflowComponent",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createFlowWorkflowStep",
+      "name": "createFlowWorkflowStep",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.setFlowWorkflowSteps",
+      "name": "setFlowWorkflowSteps",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.setFlowStepComponents",
+      "name": "setFlowStepComponents",
+      "type": "mutation",
+      "resolverId": "resolver.workflowconfigresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.devices",
+      "name": "devices",
+      "type": "query",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/about/page.tsx",
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/dashboard/referrals/page.tsx"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/inventory/page.tsx",
+        "apps/frontend/src/app/admin/qc/page.tsx",
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.deviceList",
+      "name": "deviceList",
+      "type": "query",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.device",
+      "name": "device",
+      "type": "query",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/about/page.tsx",
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/AssessmentStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/BrandStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CategoryStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/app/dashboard/notifications/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/page.tsx",
+        "apps/customer-website/src/app/dashboard/page.tsx",
+        "apps/customer-website/src/app/dashboard/referrals/page.tsx",
+        "apps/customer-website/src/app/layout.tsx",
+        "apps/customer-website/src/components/Footer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/accounting/page.tsx",
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/inventory/page.tsx",
+        "apps/frontend/src/app/admin/leads/page.tsx",
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/admin/profitability/page.tsx",
+        "apps/frontend/src/app/admin/qc/page.tsx",
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/admin/routing/page.tsx",
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.deviceByLead",
+      "name": "deviceByLead",
+      "type": "query",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.warehouses",
+      "name": "warehouses",
+      "type": "mutation",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/inventory/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.warehouseList",
+      "name": "warehouseList",
+      "type": "query",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateDeviceDetails",
+      "name": "updateDeviceDetails",
+      "type": "mutation",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/inventory/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createWarehouse",
+      "name": "createWarehouse",
+      "type": "mutation",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/inventory/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateWarehouse",
+      "name": "updateWarehouse",
+      "type": "mutation",
+      "resolverId": "resolver.warehousetype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.leads",
+      "name": "leads",
+      "type": "query",
+      "resolverId": "resolver.leadtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/leads/page.tsx",
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.leadList",
+      "name": "leadList",
+      "type": "query",
+      "resolverId": "resolver.leadtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.lead",
+      "name": "lead",
+      "type": "query",
+      "resolverId": "resolver.leadtype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/about/page.tsx",
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/AssessmentStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CategoryStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ConditionStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ModelStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/app/not-found.tsx",
+        "apps/customer-website/src/components/assessment/layouts/ImageCardsLayout.tsx",
+        "apps/customer-website/src/components/assessment/PageHeader.tsx",
+        "apps/customer-website/src/components/assessment/QuestionRenderer.tsx",
+        "apps/customer-website/src/components/assessment/selections/ButtonSelection.tsx",
+        "apps/customer-website/src/components/assessment/SummaryPanel.tsx",
+        "apps/customer-website/src/components/Footer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/config/page.tsx",
+        "apps/frontend/src/app/admin/leads/page.tsx",
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/admin/page.tsx",
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createLead",
+      "name": "createLead",
+      "type": "mutation",
+      "resolverId": "resolver.leadtype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/leads/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateLead",
+      "name": "updateLead",
+      "type": "mutation",
+      "resolverId": "resolver.leadtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/leads/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateLeadStatus",
+      "name": "updateLeadStatus",
+      "type": "mutation",
+      "resolverId": "resolver.leadtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/leads/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.offer",
+      "name": "offer",
+      "type": "query",
+      "resolverId": "resolver.offertype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/components/Footer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.offersByLead",
+      "name": "offersByLead",
+      "type": "query",
+      "resolverId": "resolver.offertype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/offers/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.offerList",
+      "name": "offerList",
+      "type": "query",
+      "resolverId": "resolver.offertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createOffer",
+      "name": "createOffer",
+      "type": "mutation",
+      "resolverId": "resolver.offertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteOffer",
+      "name": "deleteOffer",
+      "type": "mutation",
+      "resolverId": "resolver.offertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/offers/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateOfferStatus",
+      "name": "updateOfferStatus",
+      "type": "mutation",
+      "resolverId": "resolver.offertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.orders",
+      "name": "orders",
+      "type": "query",
+      "resolverId": "resolver.customerordertype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/dashboard/notifications/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/cancel/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/reschedule/page.tsx",
+        "apps/customer-website/src/app/dashboard/page.tsx",
+        "apps/customer-website/src/app/dashboard/tickets/page.tsx",
+        "apps/customer-website/src/components/dashboard/DashboardShell.tsx",
+        "apps/customer-website/src/lib/navigation.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.order",
+      "name": "order",
+      "type": "query",
+      "resolverId": "resolver.customerordertype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/about/page.tsx",
+        "apps/customer-website/src/app/(public)/auth/login/page.tsx",
+        "apps/customer-website/src/app/(public)/contact/page.tsx",
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CategoryStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/ConditionStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/VariantStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/app/dashboard/documents/page.tsx",
+        "apps/customer-website/src/app/dashboard/feedback/history/page.tsx",
+        "apps/customer-website/src/app/dashboard/feedback/page.tsx",
+        "apps/customer-website/src/app/dashboard/invoices/page.tsx",
+        "apps/customer-website/src/app/dashboard/notifications/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/cancel/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/reschedule/page.tsx",
+        "apps/customer-website/src/app/dashboard/page.tsx",
+        "apps/customer-website/src/app/dashboard/profile/page.tsx",
+        "apps/customer-website/src/app/dashboard/referrals/page.tsx",
+        "apps/customer-website/src/app/dashboard/settings/page.tsx",
+        "apps/customer-website/src/app/dashboard/tickets/page.tsx",
+        "apps/customer-website/src/app/dashboard/tracking/page.tsx",
+        "apps/customer-website/src/components/assessment/ContinueButton.tsx",
+        "apps/customer-website/src/components/assessment/GroupRenderer.tsx",
+        "apps/customer-website/src/components/assessment/layouts/AccordionLayout.tsx",
+        "apps/customer-website/src/components/assessment/layouts/GridCardsLayout.tsx",
+        "apps/customer-website/src/components/assessment/layouts/ImageCardsLayout.tsx",
+        "apps/customer-website/src/components/assessment/layouts/YesNoCardsLayout.tsx",
+        "apps/customer-website/src/components/assessment/PageRenderer.tsx",
+        "apps/customer-website/src/components/assessment/QuestionRenderer.tsx",
+        "apps/customer-website/src/components/assessment/selections/ButtonSelection.tsx",
+        "apps/customer-website/src/components/assessment/selections/ChipSelection.tsx",
+        "apps/customer-website/src/components/assessment/selections/RadioSelection.tsx",
+        "apps/customer-website/src/components/assessment/SummaryPanel.tsx",
+        "apps/customer-website/src/components/dashboard/DashboardShell.tsx",
+        "apps/customer-website/src/components/Footer.tsx",
+        "apps/customer-website/src/components/Header.tsx",
+        "apps/customer-website/src/components/ui/LoadingState.tsx",
+        "apps/customer-website/src/components/ui/StatusBadge.tsx",
+        "apps/customer-website/src/components/ui/Toast.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/lib/navigation.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/accounting/page.tsx",
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/audit-logs/page.tsx",
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+        "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+        "apps/frontend/src/app/admin/catalog/page.tsx",
+        "apps/frontend/src/app/admin/catalog/products/page.tsx",
+        "apps/frontend/src/app/admin/catalog/series/page.tsx",
+        "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+        "apps/frontend/src/app/admin/config/page.tsx",
+        "apps/frontend/src/app/admin/inventory/page.tsx",
+        "apps/frontend/src/app/admin/leads/page.tsx",
+        "apps/frontend/src/app/admin/models/page.tsx",
+        "apps/frontend/src/app/admin/offers/page.tsx",
+        "apps/frontend/src/app/admin/page.tsx",
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/admin/pricing/page.tsx",
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/admin/profitability/page.tsx",
+        "apps/frontend/src/app/admin/providers/page.tsx",
+        "apps/frontend/src/app/admin/qc/page.tsx",
+        "apps/frontend/src/app/admin/referrals/page.tsx",
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/admin/routing/page.tsx",
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/admin/seed/page.tsx",
+        "apps/frontend/src/app/admin/settings/email/page.tsx",
+        "apps/frontend/src/app/admin/settings/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx",
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+        "apps/frontend/src/app/admin/valuation/versions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx",
+        "apps/frontend/src/app/layout.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/components/admin/ConfirmActionModal.tsx",
+        "apps/frontend/src/components/admin/DataTable.tsx",
+        "apps/frontend/src/components/admin/ErrorState.tsx",
+        "apps/frontend/src/components/admin/SearchInput.tsx",
+        "apps/frontend/src/components/admin/StatusBadge.tsx",
+        "apps/frontend/src/components/admin/Toast.tsx",
+        "apps/frontend/src/components/admin/UnsavedChangesWarning.tsx",
+        "apps/frontend/src/components/ConfirmDeleteModal.tsx",
+        "apps/frontend/src/components/Drawer.tsx",
+        "apps/frontend/src/components/EditModal.tsx",
+        "apps/frontend/src/components/excel-utils.tsx",
+        "apps/frontend/src/components/MediaGallery.tsx",
+        "apps/frontend/src/components/MediaUploader.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.myOrders",
+      "name": "myOrders",
+      "type": "query",
+      "resolverId": "resolver.customerordertype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/orders/page.tsx",
+        "apps/customer-website/src/app/dashboard/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createOrder",
+      "name": "createOrder",
+      "type": "mutation",
+      "resolverId": "resolver.customerordertype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateOrderStatus",
+      "name": "updateOrderStatus",
+      "type": "mutation",
+      "resolverId": "resolver.customerordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.cancelOrder",
+      "name": "cancelOrder",
+      "type": "mutation",
+      "resolverId": "resolver.customerordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.payments",
+      "name": "payments",
+      "type": "query",
+      "resolverId": "resolver.paymenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.paymentsByOrder",
+      "name": "paymentsByOrder",
+      "type": "query",
+      "resolverId": "resolver.paymenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.paymentsByCustomer",
+      "name": "paymentsByCustomer",
+      "type": "query",
+      "resolverId": "resolver.paymenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.payment",
+      "name": "payment",
+      "type": "query",
+      "resolverId": "resolver.paymenttype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/about/page.tsx",
+        "apps/customer-website/src/app/(public)/auth/login/page.tsx",
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/layout.tsx",
+        "apps/customer-website/src/components/Footer.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.initiatePayment",
+      "name": "initiatePayment",
+      "type": "mutation",
+      "resolverId": "resolver.paymenttype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.processPayment",
+      "name": "processPayment",
+      "type": "mutation",
+      "resolverId": "resolver.paymenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.pickup",
+      "name": "pickup",
+      "type": "query",
+      "resolverId": "resolver.pickuptype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/about/page.tsx",
+        "apps/customer-website/src/app/(public)/auth/login/page.tsx",
+        "apps/customer-website/src/app/(public)/faqs/page.tsx",
+        "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+        "apps/customer-website/src/app/(public)/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/page.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/CheckoutStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/OrderConfirmationStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/page.tsx",
+        "apps/customer-website/src/app/dashboard/orders/reschedule/page.tsx",
+        "apps/customer-website/src/app/dashboard/page.tsx",
+        "apps/customer-website/src/app/layout.tsx",
+        "apps/customer-website/src/components/Footer.tsx",
+        "apps/customer-website/src/graphql/queries.ts",
+        "apps/customer-website/src/stores/useBookingStore.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.pickupsByLead",
+      "name": "pickupsByLead",
+      "type": "query",
+      "resolverId": "resolver.pickuptype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/pickups/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.pickupList",
+      "name": "pickupList",
+      "type": "query",
+      "resolverId": "resolver.pickuptype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createPickup",
+      "name": "createPickup",
+      "type": "mutation",
+      "resolverId": "resolver.pickuptype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deletePickup",
+      "name": "deletePickup",
+      "type": "mutation",
+      "resolverId": "resolver.pickuptype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/pickups/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updatePickupStatus",
+      "name": "updatePickupStatus",
+      "type": "mutation",
+      "resolverId": "resolver.pickuptype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/pickups/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.procurement",
+      "name": "procurement",
+      "type": "query",
+      "resolverId": "resolver.procurementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.procurements",
+      "name": "procurements",
+      "type": "query",
+      "resolverId": "resolver.procurementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.procurementList",
+      "name": "procurementList",
+      "type": "query",
+      "resolverId": "resolver.procurementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createProcurement",
+      "name": "createProcurement",
+      "type": "mutation",
+      "resolverId": "resolver.procurementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteProcurement",
+      "name": "deleteProcurement",
+      "type": "mutation",
+      "resolverId": "resolver.procurementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/procurement/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.completeProcurement",
+      "name": "completeProcurement",
+      "type": "mutation",
+      "resolverId": "resolver.procurementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/procurement/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.profitabilityReportByDevice",
+      "name": "profitabilityReportByDevice",
+      "type": "query",
+      "resolverId": "resolver.profitabilityreporttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.profitabilityReports",
+      "name": "profitabilityReports",
+      "type": "query",
+      "resolverId": "resolver.profitabilityreporttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/analytics/page.tsx",
+        "apps/frontend/src/app/admin/profitability/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.profitabilityReportList",
+      "name": "profitabilityReportList",
+      "type": "query",
+      "resolverId": "resolver.profitabilityreporttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.qcAudit",
+      "name": "qcAudit",
+      "type": "query",
+      "resolverId": "resolver.qcaudittype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/qc/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.qcAuditsByDevice",
+      "name": "qcAuditsByDevice",
+      "type": "query",
+      "resolverId": "resolver.qcaudittype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/qc/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.qcAuditList",
+      "name": "qcAuditList",
+      "type": "query",
+      "resolverId": "resolver.qcaudittype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.submitQC",
+      "name": "submitQC",
+      "type": "mutation",
+      "resolverId": "resolver.qcaudittype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/qc/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateQcAudit",
+      "name": "updateQcAudit",
+      "type": "mutation",
+      "resolverId": "resolver.qcaudittype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/qc/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteQcAudit",
+      "name": "deleteQcAudit",
+      "type": "mutation",
+      "resolverId": "resolver.qcaudittype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/qc/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.myReferrals",
+      "name": "myReferrals",
+      "type": "query",
+      "resolverId": "resolver.referralconfigtype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/referrals/page.tsx"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.referralConfig",
+      "name": "referralConfig",
+      "type": "query",
+      "resolverId": "resolver.referralconfigtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/referrals/page.tsx"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.allReferrals",
+      "name": "allReferrals",
+      "type": "query",
+      "resolverId": "resolver.referralconfigtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/referrals/page.tsx"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateReferralConfig",
+      "name": "updateReferralConfig",
+      "type": "mutation",
+      "resolverId": "resolver.referralconfigtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/referrals/page.tsx"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateReferralStatus",
+      "name": "updateReferralStatus",
+      "type": "mutation",
+      "resolverId": "resolver.referralconfigtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/referrals/page.tsx"
+      ],
+      "security": {
+        "isProtected": true,
+        "guards": [
+          "JwtAuthGuard"
+        ],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.refurbishment",
+      "name": "refurbishment",
+      "type": "query",
+      "resolverId": "resolver.refurbishmenttype",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/page.tsx"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.refurbishmentsByDevice",
+      "name": "refurbishmentsByDevice",
+      "type": "query",
+      "resolverId": "resolver.refurbishmenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/refurbishment/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.refurbishmentList",
+      "name": "refurbishmentList",
+      "type": "query",
+      "resolverId": "resolver.refurbishmenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createWorkOrder",
+      "name": "createWorkOrder",
+      "type": "mutation",
+      "resolverId": "resolver.refurbishmenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/refurbishment/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateWorkOrderStatus",
+      "name": "updateWorkOrderStatus",
+      "type": "mutation",
+      "resolverId": "resolver.refurbishmenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/refurbishment/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteWorkOrder",
+      "name": "deleteWorkOrder",
+      "type": "mutation",
+      "resolverId": "resolver.refurbishmenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/refurbishment/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.completeRefurbishment",
+      "name": "completeRefurbishment",
+      "type": "mutation",
+      "resolverId": "resolver.refurbishmenttype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/refurbishment/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.salesOrder",
+      "name": "salesOrder",
+      "type": "query",
+      "resolverId": "resolver.salesordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.salesOrders",
+      "name": "salesOrders",
+      "type": "query",
+      "resolverId": "resolver.salesordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.salesOrderList",
+      "name": "salesOrderList",
+      "type": "query",
+      "resolverId": "resolver.salesordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createSalesOrder",
+      "name": "createSalesOrder",
+      "type": "mutation",
+      "resolverId": "resolver.salesordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.completeSale",
+      "name": "completeSale",
+      "type": "mutation",
+      "resolverId": "resolver.salesordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/sales/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateSalesOrder",
+      "name": "updateSalesOrder",
+      "type": "mutation",
+      "resolverId": "resolver.salesordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/sales/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteSalesOrder",
+      "name": "deleteSalesOrder",
+      "type": "mutation",
+      "resolverId": "resolver.salesordertype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/sales/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.settlement",
+      "name": "settlement",
+      "type": "query",
+      "resolverId": "resolver.settlementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.settlementByDevice",
+      "name": "settlementByDevice",
+      "type": "query",
+      "resolverId": "resolver.settlementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.settlements",
+      "name": "settlements",
+      "type": "query",
+      "resolverId": "resolver.settlementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/security/page.tsx",
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/page.tsx",
+        "apps/frontend/src/lib/admin-navigation.ts"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.settlementList",
+      "name": "settlementList",
+      "type": "query",
+      "resolverId": "resolver.settlementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createSettlement",
+      "name": "createSettlement",
+      "type": "mutation",
+      "resolverId": "resolver.settlementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/settlements/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.processPayout",
+      "name": "processPayout",
+      "type": "mutation",
+      "resolverId": "resolver.settlementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/settlements/page.tsx",
+        "apps/frontend/src/app/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteSettlement",
+      "name": "deleteSettlement",
+      "type": "mutation",
+      "resolverId": "resolver.settlementtype",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTypes",
+      "name": "assessmentTypes",
+      "type": "query",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx",
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTypeList",
+      "name": "assessmentTypeList",
+      "type": "query",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTypeById",
+      "name": "assessmentTypeById",
+      "type": "query",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTypeByCode",
+      "name": "assessmentTypeByCode",
+      "type": "query",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTypeBySlug",
+      "name": "assessmentTypeBySlug",
+      "type": "query",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.previewAssessmentTypeUrl",
+      "name": "previewAssessmentTypeUrl",
+      "type": "query",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentPricingSourceOptions",
+      "name": "assessmentPricingSourceOptions",
+      "type": "query",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createAssessmentType",
+      "name": "createAssessmentType",
+      "type": "mutation",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateAssessmentType",
+      "name": "updateAssessmentType",
+      "type": "mutation",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteAssessmentType",
+      "name": "deleteAssessmentType",
+      "type": "mutation",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.toggleAssessmentTypeActive",
+      "name": "toggleAssessmentTypeActive",
+      "type": "mutation",
+      "resolverId": "resolver.assessmenttyperesolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.valuationPages",
+      "name": "valuationPages",
+      "type": "query",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/AssessmentStep.tsx",
+        "apps/customer-website/src/app/(public)/sell/_components/SellSidebar.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.valuationGroups",
+      "name": "valuationGroups",
+      "type": "query",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.valuationQuestions",
+      "name": "valuationQuestions",
+      "type": "query",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.templateTree",
+      "name": "templateTree",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.templateWithQuestions",
+      "name": "templateWithQuestions",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.templateQuestions",
+      "name": "templateQuestions",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTemplates",
+      "name": "assessmentTemplates",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.overrideImpactPreview",
+      "name": "overrideImpactPreview",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.valuationAuditLogs",
+      "name": "valuationAuditLogs",
+      "type": "query",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.deductionRules",
+      "name": "deductionRules",
+      "type": "query",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTemplateById",
+      "name": "assessmentTemplateById",
+      "type": "query",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.templatePages",
+      "name": "templatePages",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createValuationPage",
+      "name": "createValuationPage",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateValuationPage",
+      "name": "updateValuationPage",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteValuationPage",
+      "name": "deleteValuationPage",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createValuationGroup",
+      "name": "createValuationGroup",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateValuationGroup",
+      "name": "updateValuationGroup",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteValuationGroup",
+      "name": "deleteValuationGroup",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createValuationQuestion",
+      "name": "createValuationQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateValuationQuestion",
+      "name": "updateValuationQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteValuationQuestion",
+      "name": "deleteValuationQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createValuationOption",
+      "name": "createValuationOption",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateValuationOption",
+      "name": "updateValuationOption",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteValuationOption",
+      "name": "deleteValuationOption",
+      "type": "mutation",
+      "resolverId": "resolver.assessmentresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.cloneValuationFlow",
+      "name": "cloneValuationFlow",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/clone/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.getQuestionTree",
+      "name": "getQuestionTree",
+      "type": "query",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.getPageVisibilityRules",
+      "name": "getPageVisibilityRules",
+      "type": "query",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.getDesignTemplates",
+      "name": "getDesignTemplates",
+      "type": "query",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.getAssessmentAnalytics",
+      "name": "getAssessmentAnalytics",
+      "type": "query",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updatePageDesignConfig",
+      "name": "updatePageDesignConfig",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateGroupPresentationConfig",
+      "name": "updateGroupPresentationConfig",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateQuestionCardConfig",
+      "name": "updateQuestionCardConfig",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/page-designer/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateTemplateTheme",
+      "name": "updateTemplateTheme",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.setNestedQuestion",
+      "name": "setNestedQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.removeNestedQuestion",
+      "name": "removeNestedQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updatePageVisibilityRules",
+      "name": "updatePageVisibilityRules",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.saveDesignAsTemplate",
+      "name": "saveDesignAsTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.pagedesignerresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.templateQuestionList",
+      "name": "templateQuestionList",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.assessmentTemplateList",
+      "name": "assessmentTemplateList",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.entityOverrides",
+      "name": "entityOverrides",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.entityOverrideList",
+      "name": "entityOverrideList",
+      "type": "query",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createAssessmentTemplate",
+      "name": "createAssessmentTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateTemplateName",
+      "name": "updateTemplateName",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteAssessmentTemplate",
+      "name": "deleteAssessmentTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.ensureTemplateExists",
+      "name": "ensureTemplateExists",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createTemplatePage",
+      "name": "createTemplatePage",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateTemplatePage",
+      "name": "updateTemplatePage",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteTemplatePage",
+      "name": "deleteTemplatePage",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/flow/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createTemplateGroup",
+      "name": "createTemplateGroup",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateTemplateGroup",
+      "name": "updateTemplateGroup",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteTemplateGroup",
+      "name": "deleteTemplateGroup",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createTemplateQuestion",
+      "name": "createTemplateQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateTemplateQuestion",
+      "name": "updateTemplateQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteTemplateQuestion",
+      "name": "deleteTemplateQuestion",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createTemplateOption",
+      "name": "createTemplateOption",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateTemplateOption",
+      "name": "updateTemplateOption",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteTemplateOption",
+      "name": "deleteTemplateOption",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.bulkCreateTemplateOptions",
+      "name": "bulkCreateTemplateOptions",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.addQuestionToTemplate",
+      "name": "addQuestionToTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.hideQuestionInTemplate",
+      "name": "hideQuestionInTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.hideGroupInTemplate",
+      "name": "hideGroupInTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.unhideQuestionInTemplate",
+      "name": "unhideQuestionInTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.unhideGroupInTemplate",
+      "name": "unhideGroupInTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.modifyQuestionInTemplate",
+      "name": "modifyQuestionInTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.hideOptionInTemplate",
+      "name": "hideOptionInTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.showOptionInTemplate",
+      "name": "showOptionInTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/questions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.addOptionToTemplate",
+      "name": "addOptionToTemplate",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.applyEntityOverride",
+      "name": "applyEntityOverride",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.removeEntityOverride",
+      "name": "removeEntityOverride",
+      "type": "mutation",
+      "resolverId": "resolver.templatecrudresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.deductionRuleList",
+      "name": "deductionRuleList",
+      "type": "query",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.valuationVersions",
+      "name": "valuationVersions",
+      "type": "query",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/versions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.valuationVersionList",
+      "name": "valuationVersionList",
+      "type": "query",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.query.valuationAuditLogList",
+      "name": "valuationAuditLogList",
+      "type": "query",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.updateDeductionRule",
+      "name": "updateDeductionRule",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteDeductionRule",
+      "name": "deleteDeductionRule",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/deductions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.runValuationSimulation",
+      "name": "runValuationSimulation",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/QuoteStep.tsx",
+        "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/simulator/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.createVersionDraft",
+      "name": "createVersionDraft",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/versions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.publishVersion",
+      "name": "publishVersion",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/versions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteVersion",
+      "name": "deleteVersion",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/versions/page.tsx"
+      ],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.executeSession",
+      "name": "executeSession",
+      "type": "mutation",
+      "resolverId": "resolver.valuationoperationsresolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [],
+      "security": {
+        "isProtected": false,
+        "guards": [],
+        "roles": []
+      }
+    },
+    {
+      "id": "gql.mutation.deleteBusinessFlow",
+      "name": "deleteBusinessFlow",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.setFlowCategories",
+      "name": "setFlowCategories",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx"
+      ],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.updateJourneyConfig",
+      "name": "updateJourneyConfig",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.setFlowPaymentProfiles",
+      "name": "setFlowPaymentProfiles",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.setFlowAssessmentProfiles",
+      "name": "setFlowAssessmentProfiles",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deletePricingProfile",
+      "name": "deletePricingProfile",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.setPricingRules",
+      "name": "setPricingRules",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.setPricingFormulas",
+      "name": "setPricingFormulas",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteNotificationProfile",
+      "name": "deleteNotificationProfile",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.setNotificationTemplates",
+      "name": "setNotificationTemplates",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteDocumentProfile",
+      "name": "deleteDocumentProfile",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.setDocumentRequirements",
+      "name": "setDocumentRequirements",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteLogisticsProfile",
+      "name": "deleteLogisticsProfile",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteAttributeGroup",
+      "name": "deleteAttributeGroup",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.deleteProductAttribute",
+      "name": "deleteProductAttribute",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.deleteAttributeValue",
+      "name": "deleteAttributeValue",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/catalog/attributes/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.setFlowAttributes",
+      "name": "setFlowAttributes",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/sell/_components/DynamicWorkflowRenderer.tsx"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteWorkflowStepType",
+      "name": "deleteWorkflowStepType",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteWorkflowComponent",
+      "name": "deleteWorkflowComponent",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteFlowWorkflowStep",
+      "name": "deleteFlowWorkflowStep",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/valuation/workflow/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.deleteWarehouse",
+      "name": "deleteWarehouse",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [],
+      "adminConsumers": [
+        "apps/frontend/src/app/admin/inventory/page.tsx"
+      ]
+    },
+    {
+      "id": "gql.mutation.verifyOtp",
+      "name": "verifyOtp",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/(public)/auth/login/page.tsx"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.updateProfile",
+      "name": "updateProfile",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/profile/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.requestContactChangeOtp",
+      "name": "requestContactChangeOtp",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/profile/page.tsx"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.confirmContactChange",
+      "name": "confirmContactChange",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/profile/page.tsx"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.changePassword",
+      "name": "changePassword",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/profile/page.tsx"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.createAddress",
+      "name": "createAddress",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.updateAddress",
+      "name": "updateAddress",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.setDefaultAddress",
+      "name": "setDefaultAddress",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": []
+    },
+    {
+      "id": "gql.mutation.deleteAddress",
+      "name": "deleteAddress",
+      "type": "mutation",
+      "resolverId": "Backend Resolver",
+      "inSchema": true,
+      "frontendConsumers": [
+        "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+        "apps/customer-website/src/graphql/queries.ts"
+      ],
+      "adminConsumers": []
+    }
+  ],
+  "frontendPages": [
+    {
+      "id": "admin.page._admin_accounting",
+      "app": "admin",
+      "route": "/admin/accounting",
+      "filePath": "apps/frontend/src/app/admin/accounting/page.tsx",
+      "componentsUsed": [
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "SkeletonTable",
+        "StatusBadge"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: refetch"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "journalEntries",
+        "me",
+        "device",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "⚠️ Edit button found but missing explicit Update Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_analytics",
+      "app": "admin",
+      "route": "/admin/analytics",
+      "filePath": "apps/frontend/src/app/admin/analytics/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "{exporting ? 'Exporting...' : 'Export'}",
+        "onClick: refetch",
+        "onClick: handleExport"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "categories",
+        "seedMockTransactions",
+        "devices",
+        "device",
+        "leads",
+        "lead",
+        "order",
+        "profitabilityReports"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_audit-logs",
+      "app": "admin",
+      "route": "/admin/audit-logs",
+      "filePath": "apps/frontend/src/app/admin/audit-logs/page.tsx",
+      "componentsUsed": [
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "SkeletonTable",
+        "StatusBadge"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: refetch"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "allAuditLogs",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_attributes",
+      "app": "admin",
+      "route": "/admin/catalog/attributes",
+      "filePath": "apps/frontend/src/app/admin/catalog/attributes/page.tsx",
+      "componentsUsed": [
+        "PageHeader",
+        "DataTableColumn",
+        "StatusBadge",
+        "SearchInput",
+        "ConfirmActionModal",
+        "Toast",
+        "SkeletonTable"
+      ],
+      "forms": [],
+      "buttons": [
+        "Add",
+        "{editingItem ? 'Update' : 'Create'}",
+        "onClick: setShowValuesFor",
+        "onClick: setActiveTab",
+        "onClick: setActiveTab",
+        "onClick: setSelectedGroupId",
+        "onClick: setSelectedGroupId",
+        "onClick: setShowValuesFor",
+        "onClick: handleAddValue"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "attributeGroups",
+        "attributeGroup",
+        "productAttributes",
+        "productAttribute",
+        "attributeValues",
+        "attributeValue",
+        "createAttributeGroup",
+        "updateAttributeGroup",
+        "createProductAttribute",
+        "updateProductAttribute",
+        "createAttributeValue",
+        "product",
+        "createProduct",
+        "updateProduct",
+        "deleteProduct",
+        "variant",
+        "order",
+        "deleteAttributeGroup",
+        "deleteProductAttribute",
+        "deleteAttributeValue"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_brands",
+      "app": "admin",
+      "route": "/admin/catalog/brands",
+      "filePath": "apps/frontend/src/app/admin/catalog/brands/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "MediaUploader",
+        "ExportButton",
+        "ImportExcelButton",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. Apple"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Clear",
+        "onClick: openEdit",
+        "onClick: setShowCreateModal",
+        "onClick: refetch",
+        "onClick: setEditTarget",
+        "onClick: saveEdit",
+        "onClick: setBulkDeleteActive",
+        "onClick: clearSelection"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "createBrand",
+        "deleteBrand",
+        "updateBrand",
+        "bulkUpdateBrandStatus",
+        "categories",
+        "category",
+        "variant",
+        "device",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_business-flows_categories",
+      "app": "admin",
+      "route": "/admin/catalog/business-flows/categories",
+      "filePath": "apps/frontend/src/app/admin/catalog/business-flows/categories/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. sell-old-laptops",
+            "e.g. Sell Your Old Laptop for Cash",
+            "e.g. Get the best price for your used laptop",
+            "e.g. Get Exact Value",
+            "e.g. Search your laptop model...",
+            "e.g. Sell Your Old Laptop | Bizrok",
+            "e.g. Sell your used laptop at the best price. Quick assessment, free pickup."
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Save Config",
+        "onClick: setEditingConfig({ ...fc",
+        "onClick: handleRemoveCategory",
+        "onClick: setShowAddDrawer",
+        "onClick: handleAddCategories",
+        "onClick: setEditingConfig",
+        "onClick: handleSaveConfig"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "businessFlows",
+        "businessFlow",
+        "businessFlowCategories",
+        "categories",
+        "category",
+        "variant",
+        "order",
+        "pickup",
+        "setFlowCategories",
+        "updateJourneyConfig"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_business-flows",
+      "app": "admin",
+      "route": "/admin/catalog/business-flows",
+      "filePath": "apps/frontend/src/app/admin/catalog/business-flows/page.tsx",
+      "componentsUsed": [
+        "PageHeader",
+        "DataTableColumn",
+        "StatusBadge",
+        "SearchInput",
+        "ConfirmActionModal",
+        "Toast",
+        "SkeletonTable"
+      ],
+      "forms": [],
+      "buttons": [
+        "New Business Flow",
+        "{editingFlow ? 'Update' : 'Create'}",
+        "onClick: openEdit",
+        "onClick: setDeleteTarget",
+        "onClick: openCreate",
+        "onClick: handleSubmit"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "businessFlows",
+        "businessFlow",
+        "createBusinessFlow",
+        "updateBusinessFlow",
+        "variant",
+        "device",
+        "order",
+        "payments",
+        "payment",
+        "deleteBusinessFlow"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_categories",
+      "app": "admin",
+      "route": "/admin/catalog/categories",
+      "filePath": "apps/frontend/src/app/admin/catalog/categories/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "MediaUploader",
+        "ExportButton",
+        "ImportExcelButton",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. Smartphones"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Clear",
+        "onClick: openEdit",
+        "onClick: setShowCreateModal",
+        "onClick: refetch",
+        "onClick: setEditTarget",
+        "onClick: saveEdit",
+        "onClick: setBulkDeleteActive",
+        "onClick: clearSelection"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "createCategory",
+        "deleteCategory",
+        "updateCategory",
+        "bulkUpdateCategoryStatus",
+        "product",
+        "variant",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog",
+      "app": "admin",
+      "route": "/admin/catalog",
+      "filePath": "apps/frontend/src/app/admin/catalog/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "onClick: refetch"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "device",
+        "lead",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_products",
+      "app": "admin",
+      "route": "/admin/catalog/products",
+      "filePath": "apps/frontend/src/app/admin/catalog/products/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "MediaUploader",
+        "MediaGallery",
+        "ExportButton",
+        "ImportExcelButton",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. iPhone 17 Pro Max",
+            "e.g. IP17PM",
+            "accent-purple-500",
+            "e.g. 128GB",
+            "e.g. Black",
+            "0"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Clear",
+        "onClick: setShowCreateModal",
+        "onClick: refetch",
+        "onClick: setEditTarget",
+        "onClick: saveEdit",
+        "onClick: setBulkDeleteActive",
+        "onClick: clearSelection",
+        "onClick: setExpandedProduct",
+        "onClick: e.stopPropagation"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brand",
+        "products",
+        "product",
+        "toggleProductTrending",
+        "createProduct",
+        "updateProduct",
+        "deleteProduct",
+        "bulkUpdateProductStatus",
+        "series",
+        "variants",
+        "variant",
+        "createVariant",
+        "updateVariant",
+        "updateVariantPrice",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_series",
+      "app": "admin",
+      "route": "/admin/catalog/series",
+      "filePath": "apps/frontend/src/app/admin/catalog/series/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "ExportButton",
+        "ImportExcelButton",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. iPhone 17 Series"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Clear",
+        "onClick: openEdit",
+        "onClick: setShowCreateModal",
+        "onClick: refetch",
+        "onClick: setEditTarget",
+        "onClick: saveEdit",
+        "onClick: setBulkDeleteActive",
+        "onClick: clearSelection"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "product",
+        "series",
+        "createSeries",
+        "deleteSeries",
+        "updateSeries",
+        "bulkUpdateSeriesStatus",
+        "variant",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_catalog_variants",
+      "app": "admin",
+      "route": "/admin/catalog/variants",
+      "filePath": "apps/frontend/src/app/admin/catalog/variants/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "ExportButton",
+        "ImportExcelButton",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. 256GB",
+            "e.g. Space Black",
+            "e.g. Standard",
+            "128GB, 256GB, 512GB",
+            "Black, White, Blue (or leave empty)",
+            "999"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Create Variant",
+        "onClick: setShowCreateModal",
+        "onClick: setShowBulkVariantModal",
+        "onClick: refetch",
+        "onClick: createNewVariant",
+        "onClick: setEditTarget",
+        "onClick: saveEdit",
+        "onClick: handleBulkCreate",
+        "onClick: setBulkDeleteActive",
+        "onClick: setSelectedIds)",
+        "onClick: toggleSelectAll",
+        "onClick: openEdit"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "createVariant",
+        "createVariants",
+        "deleteVariant",
+        "updateVariant",
+        "updateVariantPrice",
+        "bulkUpdateVariantStatus",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_config",
+      "app": "admin",
+      "route": "/admin/config",
+      "filePath": "apps/frontend/src/app/admin/config/page.tsx",
+      "componentsUsed": [
+        "PageHeader"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: refetch"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "systemHealth",
+        "me",
+        "lead",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "admin.page._admin_inventory",
+      "app": "admin",
+      "route": "/admin/inventory",
+      "filePath": "apps/frontend/src/app/admin/inventory/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "ConfirmActionModal",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. Main Warehouse",
+            "e.g. 123 Industrial Blvd"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "{saving ? 'Saving...' : 'Save Changes'}",
+        "onClick: openEditDevice",
+        "onClick: setShowCreateWarehouse",
+        "onClick: { setActiveTab; setSearch;",
+        "onClick: { setActiveTab; setSearch;",
+        "onClick: setEditDevice",
+        "onClick: handleUpdateDevice",
+        "onClick: handleCreateWarehouse"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brand",
+        "category",
+        "variant",
+        "devices",
+        "device",
+        "warehouses",
+        "updateDeviceDetails",
+        "createWarehouse",
+        "order",
+        "deleteWarehouse"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_leads",
+      "app": "admin",
+      "route": "/admin/leads",
+      "filePath": "apps/frontend/src/app/admin/leads/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. John Doe",
+            "e.g. john@example.com",
+            "e.g. +1 555 123 4567",
+            "e.g. iPhone 15 Pro"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Clear",
+        "onClick: openEdit",
+        "onClick: setShowCreateDrawer",
+        "onClick: refetch",
+        "onClick: setEditTarget",
+        "onClick: saveEdit",
+        "onClick: setBulkDeleteActive",
+        "onClick: clearSelection"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "device",
+        "leads",
+        "lead",
+        "createLead",
+        "updateLead",
+        "updateLeadStatus",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_models",
+      "app": "admin",
+      "route": "/admin/models",
+      "filePath": "apps/frontend/src/app/admin/models/page.tsx",
+      "componentsUsed": [
+        "ConfirmDeleteModal",
+        "ExportButton",
+        "ImportExcelButton"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "Search products, brands, codes...",
+            "e.g. iPhone 17 Pro Max",
+            "e.g. IPH17PM"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "{updating ? 'Saving…' : 'Save Changes'}",
+        "onClick: refetch",
+        "onClick: setShowCreate",
+        "onClick: setBulkDeleteActive",
+        "onClick: setSelectedRows",
+        "onClick: refetch",
+        "onClick: handleSort",
+        "onClick: handleSort",
+        "onClick: handleSort",
+        "onClick: handleSort",
+        "onClick: setEditProduct({ ...p",
+        "onClick: setShowCreate",
+        "onClick: setShowCreate",
+        "onClick: handleCreate",
+        "onClick: setEditProduct"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "createProduct",
+        "updateProduct",
+        "deleteProduct",
+        "series",
+        "variants",
+        "variant",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_offers",
+      "app": "admin",
+      "route": "/admin/offers",
+      "filePath": "apps/frontend/src/app/admin/offers/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. val_abc123",
+            "e.g. 450.00"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "onClick: openEdit",
+        "onClick: setShowCreateDrawer",
+        "onClick: setEditTarget",
+        "onClick: saveEdit"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "leads",
+        "lead",
+        "offer",
+        "offersByLead",
+        "createOffer",
+        "deleteOffer",
+        "updateOfferStatus",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin",
+      "app": "admin",
+      "route": "/admin",
+      "filePath": "apps/frontend/src/app/admin/page.tsx",
+      "componentsUsed": [
+        "NavigationSections"
+      ],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "lead",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "admin.page._admin_pickups",
+      "app": "admin",
+      "route": "/admin/pickups",
+      "filePath": "apps/frontend/src/app/admin/pickups/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. FedEx",
+            "e.g. 1Z999AA10123456784"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "onClick: openEdit",
+        "onClick: setShowCreateDrawer",
+        "onClick: setEditTarget",
+        "onClick: saveEdit"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "device",
+        "leads",
+        "lead",
+        "order",
+        "pickup",
+        "pickupsByLead",
+        "createPickup",
+        "deletePickup",
+        "updatePickupStatus"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_pricing",
+      "app": "admin",
+      "route": "/admin/pricing",
+      "filePath": "apps/frontend/src/app/admin/pricing/page.tsx",
+      "componentsUsed": [],
+      "forms": [
+        {
+          "fields": [
+            "Search variant SKU or product name..."
+          ],
+          "actions": [
+            "handleUpdate"
+          ]
+        }
+      ],
+      "buttons": [
+        "onClick: refetch"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "product",
+        "variants",
+        "variant",
+        "updateVariant",
+        "updateVariantPrice",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_procurement",
+      "app": "admin",
+      "route": "/admin/procurement",
+      "filePath": "apps/frontend/src/app/admin/procurement/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. dev_abc123",
+            "e.g. 299.99",
+            "e.g. INV-2024-001"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "onClick: openEdit",
+        "onClick: setDeleteTarget({ id: proc.id",
+        "onClick: setShowCreateDrawer",
+        "onClick: refetch",
+        "onClick: setEditTarget",
+        "onClick: saveEdit"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "device",
+        "order",
+        "procurement",
+        "procurements",
+        "createProcurement",
+        "deleteProcurement",
+        "completeProcurement"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Edit button found but missing explicit Update Mutation handler",
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_profitability",
+      "app": "admin",
+      "route": "/admin/profitability",
+      "filePath": "apps/frontend/src/app/admin/profitability/page.tsx",
+      "componentsUsed": [
+        "DataTableColumn",
+        "ErrorState",
+        "PageHeader",
+        "SearchInput",
+        "SkeletonTable"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: refetch"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "device",
+        "order",
+        "profitabilityReports"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_providers",
+      "app": "admin",
+      "route": "/admin/providers",
+      "filePath": "apps/frontend/src/app/admin/providers/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "{testing ? 'Testing…' : 'Health Check'}",
+        "Save",
+        "Register",
+        "onClick: runHealthCheck",
+        "onClick: setShowAdd",
+        "onClick: setEditProv({ ...prov",
+        "onClick: toggleStatus",
+        "onClick: deleteProvider",
+        "onClick: setEditProv",
+        "onClick: setEditProv",
+        "onClick: handleSaveEdit",
+        "onClick: setShowAdd",
+        "onClick: setShowAdd",
+        "onClick: handleAddProvider",
+        "onClick: { setEditProv; setShowAdd;"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_qc",
+      "app": "admin",
+      "route": "/admin/qc",
+      "filePath": "apps/frontend/src/app/admin/qc/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "ConfirmActionModal",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. John Doe",
+            "e.g. All functions working",
+            "Additional notes..."
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "{saving ? 'Saving...' : 'Submit QC'}",
+        "{saving ? 'Saving...' : 'Save Changes'}",
+        "onClick: openEdit",
+        "onClick: setDeleteTarget({ id: a.id",
+        "onClick: { refetchQc; refetchDevices;",
+        "onClick: handleCreate",
+        "onClick: { setEditTarget; resetForm;",
+        "onClick: handleEdit"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brand",
+        "variant",
+        "devices",
+        "device",
+        "order",
+        "qcAudit",
+        "qcAuditsByDevice",
+        "submitQC",
+        "updateQcAudit",
+        "deleteQcAudit"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_referrals",
+      "app": "admin",
+      "route": "/admin/referrals",
+      "filePath": "apps/frontend/src/app/admin/referrals/page.tsx",
+      "componentsUsed": [
+        "PageHeader",
+        "StatusBadge",
+        "Toast"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: handleSave"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order",
+        "referralConfig",
+        "allReferrals",
+        "updateReferralConfig",
+        "updateReferralStatus"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_refurbishment",
+      "app": "admin",
+      "route": "/admin/refurbishment",
+      "filePath": "apps/frontend/src/app/admin/refurbishment/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "ConfirmActionModal",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. Jane Smith",
+            "e.g. Screen, Battery, Charging port"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "{saving ? 'Saving...' : 'Save Changes'}",
+        "onClick: setStatusTarget",
+        "onClick: openEdit",
+        "onClick: setDeleteTarget({ id: r.id",
+        "onClick: { refetchRef; refetchDevices;",
+        "onClick: handleCreate",
+        "onClick: { setEditTarget; resetForm;",
+        "onClick: handleEdit",
+        "onClick: setStatusTarget",
+        "onClick: handleStatusChange"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brand",
+        "variant",
+        "devices",
+        "device",
+        "orders",
+        "order",
+        "refurbishment",
+        "refurbishmentsByDevice",
+        "createWorkOrder",
+        "updateWorkOrderStatus",
+        "deleteWorkOrder",
+        "completeRefurbishment"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_routing",
+      "app": "admin",
+      "route": "/admin/routing",
+      "filePath": "apps/frontend/src/app/admin/routing/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "Save Rule",
+        "Simulate Route",
+        "onClick: toggleProvider",
+        "onClick: moveProvider",
+        "onClick: moveProvider",
+        "onClick: setShowAddRule",
+        "onClick: toggleRule",
+        "onClick: deleteRule",
+        "onClick: addRule",
+        "onClick: setShowAddRule",
+        "onClick: runTest",
+        "onClick: setTestResult"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "device",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler",
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_sales",
+      "app": "admin",
+      "route": "/admin/sales",
+      "filePath": "apps/frontend/src/app/admin/sales/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "ConfirmActionModal",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "StatusBadge",
+        "SkeletonTable",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. device-uuid",
+            "0.00",
+            "e.g. John Doe",
+            "e.g. Website, eBay, Amazon"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "{saving ? 'Saving...' : 'Create Sale'}",
+        "{saving ? 'Saving...' : 'Save Changes'}",
+        "onClick: handleCompleteSale",
+        "onClick: openEdit",
+        "onClick: setDeleteTarget({ id: o.id",
+        "onClick: refetch",
+        "onClick: handleCreate",
+        "onClick: { setEditTarget; resetForm;",
+        "onClick: handleEdit"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "device",
+        "orders",
+        "order",
+        "salesOrder",
+        "salesOrders",
+        "createSalesOrder",
+        "completeSale",
+        "updateSalesOrder",
+        "deleteSalesOrder"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_security",
+      "app": "admin",
+      "route": "/admin/security",
+      "filePath": "apps/frontend/src/app/admin/security/page.tsx",
+      "componentsUsed": [
+        "PageHeader"
+      ],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "device",
+        "leads",
+        "lead",
+        "offer",
+        "orders",
+        "order",
+        "pickup",
+        "procurement",
+        "refurbishment",
+        "settlement",
+        "settlements"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_seed",
+      "app": "admin",
+      "route": "/admin/seed",
+      "filePath": "apps/frontend/src/app/admin/seed/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "onClick: handleSeedCatalog",
+        "onClick: handleSeedTransactions"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "categories",
+        "seedCatalog",
+        "seedMockTransactions",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "admin.page._admin_settings_email",
+      "app": "admin",
+      "route": "/admin/settings/email",
+      "filePath": "apps/frontend/src/app/admin/settings/email/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "Reset OTP Length (Test)",
+        "Discard",
+        "onClick: setActiveTab",
+        "onClick: setActiveTab",
+        "onClick: setShowPassword",
+        "onClick: handleSendTestEmail",
+        "onClick: handleResetTest",
+        "onClick: handleDiscard",
+        "onClick: handleSave"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "sendTestEmail",
+        "systemConfigs",
+        "systemConfig",
+        "updateSystemConfig",
+        "category",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_settings",
+      "app": "admin",
+      "route": "/admin/settings",
+      "filePath": "apps/frontend/src/app/admin/settings/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "Reset to Defaults",
+        "Discard",
+        "onClick: setActiveTab",
+        "onClick: set",
+        "onClick: handleReset",
+        "onClick: handleDiscard",
+        "onClick: handleSave"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_settlements",
+      "app": "admin",
+      "route": "/admin/settlements",
+      "filePath": "apps/frontend/src/app/admin/settlements/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "DataTableColumn",
+        "PageHeader",
+        "SearchInput",
+        "SkeletonTable",
+        "StatusBadge",
+        "ConfirmActionModal",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "e.g. DEV-001",
+            "0.00"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "onClick: setShowCreateDrawer",
+        "onClick: refetch",
+        "onClick: handleCreate"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "device",
+        "order",
+        "payments",
+        "payment",
+        "settlement",
+        "settlements",
+        "createSettlement",
+        "processPayout"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "⚠️ Edit button found but missing explicit Update Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_assessment-types",
+      "app": "admin",
+      "route": "/admin/valuation/assessment-types",
+      "filePath": "apps/frontend/src/app/admin/valuation/assessment-types/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "SharedMediaUploader",
+        "ConfirmActionModal",
+        "SearchInput",
+        "DataTableColumn",
+        "SkeletonTable",
+        "PageHeader",
+        "StatusBadge",
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-500 font-mono cursor-not-allowed",
+            "e.g. Buyback, Service, Warranty",
+            "Auto-generated",
+            "Auto-generated from name",
+            "Optional description",
+            "Brief summary",
+            "SEO title",
+            "SEO meta description",
+            "#6366f1",
+            "0",
+            "e.g. Buyback Service, Warranty Plan, AMC",
+            "hidden"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Export",
+        "Clear",
+        "Bulk Delete",
+        "onClick: onChange",
+        "onClick: onTabChange",
+        "onClick: moveItem",
+        "onClick: moveItem",
+        "onClick: openEdit",
+        "onClick: handleExport",
+        "onClick: refetch",
+        "onClick: setEditTarget",
+        "onClick: saveEdit",
+        "onClick: setSelectedIds  type.id)))",
+        "onClick: clearSelection",
+        "onClick: handleBulkStatus"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "order",
+        "assessmentTypes",
+        "assessmentPricingSourceOptions",
+        "createAssessmentType",
+        "updateAssessmentType",
+        "deleteAssessmentType"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_clone",
+      "app": "admin",
+      "route": "/admin/valuation/clone",
+      "filePath": "apps/frontend/src/app/admin/valuation/clone/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "PageHeader"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "merge-chk",
+            "overwrite-chk"
+          ],
+          "actions": [
+            "handleClone"
+          ]
+        }
+      ],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "products",
+        "product",
+        "series",
+        "order",
+        "valuationAuditLogs",
+        "cloneValuationFlow"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_deductions",
+      "app": "admin",
+      "route": "/admin/valuation/deductions",
+      "filePath": "apps/frontend/src/app/admin/valuation/deductions/page.tsx",
+      "componentsUsed": [
+        "Drawer",
+        "ConfirmActionModal",
+        "SkeletonTable",
+        "PageHeader",
+        "Toast"
+      ],
+      "forms": [],
+      "buttons": [
+        "Save Deduction Rule",
+        "onClick: setTab",
+        "onClick: setTab",
+        "onClick: refetch",
+        "onClick: setDeleteTarget",
+        "onClick: setShowModal",
+        "onClick: handleSave"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variant",
+        "order",
+        "valuationPages",
+        "deductionRules",
+        "updateDeductionRule",
+        "deleteDeductionRule"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_flow",
+      "app": "admin",
+      "route": "/admin/valuation/flow",
+      "filePath": "apps/frontend/src/app/admin/valuation/flow/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "PageHeader"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: refetch",
+        "onClick: handleViewModeChange",
+        "onClick: handleViewModeChange",
+        "onClick: e.stopPropagation",
+        "onClick: handleMovePage, -1)",
+        "onClick: handleMovePage, 1)",
+        "onClick: e.stopPropagation",
+        "onClick: setPageModal({ show: false",
+        "onClick: setPageModal({ show: false",
+        "onClick: setDeleteTarget"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "series",
+        "lead",
+        "order",
+        "assessmentTypes",
+        "assessmentTemplateById",
+        "templatePages",
+        "ensureTemplateExists",
+        "createTemplatePage",
+        "updateTemplatePage",
+        "deleteTemplatePage"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_mapping-manager",
+      "app": "admin",
+      "route": "/admin/valuation/mapping-manager",
+      "filePath": "apps/frontend/src/app/admin/valuation/mapping-manager/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "ConfirmActionModal"
+      ],
+      "forms": [],
+      "buttons": [
+        "Add to Template",
+        "onClick: setSelectedTemplateId",
+        "onClick: handleAutoInherit",
+        "onClick: toggleBrand",
+        "onClick: setSelectedTemplateId",
+        "onClick: toggleSeries",
+        "onClick: setSelectedTemplateId",
+        "onClick: setSelectedTemplateId",
+        "onClick: onBack",
+        "onClick: setShowAddModal",
+        "onClick: setDeleteTarget",
+        "onClick: setActiveTab",
+        "onClick: refetchTQ",
+        "onClick: setShowAddModal",
+        "onClick: handleHide"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variant",
+        "order",
+        "valuationPages",
+        "templateTree",
+        "templateQuestions",
+        "createAssessmentTemplate",
+        "deleteAssessmentTemplate",
+        "ensureTemplateExists",
+        "addQuestionToTemplate",
+        "hideQuestionInTemplate"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_page-designer",
+      "app": "admin",
+      "route": "/admin/valuation/page-designer",
+      "filePath": "apps/frontend/src/app/admin/valuation/page-designer/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "PageHeader",
+        "LoadingState"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: setActiveTab",
+        "onClick: setSelectedQuestionId",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange",
+        "onClick: onChange"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "categories",
+        "category",
+        "device",
+        "orders",
+        "order",
+        "valuationPages",
+        "updatePageDesignConfig",
+        "updateGroupPresentationConfig",
+        "updateQuestionCardConfig"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler",
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation",
+      "app": "admin",
+      "route": "/admin/valuation",
+      "filePath": "apps/frontend/src/app/admin/valuation/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_questions",
+      "app": "admin",
+      "route": "/admin/valuation/questions",
+      "filePath": "apps/frontend/src/app/admin/valuation/questions/page.tsx",
+      "componentsUsed": [
+        "MediaUploader",
+        "Toast",
+        "PageHeader"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "req",
+            "hidden",
+            "Label (e.g. Original Box)",
+            "Value (CODE)",
+            "Image URL",
+            "Description (optional)",
+            "Adjustment Value"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Add Row",
+        "Save All",
+        "Cancel",
+        "{isDel ? 'Confirm Delete' : 'Confirm'}",
+        "onClick: handleViewModeChange",
+        "onClick: handleViewModeChange",
+        "onClick: e.stopPropagation",
+        "onClick: e.stopPropagation",
+        "onClick: openCreateQuestionModal + 1)",
+        "onClick: handleDeleteGroup",
+        "onClick: openOptionsDrawer",
+        "onClick: handleDeleteQuestion",
+        "onClick: setOptPreviewImg",
+        "onClick: setOptPreviewImg",
+        "onClick: setOptPreviewImg"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variant",
+        "lead",
+        "order",
+        "assessmentTypes",
+        "overrideImpactPreview",
+        "assessmentTemplateById",
+        "templatePages",
+        "ensureTemplateExists",
+        "createTemplateGroup",
+        "updateTemplateGroup",
+        "deleteTemplateGroup",
+        "createTemplateQuestion",
+        "updateTemplateQuestion",
+        "deleteTemplateQuestion",
+        "updateTemplateOption",
+        "deleteTemplateOption",
+        "bulkCreateTemplateOptions",
+        "hideQuestionInTemplate",
+        "hideGroupInTemplate",
+        "unhideQuestionInTemplate",
+        "unhideGroupInTemplate",
+        "hideOptionInTemplate",
+        "showOptionInTemplate"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_simulator",
+      "app": "admin",
+      "route": "/admin/valuation/simulator",
+      "filePath": "apps/frontend/src/app/admin/valuation/simulator/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "PageHeader"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: handleSimulate",
+        "onClick: handleOptionSelect"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variant",
+        "order",
+        "assessmentTypes",
+        "valuationPages",
+        "runValuationSimulation"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_versions",
+      "app": "admin",
+      "route": "/admin/valuation/versions",
+      "filePath": "apps/frontend/src/app/admin/valuation/versions/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "PageHeader",
+        "ConfirmActionModal"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: handleCreateDraft",
+        "onClick: refetch"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "order",
+        "valuationVersions",
+        "createVersionDraft",
+        "publishVersion",
+        "deleteVersion"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._admin_valuation_workflow",
+      "app": "admin",
+      "route": "/admin/valuation/workflow",
+      "filePath": "apps/frontend/src/app/admin/valuation/workflow/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "ConfirmActionModal",
+        "Drawer"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "w-full bg-slate-950/70 border border-slate-800 text-slate-400 rounded-xl px-3 py-2 text-sm",
+            "w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2.5 text-slate-400 outline-none text-sm"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Add Step",
+        "Save",
+        "onClick: refetch",
+        "onClick: handleMoveUp",
+        "onClick: handleMoveDown",
+        "onClick: setDeleteTarget",
+        "onClick: setCreateModal",
+        "onClick: handleCreate",
+        "onClick: setEditTarget",
+        "onClick: handleUpdate"
+      ],
+      "tables": [],
+      "modals": [
+        "Drawer"
+      ],
+      "gqlOperations": [
+        "me",
+        "businessFlows",
+        "businessFlow",
+        "variant",
+        "workflowStepTypes",
+        "workflowStepType",
+        "workflowComponents",
+        "workflowComponent",
+        "flowWorkflowSteps",
+        "createFlowWorkflowStep",
+        "setFlowWorkflowSteps",
+        "lead",
+        "order",
+        "deleteFlowWorkflowStep"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "admin.page._",
+      "app": "admin",
+      "route": "/",
+      "filePath": "apps/frontend/src/app/page.tsx",
+      "componentsUsed": [
+        "EnterpriseContext"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "rounded",
+            "e.g. 850",
+            "e.g. 750",
+            "e.g. TRK9120485",
+            "e.g. 780",
+            "INV-719485",
+            "QC Lead Alfa",
+            "e.g. Screen, Battery",
+            "65",
+            "30",
+            "e.g. 1099",
+            "John Smith",
+            "TX-94851204",
+            "e.g. John Doe",
+            "john@doe.com",
+            "+1 (555) 0199",
+            "e.g. iPhone 17 Pro Max"
+          ],
+          "actions": [
+            "handleCreateLead"
+          ]
+        }
+      ],
+      "buttons": [
+        "Export Ledger CSV",
+        "Confirm Lead Registration",
+        "onClick: setShowAddLeadModal",
+        "onClick: setShowColPicker",
+        "onClick: handleBulkAction",
+        "onClick: handleBulkAction",
+        "onClick: handleBulkAction",
+        "onClick: setActiveDevice",
+        "onClick: advanceStage",
+        "onClick: advanceStage",
+        "onClick: advanceStage",
+        "onClick: advanceStage",
+        "onClick: advanceStage",
+        "onClick: advanceStage",
+        "onClick: advanceStage"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brand",
+        "category",
+        "product",
+        "devices",
+        "device",
+        "leads",
+        "lead",
+        "createLead",
+        "offer",
+        "createOffer",
+        "updateOfferStatus",
+        "orders",
+        "order",
+        "payment",
+        "pickup",
+        "createPickup",
+        "updatePickupStatus",
+        "procurement",
+        "procurements",
+        "createProcurement",
+        "completeProcurement",
+        "profitabilityReports",
+        "submitQC",
+        "completeRefurbishment",
+        "salesOrder",
+        "salesOrders",
+        "createSalesOrder",
+        "completeSale",
+        "settlement",
+        "settlements",
+        "processPayout"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._about",
+      "app": "customer",
+      "route": "/about",
+      "filePath": "apps/customer-website/src/app/(public)/about/page.tsx",
+      "componentsUsed": [
+        "AnimatedCounter",
+        "Reveal"
+      ],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "devices",
+        "device",
+        "lead",
+        "order",
+        "payment",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._auth_login",
+      "app": "customer",
+      "route": "/auth/login",
+      "filePath": "apps/customer-website/src/app/(public)/auth/login/page.tsx",
+      "componentsUsed": [
+        "Toast"
+      ],
+      "forms": [],
+      "buttons": [
+        "{loading ?  : Send OTP }",
+        "{loading ?  : 'Verify & Login'}"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "sendOtp",
+        "order",
+        "payment",
+        "pickup",
+        "verifyOtp"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._contact",
+      "app": "customer",
+      "route": "/contact",
+      "filePath": "apps/customer-website/src/app/(public)/contact/page.tsx",
+      "componentsUsed": [
+        "Reveal"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: setStatus"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._faqs",
+      "app": "customer",
+      "route": "/faqs",
+      "filePath": "apps/customer-website/src/app/(public)/faqs/page.tsx",
+      "componentsUsed": [
+        "Reveal"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: setOpen",
+        "onClick: setActiveCategory"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "devices",
+        "device",
+        "lead",
+        "offer",
+        "order",
+        "payment",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._how-it-works",
+      "app": "customer",
+      "route": "/how-it-works",
+      "filePath": "apps/customer-website/src/app/(public)/how-it-works/page.tsx",
+      "componentsUsed": [
+        "Reveal"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: setOpen"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brand",
+        "category",
+        "series",
+        "devices",
+        "device",
+        "lead",
+        "offer",
+        "order",
+        "payment",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._",
+      "app": "customer",
+      "route": "/",
+      "filePath": "apps/customer-website/src/app/(public)/page.tsx",
+      "componentsUsed": [
+        "AnimatedCounter",
+        "Reveal"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "device-search"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "onClick: setOpen"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brand",
+        "publicJourneys",
+        "categories",
+        "category",
+        "product",
+        "trendingProducts",
+        "series",
+        "variants",
+        "variant",
+        "devices",
+        "device",
+        "lead",
+        "offer",
+        "order",
+        "payment",
+        "pickup",
+        "refurbishment"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._sell",
+      "app": "customer",
+      "route": "/sell",
+      "filePath": "apps/customer-website/src/app/(public)/sell/page.tsx",
+      "componentsUsed": [
+        "StepIndicator",
+        "STEP_LABELS",
+        "CategoryStep",
+        "BrandStep",
+        "ModelStep",
+        "VariantStep",
+        "ConditionStep",
+        "AssessmentStep",
+        "QuoteStep",
+        "CheckoutStep",
+        "OrderConfirmationStep",
+        "SellSidebar"
+      ],
+      "forms": [],
+      "buttons": [
+        "onClick: goToStep"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "categories",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "order",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._sell_[...slug]",
+      "app": "customer",
+      "route": "/sell/[...slug]",
+      "filePath": "apps/customer-website/src/app/(public)/sell/[...slug]/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._[journeySlug]",
+      "app": "customer",
+      "route": "/[journeySlug]",
+      "filePath": "apps/customer-website/src/app/(public)/[journeySlug]/page.tsx",
+      "componentsUsed": [],
+      "forms": [
+        {
+          "fields": [
+            "w-full bg-white/10 backdrop-blur border border-white/20 rounded-2xl pl-12 pr-4 py-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "resolveJourneySlug",
+        "category",
+        "device",
+        "lead",
+        "order",
+        "payment"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._[journeySlug]_[brandSlug]",
+      "app": "customer",
+      "route": "/[journeySlug]/[brandSlug]",
+      "filePath": "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "resolveJourneySlug",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._[journeySlug]_[brandSlug]_[productSlug]",
+      "app": "customer",
+      "route": "/[journeySlug]/[brandSlug]/[productSlug]",
+      "filePath": "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "onClick: setSelectedVariantId"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "resolveJourneySlug",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._[journeySlug]_[brandSlug]_[productSlug]_[variantSlug]_assessment",
+      "app": "customer",
+      "route": "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment",
+      "filePath": "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/assessment/page.tsx",
+      "componentsUsed": [
+        "AssessmentRenderEngine",
+        "AssessmentPage"
+      ],
+      "forms": [],
+      "buttons": [
+        "Get Your Quote",
+        "onClick: handleComplete"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "resolveJourneySlug",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "device",
+        "order",
+        "valuationPages",
+        "runValuationSimulation"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._[journeySlug]_[brandSlug]_[productSlug]_[variantSlug]_checkout",
+      "app": "customer",
+      "route": "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout",
+      "filePath": "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/checkout/page.tsx",
+      "componentsUsed": [],
+      "forms": [
+        {
+          "fields": [
+            "Full Name *",
+            "Phone Number *",
+            "Email (optional)",
+            "Flat / House No. *",
+            "Street / Area",
+            "Landmark (optional)",
+            "Pincode *",
+            "District",
+            "City",
+            "State"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "onClick: updateForm",
+        "onClick: updateForm",
+        "onClick: handlePlaceOrder"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "pincodeLookup",
+        "me",
+        "brands",
+        "brand",
+        "resolveJourneySlug",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "device",
+        "lead",
+        "createLead",
+        "orders",
+        "order",
+        "createOrder",
+        "payment",
+        "initiatePayment",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._[journeySlug]_[brandSlug]_[productSlug]_[variantSlug]",
+      "app": "customer",
+      "route": "/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]",
+      "filePath": "apps/customer-website/src/app/(public)/[journeySlug]/[brandSlug]/[productSlug]/[variantSlug]/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "brands",
+        "brand",
+        "resolveJourneySlug",
+        "category",
+        "products",
+        "product",
+        "series",
+        "variants",
+        "variant",
+        "device",
+        "lead",
+        "offer",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._checkout",
+      "app": "customer",
+      "route": "/checkout",
+      "filePath": "apps/customer-website/src/app/checkout/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._dashboard_addresses",
+      "app": "customer",
+      "route": "/dashboard/addresses",
+      "filePath": "apps/customer-website/src/app/dashboard/addresses/page.tsx",
+      "componentsUsed": [
+        "Toast",
+        "EmptyState",
+        "ErrorState",
+        "ConfirmDialog"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "input-field",
+            "input-field pr-9"
+          ],
+          "actions": [
+            "handleSubmit"
+          ]
+        }
+      ],
+      "buttons": [
+        "Add AddressAdd",
+        "Cancel",
+        "onClick: openAdd",
+        "onClick: openEdit",
+        "onClick: setDeleteTarget",
+        "onClick: closeModal",
+        "onClick: closeModal",
+        "onClick: selectPostOffice",
+        "onClick: closeModal"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "myAddresses",
+        "pincodeLookup",
+        "me",
+        "device",
+        "lead",
+        "order",
+        "pickup",
+        "createAddress",
+        "updateAddress",
+        "setDefaultAddress",
+        "deleteAddress"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": true,
+        "status": "FULL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_documents",
+      "app": "customer",
+      "route": "/dashboard/documents",
+      "filePath": "apps/customer-website/src/app/dashboard/documents/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._dashboard_feedback_history",
+      "app": "customer",
+      "route": "/dashboard/feedback/history",
+      "filePath": "apps/customer-website/src/app/dashboard/feedback/history/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._dashboard_feedback",
+      "app": "customer",
+      "route": "/dashboard/feedback",
+      "filePath": "apps/customer-website/src/app/dashboard/feedback/page.tsx",
+      "componentsUsed": [],
+      "forms": [
+        {
+          "fields": [
+            "input-field"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Submit Feedback"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._dashboard_invoices",
+      "app": "customer",
+      "route": "/dashboard/invoices",
+      "filePath": "apps/customer-website/src/app/dashboard/invoices/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "PDF"
+      ],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._dashboard_notifications",
+      "app": "customer",
+      "route": "/dashboard/notifications",
+      "filePath": "apps/customer-website/src/app/dashboard/notifications/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "Mark all read"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "device",
+        "orders",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_orders_cancel",
+      "app": "customer",
+      "route": "/dashboard/orders/cancel",
+      "filePath": "apps/customer-website/src/app/dashboard/orders/cancel/page.tsx",
+      "componentsUsed": [],
+      "forms": [
+        {
+          "fields": [
+            "cancelReason",
+            "Enter your reason..."
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Cancel Order",
+        "onClick: handleCancel"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "orders",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    },
+    {
+      "id": "customer.page._dashboard_orders",
+      "app": "customer",
+      "route": "/dashboard/orders",
+      "filePath": "apps/customer-website/src/app/dashboard/orders/page.tsx",
+      "componentsUsed": [
+        "StatusBadge"
+      ],
+      "forms": [],
+      "buttons": [],
+      "tables": [
+        "DataTable / GridView"
+      ],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "variant",
+        "device",
+        "orders",
+        "order",
+        "myOrders",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_orders_reschedule",
+      "app": "customer",
+      "route": "/dashboard/orders/reschedule",
+      "filePath": "apps/customer-website/src/app/dashboard/orders/reschedule/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [
+        "Confirm Reschedule",
+        "onClick: handleReschedule"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "orders",
+        "order",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard",
+      "app": "customer",
+      "route": "/dashboard",
+      "filePath": "apps/customer-website/src/app/dashboard/page.tsx",
+      "componentsUsed": [
+        "StatusBadge"
+      ],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "device",
+        "orders",
+        "order",
+        "myOrders",
+        "pickup"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_profile",
+      "app": "customer",
+      "route": "/dashboard/profile",
+      "filePath": "apps/customer-website/src/app/dashboard/profile/page.tsx",
+      "componentsUsed": [
+        "Toast"
+      ],
+      "forms": [
+        {
+          "fields": [
+            "hidden",
+            "input-field",
+            "input-field text-center text-lg tracking-[0.5em] font-mono"
+          ],
+          "actions": [
+            "handleSave"
+          ]
+        }
+      ],
+      "buttons": [
+        "{copied ?  : }",
+        "Change",
+        "onClick: fileRef.current?.click",
+        "onClick: copyId",
+        "onClick: setEditing",
+        "onClick: { syncForm; setEditing;",
+        "onClick: setPwModal",
+        "onClick: onChange",
+        "onClick: onClose",
+        "onClick: onClose",
+        "onClick: requestOtp",
+        "onClick: confirm, code",
+        "onClick: setStep"
+      ],
+      "tables": [],
+      "modals": [
+        "Modal"
+      ],
+      "gqlOperations": [
+        "me",
+        "order",
+        "updateProfile",
+        "requestContactChangeOtp",
+        "confirmContactChange",
+        "changePassword"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_referrals",
+      "app": "customer",
+      "route": "/dashboard/referrals",
+      "filePath": "apps/customer-website/src/app/dashboard/referrals/page.tsx",
+      "componentsUsed": [
+        "Toast"
+      ],
+      "forms": [],
+      "buttons": [
+        "{copied ?  : }",
+        "Share Code",
+        "onClick: handleCopy",
+        "onClick: handleShare"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "devices",
+        "device",
+        "order",
+        "myReferrals"
+      ],
+      "apiCalls": [
+        "fetch"
+      ],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": true,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "✅ All Action Handlers (Add, Edit, Delete) Verified"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_settings",
+      "app": "customer",
+      "route": "/dashboard/settings",
+      "filePath": "apps/customer-website/src/app/dashboard/settings/page.tsx",
+      "componentsUsed": [],
+      "forms": [
+        {
+          "fields": [
+            "sr-only peer"
+          ],
+          "actions": []
+        }
+      ],
+      "buttons": [
+        "Delete Account"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": true,
+        "hasDelete": true,
+        "hasSearch": false,
+        "status": "FULL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler",
+          "⚠️ Delete button found but missing explicit Delete Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_tickets",
+      "app": "customer",
+      "route": "/dashboard/tickets",
+      "filePath": "apps/customer-website/src/app/dashboard/tickets/page.tsx",
+      "componentsUsed": [
+        "StatusBadge"
+      ],
+      "forms": [],
+      "buttons": [
+        "New Ticket"
+      ],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "orders",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [],
+      "actionIntegrity": {
+        "hasAdd": true,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "PARTIAL",
+        "glitchWarnings": [
+          "⚠️ Add button found but missing explicit Create Mutation handler"
+        ]
+      }
+    },
+    {
+      "id": "customer.page._dashboard_tracking",
+      "app": "customer",
+      "route": "/dashboard/tracking",
+      "filePath": "apps/customer-website/src/app/dashboard/tracking/page.tsx",
+      "componentsUsed": [],
+      "forms": [],
+      "buttons": [],
+      "tables": [],
+      "modals": [],
+      "gqlOperations": [
+        "me",
+        "order"
+      ],
+      "apiCalls": [],
+      "storesUsed": [
+        "ReactState/Context"
+      ],
+      "actionIntegrity": {
+        "hasAdd": false,
+        "hasEdit": false,
+        "hasDelete": false,
+        "hasSearch": false,
+        "status": "READ_ONLY",
+        "glitchWarnings": []
+      }
+    }
+  ],
+  "executionChains": [
+    {
+      "feature": "Catalog Category Management",
+      "app": "admin",
+      "pageRoute": "/admin/catalog",
+      "component": "CategoryTable / CategoryForm",
+      "gqlOperation": "categories / createCategory / updateCategory",
+      "resolver": "CategoryResolver",
+      "service": "CategoryService",
+      "entity": "Category",
+      "table": "categories",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "feature": "Catalog Brand Management",
+      "app": "admin",
+      "pageRoute": "/admin/catalog",
+      "component": "BrandList / BrandForm",
+      "gqlOperation": "brands / createBrand",
+      "resolver": "BrandResolver",
+      "service": "BrandService",
+      "entity": "Brand",
+      "table": "brands",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "feature": "Customer Valuation Engine",
+      "app": "customer",
+      "pageRoute": "/sell/[...slug]",
+      "component": "ValuationWizard / DeviceAssessment",
+      "gqlOperation": "calculateValuation / submitAssessment",
+      "resolver": "AssessmentResolver",
+      "service": "ValuationService",
+      "entity": "FlowAssessmentProfile",
+      "table": "flow_assessment_profiles",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "feature": "Order & Lead Lifecycle",
+      "app": "both",
+      "pageRoute": "/admin/leads & /checkout",
+      "component": "LeadTable / CheckoutForm",
+      "gqlOperation": "createOrder / updateLeadStatus",
+      "resolver": "OrderResolver / LeadResolver",
+      "service": "OrderService / LeadService",
+      "entity": "CustomerOrder / Lead",
+      "table": "customer_orders / leads",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "feature": "Quality Control (QC) Assessment",
+      "app": "admin",
+      "pageRoute": "/admin/qc",
+      "component": "QCChecklist / QCInspectionForm",
+      "gqlOperation": "submitQCSpecification",
+      "resolver": "QCResolver",
+      "service": "QCService",
+      "entity": "QCEntity",
+      "table": "qc_inspections",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "feature": "Refurbishment & Inventory",
+      "app": "admin",
+      "pageRoute": "/admin/inventory & /admin/refurbishment",
+      "component": "InventoryGrid / RefurbishTask",
+      "gqlOperation": "getDevices / updateDeviceStatus",
+      "resolver": "InventoryResolver / RefurbishmentResolver",
+      "service": "InventoryService / RefurbishmentService",
+      "entity": "Device",
+      "table": "devices",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "feature": "Financial Settlement & Accounting",
+      "app": "admin",
+      "pageRoute": "/admin/settlements & /admin/accounting",
+      "component": "SettlementTable / LedgerView",
+      "gqlOperation": "processSettlement / getAccountingLedger",
+      "resolver": "SettlementResolver / AccountingResolver",
+      "service": "SettlementService / AccountingService",
+      "entity": "AccountingEntity",
+      "table": "accounting_records",
+      "status": "IMPLEMENTED"
+    }
+  ],
+  "issues": [
+    {
+      "id": "WF-ISSUE-001",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: journalEntriesByDevice",
+      "description": "Backend GraphQL operation 'journalEntriesByDevice' in resolver 'resolver.journalentrytype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.journalentrytype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-002",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: journalEntryList",
+      "description": "Backend GraphQL operation 'journalEntryList' in resolver 'resolver.journalentrytype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.journalentrytype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-003",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: variantAttributes",
+      "description": "Backend GraphQL operation 'variantAttributes' in resolver 'resolver.attributeconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.attributeconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-004",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: variantAttributeValues",
+      "description": "Backend GraphQL operation 'variantAttributeValues' in resolver 'resolver.attributeconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.attributeconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-005",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateAttributeValue",
+      "description": "Backend GraphQL operation 'updateAttributeValue' in resolver 'resolver.attributeconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.attributeconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-006",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setVariantAttributes",
+      "description": "Backend GraphQL operation 'setVariantAttributes' in resolver 'resolver.attributeconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.attributeconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-007",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: auditLogs",
+      "description": "Backend GraphQL operation 'auditLogs' in resolver 'resolver.auditlogresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.auditlogresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-008",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: rollbackBatch",
+      "description": "Backend GraphQL operation 'rollbackBatch' in resolver 'resolver.auditlogresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.auditlogresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-009",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: businessFlowBySlug",
+      "description": "Backend GraphQL operation 'businessFlowBySlug' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-010",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: businessFlowAssessmentProfiles",
+      "description": "Backend GraphQL operation 'businessFlowAssessmentProfiles' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-011",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: pricingProfiles",
+      "description": "Backend GraphQL operation 'pricingProfiles' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-012",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: pricingProfile",
+      "description": "Backend GraphQL operation 'pricingProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-013",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: pricingRules",
+      "description": "Backend GraphQL operation 'pricingRules' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-014",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: pricingFormulas",
+      "description": "Backend GraphQL operation 'pricingFormulas' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-015",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: notificationProfiles",
+      "description": "Backend GraphQL operation 'notificationProfiles' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-016",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: notificationProfile",
+      "description": "Backend GraphQL operation 'notificationProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-017",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: notificationTemplates",
+      "description": "Backend GraphQL operation 'notificationTemplates' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-018",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: documentProfiles",
+      "description": "Backend GraphQL operation 'documentProfiles' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-019",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: documentProfile",
+      "description": "Backend GraphQL operation 'documentProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-020",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: documentRequirements",
+      "description": "Backend GraphQL operation 'documentRequirements' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-021",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: logisticsProfiles",
+      "description": "Backend GraphQL operation 'logisticsProfiles' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-022",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: logisticsProfile",
+      "description": "Backend GraphQL operation 'logisticsProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-023",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: logisticsRules",
+      "description": "Backend GraphQL operation 'logisticsRules' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-024",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createPricingProfile",
+      "description": "Backend GraphQL operation 'createPricingProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-025",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updatePricingProfile",
+      "description": "Backend GraphQL operation 'updatePricingProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-026",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createNotificationProfile",
+      "description": "Backend GraphQL operation 'createNotificationProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-027",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateNotificationProfile",
+      "description": "Backend GraphQL operation 'updateNotificationProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-028",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createDocumentProfile",
+      "description": "Backend GraphQL operation 'createDocumentProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-029",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateDocumentProfile",
+      "description": "Backend GraphQL operation 'updateDocumentProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-030",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createLogisticsProfile",
+      "description": "Backend GraphQL operation 'createLogisticsProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-031",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateLogisticsProfile",
+      "description": "Backend GraphQL operation 'updateLogisticsProfile' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-032",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setLogisticsRules",
+      "description": "Backend GraphQL operation 'setLogisticsRules' in resolver 'resolver.businessflowresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.businessflowresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-033",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: restoreCategory",
+      "description": "Backend GraphQL operation 'restoreCategory' in resolver 'resolver.categoryresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.categoryresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-034",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: resolveBusinessCode",
+      "description": "Backend GraphQL operation 'resolveBusinessCode' in resolver 'resolver.searchresulttype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.searchresulttype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-035",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: seedBusinessFlows",
+      "description": "Backend GraphQL operation 'seedBusinessFlows' in resolver 'resolver.seedresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.seedresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-036",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: seriesById",
+      "description": "Backend GraphQL operation 'seriesById' in resolver 'resolver.seriesresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.seriesresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-037",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: flowStepComponents",
+      "description": "Backend GraphQL operation 'flowStepComponents' in resolver 'resolver.workflowconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.workflowconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-038",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createWorkflowStepType",
+      "description": "Backend GraphQL operation 'createWorkflowStepType' in resolver 'resolver.workflowconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.workflowconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-039",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateWorkflowStepType",
+      "description": "Backend GraphQL operation 'updateWorkflowStepType' in resolver 'resolver.workflowconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.workflowconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-040",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createWorkflowComponent",
+      "description": "Backend GraphQL operation 'createWorkflowComponent' in resolver 'resolver.workflowconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.workflowconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-041",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateWorkflowComponent",
+      "description": "Backend GraphQL operation 'updateWorkflowComponent' in resolver 'resolver.workflowconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.workflowconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-042",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setFlowStepComponents",
+      "description": "Backend GraphQL operation 'setFlowStepComponents' in resolver 'resolver.workflowconfigresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.workflowconfigresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-043",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deviceList",
+      "description": "Backend GraphQL operation 'deviceList' in resolver 'resolver.warehousetype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.warehousetype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-044",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deviceByLead",
+      "description": "Backend GraphQL operation 'deviceByLead' in resolver 'resolver.warehousetype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.warehousetype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-045",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: warehouseList",
+      "description": "Backend GraphQL operation 'warehouseList' in resolver 'resolver.warehousetype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.warehousetype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-046",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateWarehouse",
+      "description": "Backend GraphQL operation 'updateWarehouse' in resolver 'resolver.warehousetype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.warehousetype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-047",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: leadList",
+      "description": "Backend GraphQL operation 'leadList' in resolver 'resolver.leadtype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.leadtype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-048",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: offerList",
+      "description": "Backend GraphQL operation 'offerList' in resolver 'resolver.offertype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.offertype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-049",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateOrderStatus",
+      "description": "Backend GraphQL operation 'updateOrderStatus' in resolver 'resolver.customerordertype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.customerordertype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-050",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: cancelOrder",
+      "description": "Backend GraphQL operation 'cancelOrder' in resolver 'resolver.customerordertype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.customerordertype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-051",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: paymentsByOrder",
+      "description": "Backend GraphQL operation 'paymentsByOrder' in resolver 'resolver.paymenttype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.paymenttype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-052",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: paymentsByCustomer",
+      "description": "Backend GraphQL operation 'paymentsByCustomer' in resolver 'resolver.paymenttype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.paymenttype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-053",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: processPayment",
+      "description": "Backend GraphQL operation 'processPayment' in resolver 'resolver.paymenttype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.paymenttype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-054",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: pickupList",
+      "description": "Backend GraphQL operation 'pickupList' in resolver 'resolver.pickuptype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pickuptype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-055",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: procurementList",
+      "description": "Backend GraphQL operation 'procurementList' in resolver 'resolver.procurementtype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.procurementtype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-056",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: profitabilityReportByDevice",
+      "description": "Backend GraphQL operation 'profitabilityReportByDevice' in resolver 'resolver.profitabilityreporttype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.profitabilityreporttype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-057",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: profitabilityReportList",
+      "description": "Backend GraphQL operation 'profitabilityReportList' in resolver 'resolver.profitabilityreporttype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.profitabilityreporttype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-058",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: qcAuditList",
+      "description": "Backend GraphQL operation 'qcAuditList' in resolver 'resolver.qcaudittype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.qcaudittype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-059",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: refurbishmentList",
+      "description": "Backend GraphQL operation 'refurbishmentList' in resolver 'resolver.refurbishmenttype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.refurbishmenttype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-060",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: salesOrderList",
+      "description": "Backend GraphQL operation 'salesOrderList' in resolver 'resolver.salesordertype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.salesordertype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-061",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: settlementByDevice",
+      "description": "Backend GraphQL operation 'settlementByDevice' in resolver 'resolver.settlementtype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.settlementtype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-062",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: settlementList",
+      "description": "Backend GraphQL operation 'settlementList' in resolver 'resolver.settlementtype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.settlementtype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-063",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteSettlement",
+      "description": "Backend GraphQL operation 'deleteSettlement' in resolver 'resolver.settlementtype' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.settlementtype",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-064",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: assessmentTypeList",
+      "description": "Backend GraphQL operation 'assessmentTypeList' in resolver 'resolver.assessmenttyperesolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmenttyperesolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-065",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: assessmentTypeById",
+      "description": "Backend GraphQL operation 'assessmentTypeById' in resolver 'resolver.assessmenttyperesolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmenttyperesolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-066",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: assessmentTypeByCode",
+      "description": "Backend GraphQL operation 'assessmentTypeByCode' in resolver 'resolver.assessmenttyperesolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmenttyperesolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-067",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: previewAssessmentTypeUrl",
+      "description": "Backend GraphQL operation 'previewAssessmentTypeUrl' in resolver 'resolver.assessmenttyperesolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmenttyperesolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-068",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: toggleAssessmentTypeActive",
+      "description": "Backend GraphQL operation 'toggleAssessmentTypeActive' in resolver 'resolver.assessmenttyperesolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmenttyperesolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-069",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: valuationGroups",
+      "description": "Backend GraphQL operation 'valuationGroups' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-070",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: valuationQuestions",
+      "description": "Backend GraphQL operation 'valuationQuestions' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-071",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: templateWithQuestions",
+      "description": "Backend GraphQL operation 'templateWithQuestions' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-072",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: assessmentTemplates",
+      "description": "Backend GraphQL operation 'assessmentTemplates' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-073",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createValuationPage",
+      "description": "Backend GraphQL operation 'createValuationPage' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-074",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateValuationPage",
+      "description": "Backend GraphQL operation 'updateValuationPage' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-075",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteValuationPage",
+      "description": "Backend GraphQL operation 'deleteValuationPage' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-076",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createValuationGroup",
+      "description": "Backend GraphQL operation 'createValuationGroup' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-077",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateValuationGroup",
+      "description": "Backend GraphQL operation 'updateValuationGroup' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-078",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteValuationGroup",
+      "description": "Backend GraphQL operation 'deleteValuationGroup' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-079",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createValuationQuestion",
+      "description": "Backend GraphQL operation 'createValuationQuestion' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-080",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateValuationQuestion",
+      "description": "Backend GraphQL operation 'updateValuationQuestion' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-081",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteValuationQuestion",
+      "description": "Backend GraphQL operation 'deleteValuationQuestion' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-082",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createValuationOption",
+      "description": "Backend GraphQL operation 'createValuationOption' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-083",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateValuationOption",
+      "description": "Backend GraphQL operation 'updateValuationOption' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-084",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteValuationOption",
+      "description": "Backend GraphQL operation 'deleteValuationOption' in resolver 'resolver.assessmentresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.assessmentresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-085",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: getQuestionTree",
+      "description": "Backend GraphQL operation 'getQuestionTree' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-086",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: getPageVisibilityRules",
+      "description": "Backend GraphQL operation 'getPageVisibilityRules' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-087",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: getDesignTemplates",
+      "description": "Backend GraphQL operation 'getDesignTemplates' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-088",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: getAssessmentAnalytics",
+      "description": "Backend GraphQL operation 'getAssessmentAnalytics' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-089",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateTemplateTheme",
+      "description": "Backend GraphQL operation 'updateTemplateTheme' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-090",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setNestedQuestion",
+      "description": "Backend GraphQL operation 'setNestedQuestion' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-091",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: removeNestedQuestion",
+      "description": "Backend GraphQL operation 'removeNestedQuestion' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-092",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updatePageVisibilityRules",
+      "description": "Backend GraphQL operation 'updatePageVisibilityRules' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-093",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: saveDesignAsTemplate",
+      "description": "Backend GraphQL operation 'saveDesignAsTemplate' in resolver 'resolver.pagedesignerresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.pagedesignerresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-094",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: templateQuestionList",
+      "description": "Backend GraphQL operation 'templateQuestionList' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-095",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: assessmentTemplateList",
+      "description": "Backend GraphQL operation 'assessmentTemplateList' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-096",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: entityOverrides",
+      "description": "Backend GraphQL operation 'entityOverrides' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-097",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: entityOverrideList",
+      "description": "Backend GraphQL operation 'entityOverrideList' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-098",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: updateTemplateName",
+      "description": "Backend GraphQL operation 'updateTemplateName' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-099",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: createTemplateOption",
+      "description": "Backend GraphQL operation 'createTemplateOption' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-100",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: modifyQuestionInTemplate",
+      "description": "Backend GraphQL operation 'modifyQuestionInTemplate' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-101",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: addOptionToTemplate",
+      "description": "Backend GraphQL operation 'addOptionToTemplate' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-102",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: applyEntityOverride",
+      "description": "Backend GraphQL operation 'applyEntityOverride' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-103",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: removeEntityOverride",
+      "description": "Backend GraphQL operation 'removeEntityOverride' in resolver 'resolver.templatecrudresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.templatecrudresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-104",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deductionRuleList",
+      "description": "Backend GraphQL operation 'deductionRuleList' in resolver 'resolver.valuationoperationsresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.valuationoperationsresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-105",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: valuationVersionList",
+      "description": "Backend GraphQL operation 'valuationVersionList' in resolver 'resolver.valuationoperationsresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.valuationoperationsresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-106",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: valuationAuditLogList",
+      "description": "Backend GraphQL operation 'valuationAuditLogList' in resolver 'resolver.valuationoperationsresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.valuationoperationsresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-107",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: executeSession",
+      "description": "Backend GraphQL operation 'executeSession' in resolver 'resolver.valuationoperationsresolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "resolver.valuationoperationsresolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-108",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setFlowPaymentProfiles",
+      "description": "Backend GraphQL operation 'setFlowPaymentProfiles' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-109",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setFlowAssessmentProfiles",
+      "description": "Backend GraphQL operation 'setFlowAssessmentProfiles' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-110",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deletePricingProfile",
+      "description": "Backend GraphQL operation 'deletePricingProfile' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-111",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setPricingRules",
+      "description": "Backend GraphQL operation 'setPricingRules' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-112",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setPricingFormulas",
+      "description": "Backend GraphQL operation 'setPricingFormulas' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-113",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteNotificationProfile",
+      "description": "Backend GraphQL operation 'deleteNotificationProfile' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-114",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setNotificationTemplates",
+      "description": "Backend GraphQL operation 'setNotificationTemplates' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-115",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteDocumentProfile",
+      "description": "Backend GraphQL operation 'deleteDocumentProfile' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-116",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: setDocumentRequirements",
+      "description": "Backend GraphQL operation 'setDocumentRequirements' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-117",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteLogisticsProfile",
+      "description": "Backend GraphQL operation 'deleteLogisticsProfile' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-118",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteWorkflowStepType",
+      "description": "Backend GraphQL operation 'deleteWorkflowStepType' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    },
+    {
+      "id": "WF-ISSUE-119",
+      "severity": "LOW",
+      "category": "POSSIBLE",
+      "title": "Backend Standalone API: deleteWorkflowComponent",
+      "description": "Backend GraphQL operation 'deleteWorkflowComponent' in resolver 'Backend Resolver' is registered and available on backend, but not directly referenced in web UI static pages (available for admin CLI/script/mobile).",
+      "filePath": "Backend Resolver",
+      "feature": "API Catalog",
+      "suggestedFix": "No action required. This API is active on NestJS backend."
+    }
+  ]
+};
